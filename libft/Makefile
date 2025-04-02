@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dgeorgiy <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/04 16:44:12 by dgeorgiy          #+#    #+#              #
-#    Updated: 2024/07/08 15:45:20 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/04/02 16:37:17 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,15 +23,26 @@ SRC = ft_atoi \
 		ft_isascii \
 		ft_isprint \
 		ft_itoa \
+		get_next_line \
 		ft_memchr \
 		ft_memcmp \
 		ft_memcpy \
 		ft_memmove \
 		ft_memset \
+		ft_printf \
+		ft_printf_utils \
 		ft_putchar_fd \
 		ft_putendl_fd \
 		ft_putnbr_fd \
 		ft_putstr_fd \
+		ft_putchar \
+		ft_putchex \
+		ft_puthex \
+		ft_putendl \
+		ft_putnbr \
+		ft_putstr \
+		ft_putptr \
+		ft_putuns \
 		ft_split \
 		ft_strchr \
 		ft_strdup \
@@ -47,9 +58,8 @@ SRC = ft_atoi \
 		ft_strtrim \
 		ft_substr \
 		ft_tolower \
-		ft_toupper
-
-BSRC = ft_lstnew \
+		ft_toupper \
+		ft_lstnew \
 		ft_lstadd_front \
 		ft_lstsize \
 		ft_lstlast \
@@ -62,9 +72,6 @@ BSRC = ft_lstnew \
 SRCS = $(addsuffix .c, $(SRC))
 OBJS = $(addsuffix .o, $(SRC))
 
-BSRCS = $(addsuffix .c, $(BSRC))
-BOBJS = $(addsuffix .o, $(BSRC))
-
 .c.o:
 	@$(CC) $(CFLAGS) -c -o $@ $<
 
@@ -73,15 +80,12 @@ $(NAME): $(OBJS)
 
 all: $(NAME)
 
-bonus: $(OBJS) $(BOBJS)
-		$(AR) $(NAME) $^
-
 clean: 
-	@rm -f *.o
+	@rm -f $(OBJS)
 
 fclean: clean
 	@rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all fclean clean bonus re
+.PHONY: all fclean clean re
