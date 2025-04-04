@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
+#    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/04 16:44:12 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/04/02 16:37:17 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/04/04 16:33:59 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ SRC = ft_atoi \
 		ft_isdigit \
 		ft_isascii \
 		ft_isprint \
+		ft_isspace \
 		ft_itoa \
-		get_next_line \
 		ft_memchr \
 		ft_memcmp \
 		ft_memcpy \
@@ -67,7 +67,8 @@ SRC = ft_atoi \
 		ft_lstdelone \
 		ft_lstclear \
 		ft_lstiter \
-		ft_lstmap
+		ft_lstmap \
+		get_next_line
 
 SRCS = $(addsuffix .c, $(SRC))
 OBJS = $(addsuffix .o, $(SRC))

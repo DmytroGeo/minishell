@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putptr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 12:43:12 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/04/02 15:09:06 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:09:24 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,7 @@ void	ft_puthex2(unsigned long int n, int fd, int *count)
 	unsigned long int	l;
 
 	l = n;
-	if (l < 0)
-	{
-		ft_putchar('-', fd, count);
-		l *= -1;
-	}
-	else if (l >= 16)
+	if (l >= 16)
 	{
 		ft_puthex2(l / 16, fd, count);
 		if ((l % 16) >= 10)
