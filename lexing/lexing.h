@@ -6,14 +6,20 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:48:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/04/04 20:08:34 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/04/05 13:02:30 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXING_H
 # define LEXING_H
 
-# include "../libft/libft.h"
+# include "libft.h"
+// We can do this instead of hardcoding the path (say for example "../libft/libft.h")
+// We can do this because of the -I stuff in the Makefile 
+// The -I flag tells the compiler where to look for the .h file
+// We should do this instead of the hardcoding because if 
+// we were to move the relative folders around in the future, "../libft/libft.h" would no longer apply.
+// and it makes the header location-dependant.
 
 typedef struct s_token
 {
