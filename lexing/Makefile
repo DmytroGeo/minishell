@@ -6,11 +6,11 @@
 #    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/04 16:44:12 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/04/04 20:18:35 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/04/05 13:12:51 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = lexing.a
+NAME = liblexing.a
 AR = ar rcs
 CC = cc
 LIBFT = ../libft/libft.a
@@ -29,8 +29,17 @@ SRC = ft_toknew \
 SRCS = $(addsuffix .c, $(SRC))
 OBJS = $(addsuffix .o, $(SRC))
 
-.c.o:
-	@$(CC) $(CFLAGS) -c -o $@ $<
+%.o : %.c
+	@$(CC) $(CFLAGS) -c $< -o $@ -I../libft
+
+# “Hey compiler, also search in ../libft and ft (your local headers folder) for any #include "..." directives.”
+# Keeps path handling in the build system, not the code.
+
+# Lets your code just say #include "libft.h".
+
+# You can update the include path once in the Makefile if you restructure things.
+
+# Scales better across large projects.
 
 all: $(NAME)
 
@@ -38,22 +47,29 @@ $(LIBFT):
 	@$(MAKE) -C ../libft
 
 $(NAME): $(LIBFT) $(OBJS)
-	@cp $(LIBFT) $(NAME)
-	@$(AR) $(NAME) $(OBJS)
+	@$(AR) $(NAME) $(OBJS) $(LIBFT)
+
+# $(NAME): $(LIBFT) $(OBJS)
+# 	@cp $(LIBFT) $(NAME)
+# 	@$(AR) $(NAME) $(OBJS)
 
 # The line @cp $(LIBFT) $(NAME) works as follows: 
 
 # $(LIBFT) expands to libft/libft.a, which is the compiled static library of the libft project.
 
-# $(NAME) expands to libftprintf.a, which is the name of the static library being created by this Makefile.
+# $(NAME) expands to liblexing.a, which is the name of the static library being created by this Makefile.
 
-# cp libft/libft.a libftprintf.a copies the libft.a file from the libft directory and renames it as libftprintf.a.
+# cp libft/libft.a liblexing.a copies the libft.a file from the libft directory and renames it as liblexing.a.
 
-# This step ensures that libftprintf.a starts as a copy of libft.a.
+# This step ensures that liblexing.a starts as a copy of libft.a.
 
-# Then, the command @$(AR) $(NAME) $(OBJS) adds the object files from ft_printf and utils ($(OBJS)) into libftprintf.a,
+# Then, the command @$(AR) $(NAME) $(OBJS) adds the object files into liblexing.a,
 
-# making it a combined static library that includes both libft and ft_printf functionalities.
+# making it a combined static library that includes both libft and liblexing functionalities.
+
+# EDIT: I abandoned this approach because I need to be able to change each library without affecting the other ones.
+
+# otherwise there's a base thing everything else depends on and that's a recipe for disaster.
 
 clean: 
 	@rm -f $(OBJS)
