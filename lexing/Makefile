@@ -24,6 +24,7 @@ SRC = ft_toknew \
 		ft_tokclear \
 		ft_tokindex \
 		ft_tokfind \
+		read_line \
 		lexing
 
 SRCS = $(addsuffix .c, $(SRC))
@@ -47,7 +48,7 @@ $(LIBFT):
 	@$(MAKE) -C ../libft
 
 $(NAME): $(LIBFT) $(OBJS)
-	@$(AR) $(NAME) $(OBJS) $(LIBFT)
+	@$(AR) $(NAME) $(OBJS)
 
 # $(NAME): $(LIBFT) $(OBJS)
 # 	@cp $(LIBFT) $(NAME)
@@ -70,6 +71,14 @@ $(NAME): $(LIBFT) $(OBJS)
 # EDIT: I abandoned this approach because I need to be able to change each library without affecting the other ones.
 
 # otherwise there's a base thing everything else depends on and that's a recipe for disaster.
+
+
+# Add test target for creating an executable from read_line.c
+TEST = test_lexing
+
+test: $(NAME)
+	@$(CC) $(CFLAGS) read_line.c -L. -llexing -L../libft -lft -lreadline -I. -I../libft -o $(TEST)
+	@./$(TEST)
 
 clean: 
 	@rm -f $(OBJS)
