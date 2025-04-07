@@ -12,17 +12,17 @@
 
 #include "lexing.h"
 
-t_token	*ft_toknew(t_token *new_node/*char *type, char *value, int index*/)
+t_token	*ft_toknew(t_token_type *type, char *value, int index)
 {
 	// Arguments: void *content – the content to store in the new list element.
 	// Returns: A pointer to the newly created list element, or NULL if memory allocation fails.
-	//t_token	*new_node;
+	t_token	*new_node;
 
 	new_node = malloc(sizeof(t_token));
 	if (new_node == NULL)
 		return (NULL);
 //	new_node->type = type;
-//	new_node->value = value;
+	new_node->value = ft_strdup(value);
 //	new_node->index = index;
 //	new_node->next = NULL;
 	return (new_node);

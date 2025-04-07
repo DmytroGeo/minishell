@@ -17,5 +17,6 @@ void	ft_tokdelone(t_token *tok)
 	// Arguments: t_list *tok – the list element to delete.
 	// Returns: Nothing (void function).
 	// This function deletes a single token node. Be careful not to get dangling pointers if using in the middle of a list.
+	free(tok->value);
 	free(tok);
 }

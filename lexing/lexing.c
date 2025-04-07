@@ -69,11 +69,8 @@ t_token		*lexing(char *line)
 	char	**raw_tokens;
 	t_op	operators[6];
 	t_token *head = NULL;
-	t_token	*last = NULL;
 	t_token *new_node;
-	int		i;
-	
-	i = 0;
+
 	operators[0] = (t_op){"|", PIPE};
 	operators[1] = (t_op){">", REDIR_OUT};
 	operators[2] = (t_op){"<", REDIR_IN};
@@ -84,21 +81,15 @@ t_token		*lexing(char *line)
 		return (NULL);
 	raw_tokens = ft_split(line, ' ');
 	print_raw_tokens(raw_tokens);
-	while (raw_tokens[i])
+	while (*raw_tokens)
 	{
-		new_node = ft_toknew(new_node);
+		new_node = ft_toknew(identify_type(*raw_tokens, operators), *raw_tokens, 1);
 		if (!new_node)
 			return (NULL);
-		new_node->value = ft_strdup(raw_tokens[i]);
-		new_node->type = identify_type(raw_tokens[i], operators);
-		new_node->next = NULL;
-		if (!head)
-			head = new_node;
-		else
-			last->next = new_node;
-		last = new_node;
-		i++;
+		raw_tokens++;
+		//finnish with dimas functions.
 	}
+
 	print_token_list(head);
 	return (head);
 }

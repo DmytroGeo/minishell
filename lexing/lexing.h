@@ -53,8 +53,7 @@ void	ft_tokadd_back(t_token **tok, t_token *new);
 void	ft_tokdelone(t_token *tok);
 void	ft_tokclear(t_token **tok);
 
-
-t_token	*ft_toknew(t_token *new_node/*char *type, char *value, int index*/);
+t_token	*ft_toknew(t_token_type *type, char *value, int index);
 t_token	*ft_toklast(t_token *tok);
 t_token	*ft_tokfind(int i, t_token **head);
 
