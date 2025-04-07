@@ -21,13 +21,29 @@
 // we were to move the relative folders around in the future, "../libft/libft.h" would no longer apply.
 // and it makes the header location-dependant.
 
+typedef enum e_token_type 
+{
+    WORD,
+    PIPE,
+    REDIR_IN,
+    REDIR_OUT,
+    APPEND,
+    HEREDOC
+}	t_token_type;
+
 typedef struct s_token
 {
 	int				index; // the index of the token
-	char			*type; // the type of token like 'COMMAND'
+	t_token_type	type; // the type of token like 'COMMAND'
 	char			*value; // the literal value of the token like 'pwd'
 	struct s_token	*next;
 }			t_token;
+
+typedef struct s_op 
+{
+    char *symbol;
+    t_token_type type;
+}	t_op;
 
 int		ft_tokindex(t_token *elem, t_token **head);
 int		ft_toksize(t_token *tok);
@@ -38,10 +54,10 @@ void	ft_tokdelone(t_token *tok);
 void	ft_tokclear(t_token **tok);
 
 
-t_token	*ft_toknew(char *type, char *value, int index);
+t_token	*ft_toknew(t_token *new_node/*char *type, char *value, int index*/);
 t_token	*ft_toklast(t_token *tok);
 t_token	*ft_tokfind(int i, t_token **head);
 
-t_token	**lexing(char *str);
+t_token	*lexing(char *line);
 
 #endif
