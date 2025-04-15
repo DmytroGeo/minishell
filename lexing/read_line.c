@@ -25,9 +25,11 @@ void	ft_print_line(char *line)
 	write(1, "\n", 1);
 }
 
-int main(void)
+int main(int argc, char **argv, char **envp)
 {
     char *line;
+	(void)argc;
+	(void)argv;
 
     while ((line = readline("minishell$ ")) != NULL)
     {
@@ -36,7 +38,7 @@ int main(void)
 
 //			ft_print_line(line);
             add_history(line);
-			lexing(line);
+			lexing(line, envp);
 		}
         free(line);
     }

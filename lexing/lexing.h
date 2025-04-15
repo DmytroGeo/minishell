@@ -36,6 +36,7 @@ typedef struct s_token
 	int				index; // the index of the token
 	t_token_type	type; // the type of token like 'COMMAND'
 	char			*value; // the literal value of the token like 'pwd'
+	char			*path;
 	struct s_token	*next;
 }			t_token;
 
@@ -57,6 +58,6 @@ t_token	*ft_toknew(t_token_type *type, char *value, int index);
 t_token	*ft_toklast(t_token *tok);
 t_token	*ft_tokfind(int i, t_token **head);
 
-t_token	*lexing(char *line);
+t_token	*lexing(char *line, char **envp);
 
 #endif
