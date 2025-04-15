@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:11:56 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/04/04 19:27:10 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/04/15 17:34:15 by atahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ t_token	*ft_toknew(t_token_type *type, char *value, int index)
 	new_node = malloc(sizeof(t_token));
 	if (new_node == NULL)
 		return (NULL);
-//	new_node->type = type;
+	new_node->type = *type;
 	new_node->value = ft_strdup(value);
-//	new_node->index = index;
-//	new_node->next = NULL;
+	new_node->index = index;
+	new_node->next = NULL;
 	return (new_node);
 }
