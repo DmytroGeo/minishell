@@ -14,6 +14,17 @@
 #include <stdio.h> // remove later
 #include <string.h> // remove later
 
+void	array_free(char **arr)
+{
+	int i = 0;
+
+	if (!arr)
+		return;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
+}
+
 void	print_token_list(t_token *head)
 {
 	int	i;
@@ -32,7 +43,7 @@ void	print_token_list(t_token *head)
 	while (head)
 	{
 		printf("Node : %d\n", i);
-		printf("Type : %s\nValue : %s\n\n", token_type_names[head->type], head->value);
+		printf("Type : %s\nValue : %s\nPath : %s\n\n", token_type_names[head->type], head->value, head->path);
 		head = (head->next);
 		i++;
 	}
@@ -64,7 +75,55 @@ void	print_raw_tokens(char **raw_tokens) //include?
 	printf("\n");  // replace
 }
 
-t_token		*lexing(char *line)
+char	*find_path_variable(char **envp)
+{
+	char	**ptr;
+	char	*path_variable;
+
+	ptr = envp;
+	while (*ptr)
+	{
+		if ((ft_strnstr(*ptr, "PATH", ft_strlen(*ptr)) && **ptr == 'P'))
+			break ;
+		ptr++;
+	}
+	if (*ptr == NULL)
+		return (NULL);
+	path_variable = *ptr;
+	path_variable += ft_strlen("PATH=");
+	return (path_variable);
+}
+
+char	*get_path(char *str, char **envp)
+{
+	char	*path_variable;
+	char	*temp1;
+	char	*temp2;
+	char	**arr;
+	int		i;
+
+	i = -1;
+	path_variable = find_path_variable(envp);
+	if (!path_variable)
+		return (NULL);
+	arr = ft_split(path_variable, ':');
+	while (arr[++i])
+	{
+		temp1 = ft_strjoin(arr[i], "/");
+		temp2 = ft_strjoin(temp1, str);
+		free(temp1);
+		if (access(temp2, F_OK | X_OK) == 0)
+		{
+			array_free(arr);
+			return (temp2);
+		}
+		free(temp2);
+	}
+	array_free(arr);
+	return (NULL);
+}
+
+t_token		*lexing(char *line, char **envp)
 {
 	char	**raw_tokens;
 	t_op	operators[6];
@@ -92,6 +151,14 @@ t_token		*lexing(char *line)
 		new_node->value = ft_strdup(raw_tokens[i]);
 		new_node->type = identify_type(raw_tokens[i], operators);
 		new_node->next = NULL;
+		new_node->path = NULL;
+		if (new_node->type == WORD && (!last || last->type == PIPE))
+		{
+			if (access(new_node->value, F_OK | X_OK) == 0)
+				new_node->path = ft_strdup(new_node->value);
+			else
+				new_node->path = get_path(new_node->value, envp);
+		}
 		if (!head)
 			head = new_node;
 		else
