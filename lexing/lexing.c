@@ -124,7 +124,7 @@ t_token     *lexing(char *line, char **envp)
     operators[5] = (t_op){NULL, WORD};
     if (!line)
         return (NULL);
-    raw_tokens = ft_split(line, ' ');
+    raw_tokens = split_line(line);
     print_raw_tokens(raw_tokens);
     while (*raw_tokens)
     {

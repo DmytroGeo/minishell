@@ -24,6 +24,7 @@ SRC = ft_toknew \
 		ft_tokclear \
 		ft_tokindex \
 		ft_tokfind \
+		ft_splitter \
 		read_line \
 		lexing
 
