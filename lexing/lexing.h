@@ -60,4 +60,8 @@ t_token	*ft_tokfind(int i, t_token **head);
 
 t_token	*lexing(char *line, char **envp);
 
+char **split_line(char *line);
+int is_operator_start(char *line, int i);
+int operator_length(char *line);
+
 #endif
