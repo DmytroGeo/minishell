@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/02 11:15:40 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/09 17:17:07 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/05/09 17:21:46 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/05/09 17:22:02 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-// this function gets the current working directory and saves it into str.
-// no memory problems but I haven't norminetted yet.
-
-char	*pwd(void)
+#ifndef PARSING_H
+# define PARSING_H
+#include "libft.h"
+#include "lexing.h"
+typedef struct s_simple_command
 {
-	char	buffer[PATH_MAX];
-	char	*str;
-	str = getcwd(buffer, PATH_MAX);
-	return (str);
-}
+    int infile;
+    t_list **commands;
+    int outfile;
+    // struct s_simple_command *next_command;
+}           t_simple_command;
+
+typedef struct s_tree
+{
+    t_simple_command *command;
+}           t_tree;
+
+t_simple_command  *parse(t_token *token_chain);
+
+#endif
