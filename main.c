@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/09 17:16:38 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/12 12:22:08 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,16 @@ int main(int argc, char **argv, char **envp)
     (void)argc;
     (void)argv;
     t_token *token_chain;
-    t_simple_command *simple_command;
+    // t_simple_command *simple_command;
     while ((line = readline("minishell$ ")) != NULL)
     {
         if (*line)
         {
             add_history(line);
             token_chain = lexing(line, envp);
-            simple_command = parse(token_chain);
+            /*syntax_tree =*/
+            parse(token_chain);
+            // evaluate(syntax_tree);
             // execute(simple_command);
         }
         free(line);

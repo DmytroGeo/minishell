@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:21:46 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/09 17:22:02 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/12 12:26:28 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 # define PARSING_H
 #include "libft.h"
 #include "lexing.h"
+
 typedef struct s_simple_command
 {
-    int infile;
+    char *infile;
     t_list **commands;
-    int outfile;
+    char *outfile;
     // struct s_simple_command *next_command;
 }           t_simple_command;
 
