@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/02 11:15:40 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/09 17:17:07 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/05/09 11:30:58 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/05/09 17:17:59 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-// this function gets the current working directory and saves it into str.
-// no memory problems but I haven't norminetted yet.
-
-char	*pwd(void)
-{
-	char	buffer[PATH_MAX];
-	char	*str;
-	str = getcwd(buffer, PATH_MAX);
-	return (str);
-}
+#ifndef MINISHELL_H
+# define MINISHELL_H
+#include "lexing.h"
+#include "libft.h"
+#include "parsing.h"
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <linux/limits.h>
+#endif

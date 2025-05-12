@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:59:28 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/04/15 17:32:53 by atahmed          ###   ########.fr       */
+/*   Updated: 2025/05/12 13:06:24 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ t_token     *lexing(char *line, char **envp)
         last = new_node;
         raw_tokens++;
     }
+    // we need to make an EOF token (finak node).
     print_token_list(head);
     return (head);
 }
