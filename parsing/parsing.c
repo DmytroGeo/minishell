@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/12 12:56:09 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:36:18 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,25 @@ int is_pipe(t_token *current_token)
     return (current_token->type == PIPE);
 }
 
+int is_EOF(t_token *current_token)
+{
+    if (!current_token)
+        return (EXIT_FAILURE);
+    return (current_token->type == END_OF_FILE);
+}
+
+int is_flag(t_token *current_token)
+{
+    if (!current_token)
+        return (EXIT_FAILURE);
+    return (current_token->type == FLAG);   
+}
+
 int pre_parse(t_token *token_chain)
 {
     t_token *current_token = token_chain;
     t_token *next_token;
-    while (current_token != NULL)
+    while (!is_EOF(current_token))
     {
         next_token = current_token->next;
         // parse struct:
@@ -62,23 +76,23 @@ int pre_parse(t_token *token_chain)
             return (EXIT_FAILURE);
         }
         // 2. Infile should be followed by command. Outfile should be followed by EOF. 
-        else if (is_file(current_token) && !(next_token == NULL || is_command(next_token)))
+        else if (is_file(current_token) && !(is_EOF(next_token) || is_command(next_token)))
         {
             ft_printf("Parse error: file should be followed by EOF or command\n");
             return (EXIT_FAILURE);
         }
         // 3. command should be followed by > or | or a flag
-        else if (is_command(current_token) && !(/*is_flag(next_token) || */ is_redir_out(next_token) || is_pipe(next_token)))
+        else if (is_command(current_token) && !(is_flag(next_token) || is_redir_out(next_token) || is_pipe(next_token)))
         {
             ft_printf("Parse error: command should be followed by > or | or a flag\n");
             return (EXIT_FAILURE);
         }
         // 4. flags should be followed by more flags or | or >
-        // else if (is_flag(current_token) && !(is_redir_out(next_token) || is_pipe(next_token) || is_flag(next_token)))
-        // {
-        //     ft_printf("Parse error: flags should be followed by more flags or | or >");
-        //     return (EXIT_FAILURE);
-        // }
+        else if (is_flag(current_token) && !(is_redir_out(next_token) || is_pipe(next_token) || is_flag(next_token)))
+        {
+            ft_printf("Parse error: flags should be followed by more flags or | or >");
+            return (EXIT_FAILURE);
+        }
         // 5. pipe should be followed by command
         else if (is_pipe(current_token) && !is_command(next_token))
         {
@@ -91,7 +105,7 @@ int pre_parse(t_token *token_chain)
             ft_printf("Parse error: > should be followed by an outfile\n");
             return (EXIT_FAILURE);         
         }
-        else if (!(is_redir_in(current_token) || is_file(current_token) || is_command(current_token) || is_pipe(current_token) || is_redir_out(current_token)))
+        else if (!(is_redir_in(current_token) || is_file(current_token) || is_command(current_token) || is_pipe(current_token) || is_redir_out(current_token) || is_flag(current_token)))
         {
             ft_printf("I haven't yet written a test for this.\n");
             return (EXIT_FAILURE);              
@@ -99,6 +113,33 @@ int pre_parse(t_token *token_chain)
         current_token = current_token->next;
     }
     return (EXIT_SUCCESS);
+}
+
+// t_simple_command *create_simple_command(t_token *token_chain)
+// {
+//     t_simple_command *simple_command = malloc(sizeof(t_simple_command));
+//     int number_of_commands = find_number_of_commands(token_chain);
+//     simple_command->infile = malloc(sizeof(char *));
+//     simple_command->outfile = malloc(sizeof(char *));
+//     // do commands and flags.    
+//     return(simple_command);   
+// }
+
+t_simple_command    *parse_struct_2(t_token *token_chain)
+{
+    t_simple_command *simple_command = NULL;
+
+    if (!pre_parse(token_chain))
+    {
+        ft_printf("Parsing returned an error.\n");
+    }
+    else
+    {
+        ft_printf("Parsing is fine\n");     
+        // simple_command = create_simple_command(token_chain);
+    }
+    return (simple_command);
+
 }
 
 // t_simple_command    *parse_struct_1(t_token *token_chain)
@@ -114,29 +155,6 @@ int pre_parse(t_token *token_chain)
 //     // if we find a redir_out we should see an outfile after it.
 //     // error should free.
 // }
-
-t_simple_command    *parse_struct_2(t_token *token_chain)
-{
-    // t_simple_command *simple_command = NULL;
-    // int number_of_commands = 0;
-    if (!pre_parse(token_chain))
-    {
-        ft_printf("Parsing returned an error.\n");
-    }
-    else
-    {
-        ft_printf("Parsing is fine.\n");     
-        // number_of_commands = count_commands(token_chain);
-        // simple_command = malloc(sizeof(t_simple_command));
-        // allocate space for infile.
-        // allocate space for outfile.
-        // allocate space for commands.
-        // simple_command = create_simple_command(token_chain);
-        // return(simple_command);
-    }
-    return (NULL);
-
-}
 
 t_simple_command  *parse(t_token *token_chain)
 {
