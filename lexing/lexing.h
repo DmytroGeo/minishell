@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:48:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/04/05 13:02:30 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/12 13:45:30 by atahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ typedef enum e_token_type
     REDIR_IN,
     REDIR_OUT,
     APPEND,
-    HEREDOC
+    HEREDOC,
+	END_OF_FILE,
+	FLAG
 }	t_token_type;
 
 typedef struct s_token

@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:59:28 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/12 13:06:24 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:18:16 by atahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,11 @@ void    print_token_list(t_token *head)
     "REDIR_IN",
     "REDIR_OUT",
     "APPEND",
-    "HEREDOC"
-    };    i = 1;
+    "HEREDOC",
+	"END_OF_FILE",
+	"FLAG"
+    };    
+	i = 1;
     printf("\n< < < < Token List > > > >\n\n");
     while (head)
     {
@@ -47,7 +50,10 @@ void    print_token_list(t_token *head)
 
 t_token_type identify_type(char *token, t_op *operators) //include?
 {
-    int i;    i = 0;
+    int i;
+	i = 0;
+	if (token[0] == '-')
+		return (FLAG);
     while (operators[i].symbol)
     {
         if (strcmp(token, operators[i].symbol) == 0) // change strcmp
@@ -69,7 +75,8 @@ void    print_raw_tokens(char **raw_tokens) //include?
 char    *find_path_variable(char **envp)
 {
     char    **ptr;
-    char    *path_variable;    ptr = envp;
+    char    *path_variable;
+	ptr = envp;
     while (*ptr)
     {
         if ((ft_strnstr(*ptr, "PATH", ft_strlen(*ptr)) && **ptr == 'P'))
@@ -89,7 +96,8 @@ char    *get_path(char *str, char **envp)
     char    *temp1;
     char    *temp2;
     char    **arr;
-    int     i;    i = -1;
+    int     i;
+	i = -1;
     path_variable = find_path_variable(envp);
     if (!path_variable)
         return (NULL);
@@ -113,15 +121,17 @@ char    *get_path(char *str, char **envp)
 t_token     *lexing(char *line, char **envp)
 {
     char    **raw_tokens;
-    t_op    operators[6];
+    t_op    operators[7];
     t_token *head = NULL;
     t_token *last;
-    t_token *new_node;    operators[0] = (t_op){"|", PIPE};
+    t_token *new_node;
+	operators[0] = (t_op){"|", PIPE};
     operators[1] = (t_op){">", REDIR_OUT};
     operators[2] = (t_op){"<", REDIR_IN};
     operators[3] = (t_op){">>", APPEND};
     operators[4] = (t_op){"<<", HEREDOC};
     operators[5] = (t_op){NULL, WORD};
+	operators[6] = (t_op){NULL, END_OF_FILE};
     if (!line)
         return (NULL);
     raw_tokens = split_line(line);
@@ -150,7 +160,15 @@ t_token     *lexing(char *line, char **envp)
         last = new_node;
         raw_tokens++;
     }
-    // we need to make an EOF token (finak node).
+    new_node = malloc(sizeof(t_token));
+	if (!new_node)
+		return (NULL);
+	new_node->value = NULL;
+	new_node->type = END_OF_FILE;
+	new_node->next = NULL;
+	new_node->path = NULL;
+	last->next = new_node;
+	last = new_node;
     print_token_list(head);
     return (head);
 }
