@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   close_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 11:30:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/14 08:01:11 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/02/27 22:39:29 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/05/13 09:55:14 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-#include "lexing.h"
-#include "libft.h"
-#include "parsing.h"
-#include "execution.h"
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <linux/limits.h>
-#endif
+#include "../execution.h"
+
+void	close_fds(int **fd, int len)
+{
+	int	i;
+
+	i = 0;
+	while (i < len)
+	{
+		close(fd[i][0]);
+		close(fd[i][1]);
+		i++;
+	}
+	return ;
+}

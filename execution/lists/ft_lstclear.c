@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 11:30:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/14 08:01:11 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2024/07/08 16:18:22 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/05/13 18:42:30 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-#include "lexing.h"
-#include "libft.h"
-#include "parsing.h"
-#include "execution.h"
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <linux/limits.h>
-#endif
+#include "lists.h"
+
+void	ft_lstclear(t_list **lst)
+{
+	t_list	*current;
+
+	current = *lst;
+	if (current == NULL)
+		return ;
+	while (current != NULL)
+	{
+		*lst = current->next;
+		free(current->path);
+		ft_array_free(current->flags);
+		free(current);
+		current = *lst;
+	}
+}

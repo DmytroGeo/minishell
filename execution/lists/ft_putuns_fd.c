@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_putuns_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 11:30:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/14 08:01:11 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2024/11/28 11:15:16 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/05/13 18:42:54 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-#include "lexing.h"
-#include "libft.h"
-#include "parsing.h"
-#include "execution.h"
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <linux/limits.h>
-#endif
+#include "lists.h"
+
+void	ft_putuns_fd(unsigned int n, int fd, int *count)
+{
+	long int	l;
+
+	l = n;
+	if (l < 0)
+	{
+		ft_putchar_fd('-', fd, count);
+		l *= -1;
+	}
+	if (l >= 10)
+	{
+		ft_putuns_fd(l / 10, fd, count);
+		ft_putchar_fd((l % 10) + 48, fd, count);
+	}
+	else
+		ft_putchar_fd(l + 48, fd, count);
+}

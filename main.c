@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/12 12:22:08 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/14 08:42:44 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,40 @@ void    print_tokens(t_token *token_chain)
         current = current->next;
     }
 }
+
+char **evaluate(t_simple_command *simple_command)
+{
+    char    **processed_command;
+    int     number_of_commands = ft_array_len(simple_command->commands);
+    int     i = 1;
+    malloc((number_of_commands + 3) * sizeof(char *)); // number_of_commands + 2 (for infile and outfile) + 1 (standin for executable)
+    processed_command[0] = "exec";
+    processed_command[1] = ft_strdup(simple_command->infile);
+    processed_command[number_of_commands + 2] = ft_strdup(simple_command->outfile);
+    while (++i < number_of_commands + 2)
+        processed_command[i] = ft_strdup((simple_command->commands)[i - 2]);
+    return(processed_command);
+}
+
 int main(int argc, char **argv, char **envp)
 {
     char *line;
     (void)argc;
     (void)argv;
     t_token *token_chain;
-    // t_simple_command *simple_command;
+    t_simple_command *simple_command;
+    char    **processed_command;
     while ((line = readline("minishell$ ")) != NULL)
     {
         if (*line)
         {
             add_history(line);
             token_chain = lexing(line, envp);
-            /*syntax_tree =*/
-            parse(token_chain);
-            // evaluate(syntax_tree);
-            // execute(simple_command);
+            simple_command = parse(token_chain);
+            // free token_chain
+            processed_command = evaluate(simple_command);
+            // free simple_command
+            execution(ft_array_len(processed_command), processed_command, envp);
         }
         free(line);
     }

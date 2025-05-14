@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/12 14:36:18 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/14 14:36:47 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,19 @@ int is_flag(t_token *current_token)
     if (!current_token)
         return (EXIT_FAILURE);
     return (current_token->type == FLAG);   
+}
+
+int find_number_of_commands(t_token *token_chain)
+{
+    int number_of_commands = 0;
+    t_token *current_token = token_chain;
+    while (is_EOF(current_token) == EXIT_FAILURE)
+    {
+        if (is_command(current_token) == EXIT_SUCCESS)
+            number_of_commands += 1;
+        current_token = current_token->next;
+    }
+    return (number_of_commands);
 }
 
 int pre_parse(t_token *token_chain)
@@ -115,15 +128,78 @@ int pre_parse(t_token *token_chain)
     return (EXIT_SUCCESS);
 }
 
-// t_simple_command *create_simple_command(t_token *token_chain)
-// {
-//     t_simple_command *simple_command = malloc(sizeof(t_simple_command));
-//     int number_of_commands = find_number_of_commands(token_chain);
-//     simple_command->infile = malloc(sizeof(char *));
-//     simple_command->outfile = malloc(sizeof(char *));
-//     // do commands and flags.    
-//     return(simple_command);   
-// }
+void    find_infile_and_outfile(t_simple_command **simple_command, t_token *token_chain)
+{
+    int infile_found = 0;
+    t_token *current_token = token_chain;
+    // look for infile
+    while (is_file(current_token) == EXIT_FAILURE && is_EOF(current_token) == EXIT_FAILURE)
+        current_token = current_token->next;
+    if (is_file(current_token) == EXIT_SUCCESS)
+    {
+        (*simple_command)->infile = ft_strdup(current_token->value);
+        infile_found = 1;  
+        current_token = current_token->next;             
+    }
+    else
+    {
+        ft_printf("infile not found");
+        return;
+    }
+    // look for outfile:
+    while (is_file(current_token) == EXIT_FAILURE && is_EOF(current_token) == EXIT_FAILURE)
+        current_token = current_token->next;
+    if (is_file(current_token) == EXIT_SUCCESS && infile_found == 1)
+        (*simple_command)->outfile = ft_strdup(current_token->value);              
+    else
+        ft_printf("outfile not found");
+    return;    
+}  
+
+void    find_commands_and_flags(t_simple_command **simple_command, t_token *token_chain)
+{
+    int number_of_commands = find_number_of_commands(token_chain);
+    t_token *current_token = token_chain;
+    char *temp = NULL;
+    
+    int counter = 0;
+    while (is_EOF(current_token) == EXIT_FAILURE)
+    {
+        if (is_command(current_token) == EXIT_SUCCESS)
+        {
+            ((*simple_command)->commands)[counter] = ft_strdup(current_token->value);
+            current_token = current_token->next;
+            while (is_flag(current_token) == EXIT_SUCCESS)
+            {
+                temp = ft_strjoin(((*simple_command)->commands)[counter], " ");
+                free(((*simple_command)->commands)[counter]);
+                ((*simple_command)->commands)[counter] = temp;
+                temp = ft_strjoin(((*simple_command)->commands)[counter], current_token->value);
+                free(((*simple_command)->commands)[counter]);
+                ((*simple_command)->commands)[counter] = temp;
+                current_token = current_token->next;               
+            }
+            counter++;          
+        }
+        else
+            current_token = current_token->next;
+    }
+    
+}
+
+t_simple_command *create_simple_command(t_token *token_chain)
+{
+    t_simple_command *simple_command = malloc(sizeof(t_simple_command));
+    int number_of_commands = find_number_of_commands(token_chain);
+    simple_command->infile = malloc(sizeof(char *));
+    simple_command->infile = NULL;
+    simple_command->outfile = malloc(sizeof(char *));
+    simple_command->outfile = NULL;
+    find_infile_and_outfile(&simple_command, token_chain);
+    simple_command->commands = malloc(number_of_commands * sizeof(char *));
+    find_commands_and_flags(&simple_command, token_chain);
+    return(simple_command);   
+}
 
 t_simple_command    *parse_struct_2(t_token *token_chain)
 {
@@ -135,8 +211,8 @@ t_simple_command    *parse_struct_2(t_token *token_chain)
     }
     else
     {
-        ft_printf("Parsing is fine\n");     
-        // simple_command = create_simple_command(token_chain);
+        ft_printf("Parsing is fine.\n");     
+        simple_command = create_simple_command(token_chain);
     }
     return (simple_command);
 
