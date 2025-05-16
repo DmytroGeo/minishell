@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:48:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/12 13:45:30 by atahmed          ###   ########.fr       */
+/*   Updated: 2025/05/16 17:48:21 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define LEXING_H
 
 # include "libft.h"
+# include "../execution/execution.h"
+
 // We can do this instead of hardcoding the path (say for example "../libft/libft.h")
 // We can do this because of the -I stuff in the Makefile 
 // The -I flag tells the compiler where to look for the .h file
@@ -65,5 +67,6 @@ t_token	*lexing(char *line, char **envp);
 char **split_line(char *line);
 int is_operator_start(char *line, int i);
 int operator_length(char *line);
+void    print_token_list(t_token *head);
 
 #endif

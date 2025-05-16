@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   proc_call.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 17:21:46 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/16 11:47:36 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/02/27 18:44:18 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/05/16 13:14:01 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "../execution.h"
 
-#include "libft.h"
-#include "lexing.h"
-
-typedef struct s_simple_command
+int	proc_call(int i, char c)
 {
-    char *infile;
-    char *outfile;
-    char **commands;
-    // char **flags;
-    // struct s_simple_command *next_command;
-}           t_simple_command;
+	int	p;
 
-typedef struct s_tree
-{
-    t_simple_command *command;
-}           t_tree;
-
-t_simple_command  *parse(t_token *token_chain);
-
-#endif
+	p = 2;
+	if (c == 'r' && i < 4)
+	{
+		ft_putstr("Too few arguments\n", p, &p);
+		exit(EXIT_FAILURE);
+	}
+	else if ((c == 'o' || c == 'i') && i < 0)
+		perror(NULL);
+	else if (c == 'a' && i < 0)
+		perror("Can't access file");
+	return (0);
+}

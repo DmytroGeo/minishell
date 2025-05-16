@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_exec_lstadd_front.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 11:30:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/14 08:01:11 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2024/07/08 16:12:53 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/05/16 13:10:47 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-#include "lexing.h"
-#include "libft.h"
-#include "parsing.h"
-#include "execution.h"
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <linux/limits.h>
-#endif
+#include "../execution.h"
+
+void	ft_exec_lstadd_front(t_exec_list **lst, t_exec_list *new)
+{
+	new->next = *lst;
+	*lst = new;
+}

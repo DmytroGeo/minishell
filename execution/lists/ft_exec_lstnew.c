@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 17:21:46 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/16 11:47:36 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/02/27 17:26:13 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/05/16 13:09:20 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "../execution.h"
 
-#include "libft.h"
-#include "lexing.h"
-
-typedef struct s_simple_command
+t_exec_list	*ft_exec_lstnew(char *pa, char **fl, int ac, char **envp)
 {
-    char *infile;
-    char *outfile;
-    char **commands;
-    // char **flags;
-    // struct s_simple_command *next_command;
-}           t_simple_command;
+	t_exec_list	*new_node;
 
-typedef struct s_tree
-{
-    t_simple_command *command;
-}           t_tree;
-
-t_simple_command  *parse(t_token *token_chain);
-
-#endif
+	new_node = malloc(sizeof(t_exec_list));
+	if (!new_node)
+		return (NULL);
+	new_node->path = pa;
+	new_node->flags = fl;
+	new_node->next = NULL;
+	new_node->ac = ac;
+	new_node->index = 0;
+	new_node->av = NULL;
+	new_node->envp = envp;
+	return (new_node);
+}

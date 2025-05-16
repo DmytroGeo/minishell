@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   ft_find_node.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 17:21:46 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/16 11:47:36 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/02/28 14:28:57 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/05/16 13:08:12 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "../execution.h"
 
-#include "libft.h"
-#include "lexing.h"
-
-typedef struct s_simple_command
+t_exec_list	*ft_find_node(int i, t_exec_list **head)
 {
-    char *infile;
-    char *outfile;
-    char **commands;
-    // char **flags;
-    // struct s_simple_command *next_command;
-}           t_simple_command;
+	t_exec_list	*temp;
 
-typedef struct s_tree
-{
-    t_simple_command *command;
-}           t_tree;
-
-t_simple_command  *parse(t_token *token_chain);
-
-#endif
+	if (!head)
+		return (NULL);
+	temp = *head;
+	if (!temp)
+		return (NULL);
+	while (temp)
+	{
+		if (temp->index == i)
+			return (temp);
+		temp = temp->next;
+	}
+	return (temp);
+}

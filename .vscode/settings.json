@@ -1,5 +1,8 @@
 {
 	"files.associations": {
-		"libft.h": "c"
+		"libft.h": "c",
+		"execution.h": "c",
+		"lists.h": "c",
+		"parsing.h": "c"
 	}
 }

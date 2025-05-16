@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   ft_exec_lstclear.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 17:21:46 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/16 11:47:36 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2024/07/08 16:18:22 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/05/16 13:11:45 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "../execution.h"
 
-#include "libft.h"
-#include "lexing.h"
-
-typedef struct s_simple_command
+void	ft_exec_lstclear(t_exec_list **lst)
 {
-    char *infile;
-    char *outfile;
-    char **commands;
-    // char **flags;
-    // struct s_simple_command *next_command;
-}           t_simple_command;
+	t_exec_list	*current;
 
-typedef struct s_tree
-{
-    t_simple_command *command;
-}           t_tree;
-
-t_simple_command  *parse(t_token *token_chain);
-
-#endif
+	current = *lst;
+	if (current == NULL)
+		return ;
+	while (current != NULL)
+	{
+		*lst = current->next;
+		free(current->path);
+		ft_array_free(current->flags);
+		free(current);
+		current = *lst;
+	}
+}

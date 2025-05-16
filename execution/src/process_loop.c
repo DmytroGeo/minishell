@@ -1,28 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_array_free.c                                    :+:      :+:    :+:   */
+/*   process_loop.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/14 18:03:41 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/15 16:01:03 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/03/03 13:12:37 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/05/16 13:00:40 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../execution.h"
 
-void	ft_array_free(char **array)
+void	process_loop(t_exec_list **head, int *pid, int **fd)
 {
-	int	i;
+	int		i;
+	int		ac;
 
 	i = 0;
-	if (!array)
-		return ;
-	while (array[i])
+	ac = (*head)->ac;
+	while (i < ac - 3)
 	{
-		free(array[i]);
+		pid[i] = fork();
+		if (pid[i] < 0)
+		{
+			free_and_exit(pid, fd, head);
+			exit(EXIT_FAILURE);
+		}
+		if (pid[i] == 0)
+		{
+			dup_read_side(i, fd, pid, head);
+			dup_write_side(i, fd, pid, head);
+			close_fds(fd, ac - 4);
+			execute(i, fd, pid, head);
+			exit(EXIT_FAILURE);
+		}
 		i++;
 	}
-	free(array);
 }

@@ -6,19 +6,20 @@
 #    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/09 17:18:32 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/05/09 17:28:33 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/05/16 17:29:02 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 # helper libraries:
 
 LIBFT = ./libft/libft.a
 LEXING = ./lexing/liblexing.a
 PARSING = ./parsing/libparsing.a
+EXECUTION = ./execution/libexecution.a
 
 SRC = pwd \
 		main
@@ -27,7 +28,7 @@ SRCS = $(addsuffix .c, $(SRC))
 OBJS = $(addsuffix .o, $(SRC))
 
 %.o : %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ -I./libft -I./lexing -I./parsing
+	@$(CC) $(CFLAGS) -c $< -o $@ -I./libft -I./lexing -I./parsing -I./execution 
 
 all: $(NAME)
 
@@ -40,17 +41,22 @@ $(LEXING):
 $(PARSING):
 	@$(MAKE) -C ./parsing
 
-$(NAME): $(OBJS) $(LIBFT) $(LEXING) $(PARSING)
-	$(CC) $(CFLAGS) $(OBJS) -L./lexing -llexing -L./libft -lft -L./parsing -lparsing -lreadline -o $(NAME)
+$(EXECUTION): 
+	@$(MAKE) -C ./execution
+
+$(NAME): $(OBJS) $(LIBFT) $(LEXING) $(PARSING) $(EXECUTION)
+	$(CC) $(CFLAGS) $(OBJS) -L./lexing -llexing -L./parsing -lparsing -L./execution -lexecution -L./libft -lft -lreadline -o $(NAME)
 
 clean:
 	@rm -f $(OBJS)
+	@$(MAKE) -C ./execution clean
 	@$(MAKE) -C ./parsing clean
 	@$(MAKE) -C ./lexing clean
 	@$(MAKE) -C ./libft clean
 
 fclean: clean
 	@rm -f $(NAME)
+	@$(MAKE) -C ./execution fclean
 	@$(MAKE) -C ./parsing fclean
 	@$(MAKE) -C ./lexing fclean
 	@$(MAKE) -C ./libft fclean
