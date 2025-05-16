@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_perror.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 11:09:15 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/13 18:42:39 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/16 13:11:02 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lists.h"
+#include "../execution.h"
 
 void	ft_perror(char *str, char c)
 {
@@ -35,7 +35,7 @@ void	ft_perror(char *str, char c)
 		free(temp1);
 		return ;
 	}
-	ft_putstr_fd(temp2, p, &p);
+	ft_putstr(temp2, p, &p);
 	free(temp1);
 	free(temp2);
 	return ;

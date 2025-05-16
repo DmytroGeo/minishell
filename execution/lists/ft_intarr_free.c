@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_intarr_free.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 14:45:54 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/13 18:42:26 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/16 13:08:17 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lists.h"
+#include "../execution.h"
 
 void	ft_intarr_free(int **fd, int len)
 {

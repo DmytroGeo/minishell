@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   process_loop.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:12:37 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/13 09:58:23 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/16 13:00:40 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-void	process_loop(t_list **head, int *pid, int **fd)
+void	process_loop(t_exec_list **head, int *pid, int **fd)
 {
 	int		i;
 	int		ac;

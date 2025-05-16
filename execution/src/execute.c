@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 11:48:53 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/13 09:56:04 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/16 13:00:22 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-void	execute(int i, int **fd, int *pid, t_list **head)
+void	execute(int i, int **fd, int *pid, t_exec_list **head)
 {
 	char	**array;
-	t_list	*node;
+	t_exec_list	*node;
 	int		n;
 
 	node = ft_find_node(i, head);

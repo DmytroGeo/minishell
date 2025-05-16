@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_array_free.c                                    :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/14 18:03:41 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/13 18:42:17 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/03/06 10:22:22 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/05/15 15:34:56 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lists.h"
+#include "libft.h"
 
-void	ft_array_free(char **array)
+char	**ft_free(char **ptr, size_t k)
 {
-	int	i;
+	size_t	j;
 
-	i = 0;
-	if (!array)
-		return ;
-	while (array[i])
+	j = 0;
+	while (j < k)
 	{
-		free(array[i]);
-		i++;
+		free(ptr[j]);
+		j++;
 	}
-	free(array);
+	free(ptr);
+	return (NULL);
 }

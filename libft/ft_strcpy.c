@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/12 16:15:19 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/13 18:43:02 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/02/24 13:10:36 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/05/15 15:35:05 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lists.h"
+#include "libft.h"
 
-size_t	ft_strlen(const char *s)
+char	*ft_strcpy(char *dst, const char *src)
 {
-	size_t	n;
+	size_t	i;
+	size_t	len;
 
-	n = 0;
-	while (s[n])
-		n++;
-	return (n);
+	i = 0;
+	len = ft_strlen(src);
+	while (i < len)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
 }

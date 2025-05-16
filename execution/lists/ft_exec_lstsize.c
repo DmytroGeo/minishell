@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/09 20:02:36 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/13 18:42:59 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/03/03 12:51:13 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/05/16 13:15:10 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lists.h"
+#include "../execution.h"
 
-char	*ft_strdup(const char *s)
+int	ft_exec_lstsize(t_exec_list *lst)
 {
-	char	*str;
+	int		count;
+	t_exec_list	*current;
 
-	str = (char *)malloc((ft_strlen(s) + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
-	else
-		ft_memcpy(str, s, ft_strlen(s) + 1);
-	return (str);
+	count = 0;
+	current = lst;
+	while (current != NULL)
+	{
+		count++;
+		current = current->next;
+	}
+	return (count);
 }

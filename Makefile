@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
+#    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/09 17:18:32 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/05/12 19:53:36 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/05/16 11:52:14 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRCS = $(addsuffix .c, $(SRC))
 OBJS = $(addsuffix .o, $(SRC))
 
 %.o : %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ -I./libft -I./lexing -I./parsing -I./execution
+	@$(CC) $(CFLAGS) -c $< -o $@ -I./libft -I./lexing -I./parsing -I./execution 
 
 all: $(NAME)
 
@@ -44,8 +44,8 @@ $(PARSING):
 $(EXECUTION): 
 	@$(MAKE) -C ./execution
 
-$(NAME): $(OBJS) $(LIBFT) $(LEXING) $(PARSING)
-	$(CC) $(CFLAGS) $(OBJS) -L./lexing -llexing -L./libft -lft -L./parsing -lparsing -L./execution -lexecution -lreadline -o $(NAME)
+$(NAME): $(OBJS) $(LIBFT) $(LEXING) $(PARSING) $(EXECUTION)
+	$(CC) $(CFLAGS) $(OBJS) -L./lexing -llexing -L./parsing -lparsing -L./execution -lexecution -L./libft -lft -lreadline -o $(NAME)
 
 clean:
 	@rm -f $(OBJS)

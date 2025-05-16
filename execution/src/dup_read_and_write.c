@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   dup_read_and_write.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 23:42:24 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/13 09:55:26 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/16 13:00:14 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-void	dup_read_side(int i, int **fd, int *pid, t_list **head)
+void	dup_read_side(int i, int **fd, int *pid, t_exec_list **head)
 {
 	int		flag1;
 	char	**av;
@@ -40,7 +40,7 @@ void	dup_read_side(int i, int **fd, int *pid, t_list **head)
 	return ;
 }
 
-void	dup_write_side(int i, int **fd, int *pid, t_list **head)
+void	dup_write_side(int i, int **fd, int *pid, t_exec_list **head)
 {
 	int		flag2;
 	char	**av;

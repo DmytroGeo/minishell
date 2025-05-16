@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/14 14:36:47 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/16 13:27:08 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ void    find_infile_and_outfile(t_simple_command **simple_command, t_token *toke
 
 void    find_commands_and_flags(t_simple_command **simple_command, t_token *token_chain)
 {
-    int number_of_commands = find_number_of_commands(token_chain);
+    // int number_of_commands = find_number_of_commands(token_chain);
     t_token *current_token = token_chain;
     char *temp = NULL;
     
@@ -206,9 +206,7 @@ t_simple_command    *parse_struct_2(t_token *token_chain)
     t_simple_command *simple_command = NULL;
 
     if (!pre_parse(token_chain))
-    {
         ft_printf("Parsing returned an error.\n");
-    }
     else
     {
         ft_printf("Parsing is fine.\n");     
@@ -234,7 +232,7 @@ t_simple_command    *parse_struct_2(t_token *token_chain)
 
 t_simple_command  *parse(t_token *token_chain)
 {
-    // t_simple_command  *simple_command = NULL;
+    t_simple_command  *simple_command = NULL;
     if (!token_chain)
     {
         ft_printf("Something wrong with token chain\n");
@@ -244,7 +242,7 @@ t_simple_command  *parse(t_token *token_chain)
     {
         // < infile cmd1 | cmd2 | ... | cmdn > outfile
         ft_printf("type2\n");
-        parse_struct_2(token_chain);     
+        simple_command = parse_struct_2(token_chain);     
     }
     else
     {
@@ -255,5 +253,5 @@ t_simple_command  *parse(t_token *token_chain)
         // simple_command = parse_struct_1(token_chain); // cmd1 infile > ....
     
 
-    return (NULL); // returns NULL is command is not of the type we want.
+    return (simple_command); // returns NULL is command is not of the type we want.
 }

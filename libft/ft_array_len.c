@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_array_len.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/13 11:50:57 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/13 18:42:37 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/01/31 16:23:55 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/05/15 15:34:49 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lists.h"
+#include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+int	ft_array_len(char **array)
 {
-	unsigned char		*d;
-	unsigned const char	*s;
+	int	n;
 
-	d = dest;
-	s = src;
-	while (n != 0)
-	{
-		n--;
-		d[n] = s[n];
-	}
-	return (dest);
+	n = 0;
+	if (!array)
+		return (n);
+	while (array[n] != NULL)
+		n++;
+	return (n);
 }

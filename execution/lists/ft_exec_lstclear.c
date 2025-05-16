@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_exec_lstclear.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:18:22 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/13 18:42:30 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/16 13:11:45 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lists.h"
+#include "../execution.h"
 
-void	ft_lstclear(t_list **lst)
+void	ft_exec_lstclear(t_exec_list **lst)
 {
-	t_list	*current;
+	t_exec_list	*current;
 
 	current = *lst;
 	if (current == NULL)

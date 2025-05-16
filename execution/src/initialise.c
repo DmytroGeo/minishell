@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   initialise.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:41:49 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/13 09:58:10 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/16 13:17:14 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-void	init_list(int ac, char **av, char **envp, t_list **head)
+void	init_list(int ac, char **av, char **envp, t_exec_list **head)
 {
 	int		i;
-	t_list	*temp;
+	t_exec_list	*temp;
 	char	**array;
 	char	*path;
 	char	**flags;
@@ -33,15 +33,15 @@ void	init_list(int ac, char **av, char **envp, t_list **head)
 		if (!path)
 			ft_perror(array[0], 'p');
 		flags = get_flags(&array[1]);
-		temp = ft_lstnew(path, flags, ac, envp);
+		temp = ft_exec_lstnew(path, flags, ac, envp);
 		temp->index = i - 2;
 		temp->av = av;
-		ft_lstadd_front(head, temp);
+		ft_exec_lstadd_front(head, temp);
 		ft_array_free(array);
 	}
 }
 
-void	init_setup(int **pid, int ***fd, int ac, t_list **head)
+void	init_setup(int **pid, int ***fd, int ac, t_exec_list **head)
 {
 	int	i;
 
@@ -58,13 +58,13 @@ void	init_setup(int **pid, int ***fd, int ac, t_list **head)
 		if (!(*fd)[i])
 		{
 			perror("fd malloc failed");
-			(free(*pid), ft_intarr_free(*fd, i), ft_lstclear(head));
+			(free(*pid), ft_intarr_free(*fd, i), ft_exec_lstclear(head));
 			exit (EXIT_FAILURE);
 		}
 		if (pipe((*fd)[i]) < 0)
 		{
 			(perror (NULL), free(*pid));
-			(close_fds(*fd, i + 1), ft_intarr_free(*fd, i), ft_lstclear(head));
+			(close_fds(*fd, i + 1), ft_intarr_free(*fd, i), ft_exec_lstclear(head));
 			exit (EXIT_FAILURE);
 		}
 	}
