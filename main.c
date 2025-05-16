@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/16 13:26:13 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/16 16:28:23 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,20 @@ int main(int argc, char **argv, char **envp)
             add_history(line);
             token_chain = lexing(line, envp);
             simple_command = parse(token_chain);
-            ft_printf("infile : %s", simple_command->infile);
-            ft_printf("outfile: %s", simple_command->outfile);
-            int number_of_commands = ft_array_len(simple_command->commands);
-            ft_printf("number of commnds: %d", number_of_commands);
-            while (i < number_of_commands)
+            if (simple_command)
             {
-                ft_printf("Command %d is %s", i + 1, (simple_command->commands)[i]);
-                i++;
+                ft_printf("infile : %s \n", simple_command->infile);
+                ft_printf("outfile: %s \n", simple_command->outfile);
+                int number_of_commands = ft_array_len(simple_command->commands);
+                ft_printf("number of commands: %d \n", number_of_commands);
+                while (i < number_of_commands)
+                {
+                    ft_printf("Command %d is %s \n", i + 1, (simple_command->commands)[i]);
+                    i++;
+                }               
             }
+            else
+                ft_printf("try again \n");
             // free token_chain
             // processed_command = evaluate(simple_command);
             // free simple_command

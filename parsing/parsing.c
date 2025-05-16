@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/16 13:27:08 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/16 16:35:00 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,23 @@ int is_flag(t_token *current_token)
     return (current_token->type == FLAG);   
 }
 
+// void test1(void)
+// {
+//     ft_printf("test1 \n");
+// }
+
+// void test2(void)
+// {
+//     ft_printf("test2 \n");
+// }
+
 int find_number_of_commands(t_token *token_chain)
 {
     int number_of_commands = 0;
     t_token *current_token = token_chain;
-    while (is_EOF(current_token) == EXIT_FAILURE)
+    while (!is_EOF(current_token))
     {
-        if (is_command(current_token) == EXIT_SUCCESS)
+        if (is_command(current_token))
             number_of_commands += 1;
         current_token = current_token->next;
     }
@@ -132,44 +142,42 @@ void    find_infile_and_outfile(t_simple_command **simple_command, t_token *toke
 {
     int infile_found = 0;
     t_token *current_token = token_chain;
-    // look for infile
-    while (is_file(current_token) == EXIT_FAILURE && is_EOF(current_token) == EXIT_FAILURE)
+    while (!is_file(current_token) && !is_EOF(current_token))
         current_token = current_token->next;
-    if (is_file(current_token) == EXIT_SUCCESS)
+    if (is_file(current_token))
     {
         (*simple_command)->infile = ft_strdup(current_token->value);
-        infile_found = 1;  
+        infile_found = 1;
         current_token = current_token->next;             
     }
     else
     {
-        ft_printf("infile not found");
+        ft_printf("infile not found \n");
         return;
     }
     // look for outfile:
-    while (is_file(current_token) == EXIT_FAILURE && is_EOF(current_token) == EXIT_FAILURE)
+    while (!is_file(current_token) && !is_EOF(current_token))
         current_token = current_token->next;
-    if (is_file(current_token) == EXIT_SUCCESS && infile_found == 1)
-        (*simple_command)->outfile = ft_strdup(current_token->value);              
+    if (is_file(current_token) && infile_found == 1)
+        (*simple_command)->outfile = ft_strdup(current_token->value);           
     else
-        ft_printf("outfile not found");
+        ft_printf("outfile not found \n");
     return;    
 }  
 
 void    find_commands_and_flags(t_simple_command **simple_command, t_token *token_chain)
 {
-    // int number_of_commands = find_number_of_commands(token_chain);
     t_token *current_token = token_chain;
     char *temp = NULL;
     
     int counter = 0;
-    while (is_EOF(current_token) == EXIT_FAILURE)
+    while (!is_EOF(current_token))
     {
-        if (is_command(current_token) == EXIT_SUCCESS)
+        if (is_command(current_token))
         {
             ((*simple_command)->commands)[counter] = ft_strdup(current_token->value);
             current_token = current_token->next;
-            while (is_flag(current_token) == EXIT_SUCCESS)
+            while (is_flag(current_token))
             {
                 temp = ft_strjoin(((*simple_command)->commands)[counter], " ");
                 free(((*simple_command)->commands)[counter]);
@@ -196,20 +204,28 @@ t_simple_command *create_simple_command(t_token *token_chain)
     simple_command->outfile = malloc(sizeof(char *));
     simple_command->outfile = NULL;
     find_infile_and_outfile(&simple_command, token_chain);
-    simple_command->commands = malloc(number_of_commands * sizeof(char *));
+    // ft_printf("infile: %s, outfile: %s \n", simple_command->infile, simple_command->outfile);
+    simple_command->commands = malloc((number_of_commands + 1) * sizeof(char *));
     find_commands_and_flags(&simple_command, token_chain);
-    return(simple_command);   
+    // ft_printf("number of commnds: %d \n", number_of_commands);
+    // int i = 0;
+    // while (i < number_of_commands)
+    // {
+    //     ft_printf("Command %d is %s \n", i + 1, (simple_command->commands)[i]);
+    //     i++;
+    // }
+    return(simple_command);
 }
 
 t_simple_command    *parse_struct_2(t_token *token_chain)
 {
     t_simple_command *simple_command = NULL;
 
-    if (!pre_parse(token_chain))
+    if (pre_parse(token_chain) == EXIT_FAILURE)
         ft_printf("Parsing returned an error.\n");
     else
     {
-        ft_printf("Parsing is fine.\n");     
+        // ft_printf("pre-parsing is fine.\n");
         simple_command = create_simple_command(token_chain);
     }
     return (simple_command);
@@ -241,7 +257,7 @@ t_simple_command  *parse(t_token *token_chain)
     if (is_redir_in(token_chain))
     {
         // < infile cmd1 | cmd2 | ... | cmdn > outfile
-        ft_printf("type2\n");
+        // ft_printf("type2\n");
         simple_command = parse_struct_2(token_chain);     
     }
     else
