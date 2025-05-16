@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
+#    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/04 16:44:12 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/04/05 13:12:51 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/05/16 17:44:32 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRCS = $(addsuffix .c, $(SRC))
 OBJS = $(addsuffix .o, $(SRC))
 
 %.o : %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ -I../libft
+	@$(CC) $(CFLAGS) -c $< -o $@ -I../libft -I../execution
 
 # “Hey compiler, also search in ../libft and ft (your local headers folder) for any #include "..." directives.”
 # Keeps path handling in the build system, not the code.

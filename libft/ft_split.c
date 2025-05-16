@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:59:24 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2024/11/26 15:17:18 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/16 17:39:28 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,22 @@ char	*ft_malloccpy(size_t n, size_t len, char const *s)
 	return (ptr);
 }
 
-char	**ft_free(char **ptr, size_t k)
-{
-	// Arguments: char **ptr – the array of strings to free, size_t k – the number of strings in the array.
-	// Returns: NULL, freeing the allocated memory for the array and its contents.
-	// This function frees each string in the array 'ptr' up to index 'k', then frees the array itself, and returns NULL.
-	size_t	j;
+// char	**ft_free(char **ptr, size_t k)
+// {
+// 	// Arguments: char **ptr – the array of strings to free, size_t k – the number of strings in the array.
+// 	// Returns: NULL, freeing the allocated memory for the array and its contents.
+// 	// This function frees each string in the array 'ptr' up to index 'k', then frees the array itself, and returns NULL.
+// 	size_t	j;
 
-	j = 0;
-	while (j < k)
-	{
-		free(ptr[j]);
-		j++;
-	}
-	free(ptr);
-	return (NULL);
-}
+// 	j = 0;
+// 	while (j < k)
+// 	{
+// 		free(ptr[j]);
+// 		j++;
+// 	}
+// 	free(ptr);
+// 	return (NULL);
+// }
 
 char	**ft_arrayfill(char **array, char const *s, char c)
 {

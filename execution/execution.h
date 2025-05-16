@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:54:09 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/16 13:16:00 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/16 17:49:15 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ void	ft_intarr_free(int **fd, int len);
 void	ft_perror(char *str, char c);
 void	ft_exec_lstclear(t_exec_list **lst);
 int		ft_exec_lstsize(t_exec_list *lst);
+char	*get_path(char *str, char **envp);
 
+char	*find_path_variable(char **envp);
 void	close_fds(int **fd, int len);
 int		proc_call(int i, char c);
 char	*get_path(char *str, char **envp);

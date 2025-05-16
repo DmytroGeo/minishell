@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:48:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/16 14:19:38 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/16 17:48:21 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define LEXING_H
 
 # include "libft.h"
+# include "../execution/execution.h"
+
 // We can do this instead of hardcoding the path (say for example "../libft/libft.h")
 // We can do this because of the -I stuff in the Makefile 
 // The -I flag tells the compiler where to look for the .h file

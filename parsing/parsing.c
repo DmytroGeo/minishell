@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/16 16:35:00 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/16 17:12:55 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,12 +163,26 @@ void    find_infile_and_outfile(t_simple_command **simple_command, t_token *toke
     else
         ft_printf("outfile not found \n");
     return;    
-}  
+}
+ 
+void    collect_flags(t_token **current_token, t_simple_command **simple_command, int counter)
+{
+    char *temp = NULL;
+    while (is_flag(*current_token))
+    {
+        temp = ft_strjoin(((*simple_command)->commands)[counter], " ");
+        free(((*simple_command)->commands)[counter]);
+        ((*simple_command)->commands)[counter] = temp;
+        temp = ft_strjoin(((*simple_command)->commands)[counter], (*current_token)->value);
+        free(((*simple_command)->commands)[counter]);
+        ((*simple_command)->commands)[counter] = temp;
+        (*current_token) = (*current_token)->next;               
+    }   
+}
 
 void    find_commands_and_flags(t_simple_command **simple_command, t_token *token_chain)
 {
     t_token *current_token = token_chain;
-    char *temp = NULL;
     
     int counter = 0;
     while (!is_EOF(current_token))
@@ -177,22 +191,15 @@ void    find_commands_and_flags(t_simple_command **simple_command, t_token *toke
         {
             ((*simple_command)->commands)[counter] = ft_strdup(current_token->value);
             current_token = current_token->next;
-            while (is_flag(current_token))
-            {
-                temp = ft_strjoin(((*simple_command)->commands)[counter], " ");
-                free(((*simple_command)->commands)[counter]);
-                ((*simple_command)->commands)[counter] = temp;
-                temp = ft_strjoin(((*simple_command)->commands)[counter], current_token->value);
-                free(((*simple_command)->commands)[counter]);
-                ((*simple_command)->commands)[counter] = temp;
-                current_token = current_token->next;               
-            }
+            if (is_flag(current_token))
+                collect_flags(&current_token, simple_command, counter);
             counter++;          
         }
         else
             current_token = current_token->next;
     }
-    
+    ((*simple_command)->commands)[counter] = NULL;
+    return ;
 }
 
 t_simple_command *create_simple_command(t_token *token_chain)
@@ -204,16 +211,8 @@ t_simple_command *create_simple_command(t_token *token_chain)
     simple_command->outfile = malloc(sizeof(char *));
     simple_command->outfile = NULL;
     find_infile_and_outfile(&simple_command, token_chain);
-    // ft_printf("infile: %s, outfile: %s \n", simple_command->infile, simple_command->outfile);
     simple_command->commands = malloc((number_of_commands + 1) * sizeof(char *));
     find_commands_and_flags(&simple_command, token_chain);
-    // ft_printf("number of commnds: %d \n", number_of_commands);
-    // int i = 0;
-    // while (i < number_of_commands)
-    // {
-    //     ft_printf("Command %d is %s \n", i + 1, (simple_command->commands)[i]);
-    //     i++;
-    // }
     return(simple_command);
 }
 
@@ -225,7 +224,6 @@ t_simple_command    *parse_struct_2(t_token *token_chain)
         ft_printf("Parsing returned an error.\n");
     else
     {
-        // ft_printf("pre-parsing is fine.\n");
         simple_command = create_simple_command(token_chain);
     }
     return (simple_command);

@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:59:28 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/16 15:39:30 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/16 17:49:29 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,51 +72,51 @@ void    print_raw_tokens(char **raw_tokens) //include?
     printf("\n");  // replace
 }
 
-char    *find_path_variable(char **envp)
-{
-    char    **ptr;
-    char    *path_variable;
-	ptr = envp;
-    while (*ptr)
-    {
-        if ((ft_strnstr(*ptr, "PATH", ft_strlen(*ptr)) && **ptr == 'P'))
-            break ;
-        ptr++;
-    }
-    if (*ptr == NULL)
-        return (NULL);
-    path_variable = *ptr;
-    path_variable += ft_strlen("PATH=");
-    return (path_variable);
-}
+// char    *find_path_variable(char **envp)
+// {
+//     char    **ptr;
+//     char    *path_variable;
+// 	ptr = envp;
+//     while (*ptr)
+//     {
+//         if ((ft_strnstr(*ptr, "PATH", ft_strlen(*ptr)) && **ptr == 'P'))
+//             break ;
+//         ptr++;
+//     }
+//     if (*ptr == NULL)
+//         return (NULL);
+//     path_variable = *ptr;
+//     path_variable += ft_strlen("PATH=");
+//     return (path_variable);
+// }
 
-char    *get_path(char *str, char **envp)
-{
-    char    *path_variable;
-    char    *temp1;
-    char    *temp2;
-    char    **arr;
-    int     i;
-	i = -1;
-    path_variable = find_path_variable(envp);
-    if (!path_variable)
-        return (NULL);
-    arr = ft_split(path_variable, ':');
-    while (arr[++i])
-    {
-        temp1 = ft_strjoin(arr[i], "/");
-        temp2 = ft_strjoin(temp1, str);
-        free(temp1);
-        if (access(temp2, F_OK | X_OK) == 0)
-        {
-            array_free(arr);
-            return (temp2);
-        }
-        free(temp2);
-    }
-    array_free(arr);
-    return (NULL);
-}
+// char    *get_path(char *str, char **envp)
+// {
+//     char    *path_variable;
+//     char    *temp1;
+//     char    *temp2;
+//     char    **arr;
+//     int     i;
+// 	i = -1;
+//     path_variable = find_path_variable(envp);
+//     if (!path_variable)
+//         return (NULL);
+//     arr = ft_split(path_variable, ':');
+//     while (arr[++i])
+//     {
+//         temp1 = ft_strjoin(arr[i], "/");
+//         temp2 = ft_strjoin(temp1, str);
+//         free(temp1);
+//         if (access(temp2, F_OK | X_OK) == 0)
+//         {
+//             array_free(arr);
+//             return (temp2);
+//         }
+//         free(temp2);
+//     }
+//     array_free(arr);
+//     return (NULL);
+// }
 
 t_token     *lexing(char *line, char **envp)
 {
