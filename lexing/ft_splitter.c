@@ -37,10 +37,19 @@ char	**split_line(char *line)
 
 	while (line[i])
 	{
-		if (line[i] == '\'' && !inside_double_quotes)
-			inside_single_quotes = !inside_single_quotes;
-		else if (line[i] == '"' && !inside_single_quotes)
-			inside_double_quotes = !inside_double_quotes;
+		if ((line[i] == '\'' || line[i] == '"') &&
+		!inside_single_quotes && !inside_double_quotes)
+		{
+			char quote = line[i];
+			start = i++; // include the opening quote
+			while (line[i] && line[i] != quote)
+				i++;
+			if (line[i] == quote)
+				i++; // include the closing quote
+			tokens[token_count++] = ft_substr(line, start, i - start);
+			start = -1;
+			continue;
+		}
 		// Handle space or operator (only outside of quotes)
 		else if ((line[i] == ' ' || is_operator_start(line, i)) &&
 				!inside_single_quotes && !inside_double_quotes)
