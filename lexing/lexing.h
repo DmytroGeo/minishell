@@ -32,7 +32,15 @@ typedef enum e_token_type
     APPEND,
     HEREDOC,
 	END_OF_FILE,
-	FLAG
+	FLAG,
+	SINGLE_QUOTED_STRING,
+	DOUBLE_QUOTED_STRING,
+	COMMAND,
+	VARIABLE,
+	AND_IF,
+	OR_IF,
+	PAREN_LEFT,
+	PAREN_RIGHT
 }	t_token_type;
 
 typedef struct s_token

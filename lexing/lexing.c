@@ -13,6 +13,47 @@
 #include "lexing.h"
 #include <stdio.h> // remove later
 #include <string.h> // remove later
+
+int is_surrounded_by(char *str, char quote)
+{
+	size_t len;
+	int result;
+
+	if (!str || str[0] != quote)
+		return (0); // doesn't start with quote
+
+	len = ft_strlen(str);
+	if (len < 2)
+		return (0); // too short to have both quotes
+
+	if (str[len - 1] == quote)
+		result = 1;
+	else
+		result = 0;
+
+	return (result);
+}
+
+char *strip_quotes(char *str)
+{
+	size_t	len;
+	char	*clean;
+
+	if (!str)
+		return (NULL);
+
+	len = ft_strlen(str);
+	if (len < 2)
+		return (ft_strdup(str)); // nothing to strip
+
+	// remove the first and last character (the quotes)
+	clean = ft_substr(str, 1, len - 2);
+	if (!clean)
+		return (NULL); // memory allocation failed
+
+	return (clean);
+}
+
 void    array_free(char **arr)
 {
     int i = 0;    if (!arr)
@@ -34,7 +75,15 @@ void    print_token_list(t_token *head)
     "APPEND",
     "HEREDOC",
 	"END_OF_FILE",
-	"FLAG"
+	"FLAG",
+	"SINGLE_QUOTED_STRING",
+	"DOUBLE_QUOTED_STRING",
+	"COMMAND",
+	"VARIABLE",
+	"AND_IF",
+	"OR_IF",
+	"PAREN_LEFT",
+	"PAREN_RIGHT"
     };    
 	i = 1;
     printf("\n< < < < Token List > > > >\n\n");
@@ -48,15 +97,26 @@ void    print_token_list(t_token *head)
     printf("\n");
 }
 
-t_token_type identify_type(char *token, t_op *operators) //include?
+t_token_type identify_type(char *token, t_op *operators) //include? change strcmp to ft_strcmp
 {
-    int i;
+	int i;
+
 	i = 0;
+	if (strcmp(token, "&&") == 0)
+		return (AND_IF);
+	if (strcmp(token, "||") == 0)
+		return (OR_IF);
+	if (strcmp(token, "(") == 0)
+		return (PAREN_LEFT);
+	if (strcmp(token, ")") == 0)
+		return (PAREN_RIGHT);
+	if (token[0] == '$')
+		return (VARIABLE);
 	if (token[0] == '-')
 		return (FLAG);
     while (operators[i].symbol)
     {
-        if (strcmp(token, operators[i].symbol) == 0) // change strcmp
+        if (strcmp(token, operators[i].symbol) == 0)
             return (operators[i].type);
         i++;
     }
@@ -72,51 +132,51 @@ void    print_raw_tokens(char **raw_tokens) //include?
     printf("\n");  // replace
 }
 
-// char    *find_path_variable(char **envp)
-// {
-//     char    **ptr;
-//     char    *path_variable;
-// 	ptr = envp;
-//     while (*ptr)
-//     {
-//         if ((ft_strnstr(*ptr, "PATH", ft_strlen(*ptr)) && **ptr == 'P'))
-//             break ;
-//         ptr++;
-//     }
-//     if (*ptr == NULL)
-//         return (NULL);
-//     path_variable = *ptr;
-//     path_variable += ft_strlen("PATH=");
-//     return (path_variable);
-// }
+ char    *find_path_variable(char **envp)
+ {
+	char    **ptr;
+	char    *path_variable;
+ 	ptr = envp;
+     while (*ptr)
+     {
+         if ((ft_strnstr(*ptr, "PATH", ft_strlen(*ptr)) && **ptr == 'P'))
+             break ;
+         ptr++;
+     }
+     if (*ptr == NULL)
+         return (NULL);
+     path_variable = *ptr;
+     path_variable += ft_strlen("PATH=");
+     return (path_variable);
+ }
 
-// char    *get_path(char *str, char **envp)
-// {
-//     char    *path_variable;
-//     char    *temp1;
-//     char    *temp2;
-//     char    **arr;
-//     int     i;
-// 	i = -1;
-//     path_variable = find_path_variable(envp);
-//     if (!path_variable)
-//         return (NULL);
-//     arr = ft_split(path_variable, ':');
-//     while (arr[++i])
-//     {
-//         temp1 = ft_strjoin(arr[i], "/");
-//         temp2 = ft_strjoin(temp1, str);
-//         free(temp1);
-//         if (access(temp2, F_OK | X_OK) == 0)
-//         {
-//             array_free(arr);
-//             return (temp2);
-//         }
-//         free(temp2);
-//     }
-//     array_free(arr);
-//     return (NULL);
-// }
+ char    *get_path(char *str, char **envp)
+ {
+     char    *path_variable;
+     char    *temp1;
+     char    *temp2;
+     char    **arr;
+     int     i;
+ 	i = -1;
+     path_variable = find_path_variable(envp);
+     if (!path_variable)
+         return (NULL);
+     arr = ft_split(path_variable, ':');
+     while (arr[++i])
+     {
+         temp1 = ft_strjoin(arr[i], "/");
+         temp2 = ft_strjoin(temp1, str);
+         free(temp1);
+         if (access(temp2, F_OK | X_OK) == 0)
+         {
+             array_free(arr);
+             return (temp2);
+         }
+         free(temp2);
+     }
+     array_free(arr);
+     return (NULL);
+ }
 
 t_token     *lexing(char *line, char **envp)
 {
@@ -141,8 +201,21 @@ t_token     *lexing(char *line, char **envp)
         new_node = malloc(sizeof(t_token));
         if (!new_node)
             return (NULL);
-        new_node->value = ft_strdup(*raw_tokens);
-        new_node->type = identify_type(*raw_tokens, operators);
+        if (is_surrounded_by(*raw_tokens, '\''))
+		{
+			new_node->value = strip_quotes(*raw_tokens);
+			new_node->type = SINGLE_QUOTED_STRING;
+		}
+		else if (is_surrounded_by(*raw_tokens, '"'))
+		{
+			new_node->value = strip_quotes(*raw_tokens);
+			new_node->type = DOUBLE_QUOTED_STRING;
+		}
+		else
+		{
+			new_node->value = ft_strdup(*raw_tokens);
+			new_node->type = identify_type(*raw_tokens, operators);
+		}
         new_node->next = NULL;
         new_node->path = NULL;
         // if (new_node->type == WORD && (!last || last->type == PIPE))
