@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_find_node.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:28:57 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/16 13:08:12 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/31 17:08:57 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-t_exec_list	*ft_find_node(int i, t_exec_list **head)
+t_list	*ft_find_node(int i, t_list **head)
 {
-	t_exec_list	*temp;
+	t_list	*temp;
 
 	if (!head)
 		return (NULL);
@@ -23,7 +23,7 @@ t_exec_list	*ft_find_node(int i, t_exec_list **head)
 		return (NULL);
 	while (temp)
 	{
-		if (temp->index == i)
+		if (((t_execution_content *)(temp->content))->index == i)
 			return (temp);
 		temp = temp->next;
 	}

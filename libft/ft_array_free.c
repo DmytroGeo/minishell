@@ -3,26 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_array_free.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:03:41 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/15 16:01:03 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/31 17:03:53 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_array_free(char **array)
+char	**ft_array_free(char **array, size_t k)
 {
-	int	i;
+	size_t	j;
 
-	i = 0;
+	j = 0;
 	if (!array)
-		return ;
-	while (array[i])
+		return (NULL);
+	while (j < k)
 	{
-		free(array[i]);
-		i++;
+		free(array[j]);
+		j++;
 	}
 	free(array);
+	return (NULL);
 }

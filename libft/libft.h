@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:48:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/15 17:06:40 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/01 19:01:04 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@
 # include <limits.h>
 # include <stdio.h>
 # include <stdarg.h>
+
+typedef struct s_simple_command
+{
+    char *infile;
+    char *outfile;
+	int *is_append;
+    char **commands;
+}           t_simple_command;
 
 typedef struct s_list
 {
@@ -54,7 +62,7 @@ void	ft_putnbr_fd(int n, int fd);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
-void	ft_array_free(char **array);
+char	**ft_array_free(char **array, size_t k);
 void	ft_putnbr(int n, int fd, int *count);
 void	ft_putchar(char c, int fd, int *count);
 void	ft_putstr(char *s, int fd, int *count);
@@ -81,7 +89,6 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
-char	**ft_free(char **ptr, size_t k);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*get_next_line(int fd);
 

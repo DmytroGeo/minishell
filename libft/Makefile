@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
+#    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/04 16:44:12 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/05/15 16:00:46 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/06/01 10:04:45 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,6 @@ SRC = ft_array_free \
 		ft_atoi \
 		ft_bzero \
 		ft_calloc \
-		ft_free \
 		ft_isalnum \
 		ft_isalpha \
 		ft_isdigit \
