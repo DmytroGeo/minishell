@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:30:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/14 08:01:11 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/01 18:10:06 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <linux/limits.h>
+
+
+char	*get_cwd(void);
 #endif

@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 12:30:41 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/13 09:56:11 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/05/31 17:32:47 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ char	*get_path(char *str, char **envp)
 		free(temp1);
 		if (access(temp2, F_OK | X_OK) == 0)
 		{
-			ft_array_free(arr);
+			ft_array_free(arr, ft_array_len(arr));
 			return (temp2);
 		}
 		free(temp2);
 	}
-	ft_array_free(arr);
+	ft_array_free(arr, ft_array_len(arr));
 	return (NULL);
 }
 
@@ -80,7 +80,7 @@ char	**get_flags(char **arr)
 	{
 		flags[i] = malloc(ft_strlen(arr[i]) + 1);
 		if (!flags[i])
-			return (ft_free(flags, i));
+			return (ft_array_free(flags, i));
 		flags[i] = ft_strcpy(flags[i], arr[i]);
 		i++;
 	}

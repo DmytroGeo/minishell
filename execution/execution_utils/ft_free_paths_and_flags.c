@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exec_lstadd_front.c                             :+:      :+:    :+:   */
+/*   ft_free_paths_and_flags.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/08 16:12:53 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/16 13:10:47 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/05/31 17:12:05 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/05/31 17:12:40 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-void	ft_exec_lstadd_front(t_exec_list **lst, t_exec_list *new)
+void	ft_free_paths_and_flags(void *content)
 {
-	new->next = *lst;
-	*lst = new;
+	t_execution_content *to_free;
+
+	to_free = (t_execution_content *)content;
+	free(to_free->path);
+	ft_array_free(to_free->flags, ft_array_len(to_free->flags));
+	free(to_free);
 }
