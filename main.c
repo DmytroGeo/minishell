@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/01 20:40:46 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/04 22:17:29 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,11 @@ int main(int argc, char **argv, char **envp)
             if (ft_strncmp(token_chain->value, "cd", 2) == 0 && !is_EOF(token_chain->next)) // this doesn't work for smth like cd | > outfile
                 change_directory(token_chain, &prompt);
             else
+            {
                 simple_command = parse(token_chain);
-            // ft_printf("The flag is NOW: %d \n", *(simple_command->is_append));
-            int number_of_commands = ft_array_len(simple_command->commands);
-            execution(number_of_commands, simple_command, envp);
+                int number_of_commands = ft_array_len(simple_command->commands);
+                execution(number_of_commands, simple_command, envp);                
+            }
         }
         free(line);
     }
