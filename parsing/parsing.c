@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/01 20:40:28 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/04 22:17:57 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ int pre_parse(t_token *token_chain)
             ft_printf("Parse error: infile should be followed by a command\n");
             return (EXIT_FAILURE);
         }         
-        // 3. Command should be followed by > or | or a flag or a file or an EOF
-        else if (is_command(current_token) && !(is_flag(next_token) || is_redir_out(next_token) || is_pipe(next_token) || is_file(next_token) || is_EOF(next_token)))
+        // 3. Command should be followed by > or | or a flag or a file (this includes commands) or an EOF
+        else if (is_command(current_token) && !(is_flag(next_token) || is_command(next_token) || is_redir_out(next_token) || is_pipe(next_token) || is_file(next_token) || is_EOF(next_token)))
         {
             ft_printf("Parse error: command should be followed by > or | or a flag or a file\n");
             return (EXIT_FAILURE);
@@ -177,10 +177,10 @@ void    find_outfile(t_simple_command **simple_command, t_token *token_chain)
 }
 
  
-void    collect_flags(t_token **current_token, t_simple_command **simple_command, int counter)
+void    collect_arguments(t_token **current_token, t_simple_command **simple_command, int counter)
 {
     char *temp = NULL;
-    while (is_flag(*current_token) || is_file(*current_token))
+    while (is_flag(*current_token) || is_file(*current_token) || is_command(*current_token))
     {
         temp = ft_strjoin(((*simple_command)->commands)[counter], " ");
         free(((*simple_command)->commands)[counter]);
@@ -192,7 +192,7 @@ void    collect_flags(t_token **current_token, t_simple_command **simple_command
     }   
 }
 
-void    find_commands_and_flags(t_simple_command **simple_command, t_token *token_chain)
+void    find_commands_and_arguments(t_simple_command **simple_command, t_token *token_chain)
 {
     t_token *current_token = token_chain;
     
@@ -203,8 +203,8 @@ void    find_commands_and_flags(t_simple_command **simple_command, t_token *toke
         {
             ((*simple_command)->commands)[counter] = ft_strdup(current_token->value);
             current_token = current_token->next;
-            if (is_flag(current_token) || is_file(current_token))
-                collect_flags(&current_token, simple_command, counter);
+            if (is_flag(current_token) || is_file(current_token) || is_command(current_token))
+                collect_arguments(&current_token, simple_command, counter);
             counter++;          
         }
         else
@@ -227,7 +227,7 @@ t_simple_command *create_simple_command(t_token *token_chain)
     find_infile(&simple_command, token_chain);
     find_outfile(&simple_command, token_chain);
     simple_command->commands = malloc((number_of_commands + 1) * sizeof(char *));
-    find_commands_and_flags(&simple_command, token_chain);
+    find_commands_and_arguments(&simple_command, token_chain);
     return(simple_command);
 }
 

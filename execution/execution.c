@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 13:19:06 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/01 18:26:13 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/04 21:08:47 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,6 @@ int	execution(int number_of_commands, t_simple_command *simple_command, char **e
 	head = NULL;
 	pid = NULL;
 	fd = NULL;
-	// ft_printf("Infile: %s \n", simple_command->infile);
-	// ft_printf("Outfile: %s \n", simple_command->outfile);
-	// ft_printf("Commands: \n");
-	// char **t = simple_command->commands;
-	// while (*t)
-	// {
-	//     ft_printf("%s \n", *t);
-	//     t++;
-	// }
-	// return(0);
 	init_list(number_of_commands, simple_command->commands, envp, &head); // this should be ok
 	init_setup(&pid, &fd, number_of_commands, &head); // this should also be ok
 	process_loop(&head, pid, fd, simple_command);
