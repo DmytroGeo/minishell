@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:48:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/25 20:28:14 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/26 11:36:41 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 
 typedef struct s_simple_command
 {
-    int *infile;
-    int **outfile;
+    int **infiles;
+    int **outfiles;
     char **commands;
 }           t_simple_command;
 
