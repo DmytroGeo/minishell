@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/24 14:09:14 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/26 13:03:32 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,16 @@ int main(int argc, char **argv, char **envp)
                 change_directory(token_chain, &prompt);
             else
             {
-                simple_command = parse(token_chain);               
-                int number_of_commands = ft_array_len(simple_command->commands);
-                execution(number_of_commands, simple_command, envp);                
+                simple_command = parse(token_chain);
+                if (simple_command)
+                {
+                    int number_of_commands = ft_array_len(simple_command->commands);
+                    execution(number_of_commands, simple_command, envp);                   
+                }
+                else
+                {
+                    ft_printf("Program was exited\n");
+                } 
             }
         }
         free(line);

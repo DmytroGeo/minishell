@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/26 12:32:55 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/26 13:01:18 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,6 @@ void    find_infiles(t_simple_command *simple_command, t_token *token_chain)
                 char *line_read = get_next_line(0);
                 if (ft_strncmp(line_read, limiter, ft_strlen(limiter)) == 0 && ft_strncmp(line_read, limiter, ft_strlen(line_read) - 1) == 0)
                 {
-                    // (simple_command->infiles)[i] = malloc(sizeof(int *));
                     *((simple_command->infiles)[i]) = fd[0];
                     close(fd[1]);               
                     break;
@@ -303,7 +302,10 @@ t_simple_command  *parse(t_token *token_chain)
         return (NULL);        
     }
     if (pre_parse(token_chain) == EXIT_FAILURE)
+    {
         ft_printf("Parsing returned an error.\n");
+        return (NULL);       
+    }
     else
         simple_command = create_simple_command(token_chain);   
     return (simple_command); 

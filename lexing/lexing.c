@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:59:28 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/24 14:37:22 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/26 14:22:30 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ t_token_type identify_type(char *token, t_op *operators) //include? change strcm
 		return (PAREN_LEFT);
 	if (strcmp(token, ")") == 0)
 		return (PAREN_RIGHT);
-	if (token[0] == '$')
+	if (token[0] == '$' && ft_strncmp(token, "$?", 3) != 0)
 		return (VARIABLE);
 	if (token[0] == '-')
 		return (FLAG);
