@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 13:19:06 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/25 14:45:21 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/26 14:48:18 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	execution(int number_of_commands, t_simple_command *simple_command, char **e
 	ft_lstclear(&head, ft_free_paths_and_flags);
 	ft_intarr_free(fd, number_of_commands - 1);
 	exit_status = wait_for_processes(pid, number_of_commands);
-	free(pid); 
+	free(pid);
 	return (exit_status); 
 	
 }

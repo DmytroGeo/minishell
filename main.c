@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/26 13:03:32 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:38:00 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,39 +74,42 @@ void    change_directory(t_token *token_chain, char **prompt)
     }
     *prompt = get_prompt();
     return;         
-}
-
+}   
+  
 int main(int argc, char **argv, char **envp)
 {
-    char *line;
     (void)argc;
     (void)argv;
+    char *prompt = get_prompt();
+    char *line;
+    int *exit_status = malloc(sizeof(int *));
     t_token *token_chain;
     t_simple_command *simple_command;
-    char *prompt = get_prompt();
     while ((line = readline(prompt)) != NULL)
     {
         if (*line)
         {
             add_history(line);
             token_chain = lexing(line, envp);
-            if (ft_strncmp(token_chain->value, "cd", 2) == 0 && !is_EOF(token_chain->next)) // this doesn't work for smth like cd | > outfile
+            if (ft_strncmp(token_chain->value, "cd", 3) == 0 && !is_EOF(token_chain->next)) // this doesn't work for smth like cd | > outfile
                 change_directory(token_chain, &prompt);
+            else if (ft_strncmp(token_chain->value, "$?", 3) == 0)
+                ft_printf("%d\n", *exit_status);
             else
             {
                 simple_command = parse(token_chain);
                 if (simple_command)
                 {
                     int number_of_commands = ft_array_len(simple_command->commands);
-                    execution(number_of_commands, simple_command, envp);                   
+                    *exit_status = execution(number_of_commands, simple_command, envp);
                 }
                 else
                 {
                     ft_printf("Program was exited\n");
-                } 
+                }
             }
         }
-        free(line);
+        free(line);             
     }
     return (0);
 }
