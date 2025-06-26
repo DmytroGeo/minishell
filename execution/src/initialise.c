@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:41:49 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/01 13:49:52 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/25 18:11:09 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,18 @@ void	init_list(int number_of_commands, char **commands, char **envp, t_list **he
 	}
 }
 
-void	init_setup(int **pid, int ***fd, int number_of_commands, t_list **head)
+void	init_setup(int **pid, int ***fd, t_simple_command *simple_command, t_list **head)
 {
 	int	i;
-
+	int number_of_commands = ft_array_len(simple_command->commands);
 	i = -1;
 	*pid = malloc((number_of_commands) * sizeof(int));
 	if (!*pid)
 		return ;
-	*fd = malloc((number_of_commands - 1) * sizeof(int *));
+	if (number_of_commands == 0)
+		*fd = malloc(0 * sizeof(int *));
+	else 
+		*fd = malloc((number_of_commands - 1) * sizeof(int *)); // if the number of commands is 0, such as << eof or < infile we run into an error here as 0 - 1 = -1.
 	if (!*fd)
 		return ;
 	while (++i < number_of_commands - 1)

@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 13:19:06 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/04 21:08:47 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/25 14:45:21 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	execution(int number_of_commands, t_simple_command *simple_command, char **e
 	head = NULL;
 	pid = NULL;
 	fd = NULL;
-	init_list(number_of_commands, simple_command->commands, envp, &head); // this should be ok
-	init_setup(&pid, &fd, number_of_commands, &head); // this should also be ok
+	init_list(number_of_commands, simple_command->commands, envp, &head);
+	init_setup(&pid, &fd, simple_command, &head);
 	process_loop(&head, pid, fd, simple_command);
 	close_fds(fd, number_of_commands - 1);
 	ft_lstclear(&head, ft_free_paths_and_flags);

@@ -6,13 +6,13 @@
 #    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/09 17:18:32 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/05/23 12:36:34 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/06/25 17:31:16 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 # helper libraries:
 
@@ -21,8 +21,7 @@ LEXING = ./lexing/liblexing.a
 PARSING = ./parsing/libparsing.a
 EXECUTION = ./execution/libexecution.a
 
-SRC = main \
-		built_ins
+SRC = main
 
 SRCS = $(addsuffix .c, $(SRC))
 OBJS = $(addsuffix .o, $(SRC))

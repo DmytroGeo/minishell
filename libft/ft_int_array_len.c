@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   built_ins.c                                        :+:      :+:    :+:   */
+/*   ft_int_array_len.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/02 11:15:40 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/23 13:11:46 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/06/25 20:26:22 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/06/25 20:26:48 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-
-// this function gets the current working directory and saves it into str.
-// no memory problems but I haven't norminetted yet.
-
-char	*get_cwd(void)
+int	ft_int_array_len(int **array)
 {
-	char	buffer[PATH_MAX];
-	char	*str;
-	str = getcwd(buffer, PATH_MAX);
-	return (str);
+	int	n;
+
+	n = 0;
+	if (!array)
+		return (n);
+	while (array[n] != NULL)
+		n++;
+	return (n);
 }

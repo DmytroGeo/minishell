@@ -6,14 +6,14 @@
 #    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/09 17:20:58 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/05/12 19:47:46 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/06/25 17:33:48 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libparsing.a
 AR = ar rcs
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 SRC = parsing
 
 SRCS = $(addsuffix .c, $(SRC))

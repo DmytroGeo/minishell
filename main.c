@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/04 22:17:29 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/24 14:09:14 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,14 @@
 //     return(processed_command);
 // }
 
+char	*get_cwd(void)
+{
+	char	buffer[PATH_MAX];
+	char	*str;
+	str = getcwd(buffer, PATH_MAX);
+	return (str);
+}
+
 char *get_prompt(void)
 {
     char *cwd = get_cwd();
@@ -64,7 +72,8 @@ void    change_directory(t_token *token_chain, char **prompt)
         ft_printf("Directory doesn't exist \n");
         return ;        
     }
-    *prompt = get_prompt();            
+    *prompt = get_prompt();
+    return;         
 }
 
 int main(int argc, char **argv, char **envp)
@@ -85,7 +94,7 @@ int main(int argc, char **argv, char **envp)
                 change_directory(token_chain, &prompt);
             else
             {
-                simple_command = parse(token_chain);
+                simple_command = parse(token_chain);               
                 int number_of_commands = ft_array_len(simple_command->commands);
                 execution(number_of_commands, simple_command, envp);                
             }
