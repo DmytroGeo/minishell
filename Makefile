@@ -6,7 +6,7 @@
 #    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/09 17:18:32 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/06/25 17:31:16 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/06/27 11:13:44 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,10 @@ LEXING = ./lexing/liblexing.a
 PARSING = ./parsing/libparsing.a
 EXECUTION = ./execution/libexecution.a
 
-SRC = main
+SRC = main \
+		built_ins \
+		change_directory \
+		get_prompt
 
 SRCS = $(addsuffix .c, $(SRC))
 OBJS = $(addsuffix .o, $(SRC))

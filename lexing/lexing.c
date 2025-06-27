@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:59:28 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/26 14:22:30 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:27:11 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,122 +14,15 @@
 #include <stdio.h> // remove later
 #include <string.h> // remove later
 
-int is_surrounded_by(char *str, char quote)
+void	populate_operators(t_op *operators)
 {
-	size_t len;
-	int result;
-
-	if (!str || str[0] != quote)
-		return (0); // doesn't start with quote
-
-	len = ft_strlen(str);
-	if (len < 2)
-		return (0); // too short to have both quotes
-
-	if (str[len - 1] == quote)
-		result = 1;
-	else
-		result = 0;
-
-	return (result);
-}
-
-char *strip_quotes(char *str)
-{
-	size_t	len;
-	char	*clean;
-
-	if (!str)
-		return (NULL);
-
-	len = ft_strlen(str);
-	if (len < 2)
-		return (ft_strdup(str)); // nothing to strip
-
-	// remove the first and last character (the quotes)
-	clean = ft_substr(str, 1, len - 2);
-	if (!clean)
-		return (NULL); // memory allocation failed
-
-	return (clean);
-}
-
-void    array_free(char **arr)
-{
-    int i = 0;    if (!arr)
-        return;
-    while (arr[i])
-        free(arr[i++]);
-    free(arr);
-}
-
-void    print_token_list(t_token *head)
-{
-    int i;
-    const char *token_type_names[] =
-    {
-    "WORD",
-    "PIPE",
-    "REDIR_IN",
-    "REDIR_OUT",
-    "APPEND",
-    "HEREDOC",
-	"END_OF_FILE",
-	"FLAG",
-	"SINGLE_QUOTED_STRING",
-	"DOUBLE_QUOTED_STRING",
-	"COMMAND",
-	"VARIABLE",
-	"AND_IF",
-	"OR_IF",
-	"PAREN_LEFT",
-	"PAREN_RIGHT"
-    };    
-	i = 1;
-    printf("\n< < < < Token List > > > >\n\n");
-    while (head)
-    {
-        printf("Node : %d\n", i);
-        printf("Type : %s\nValue : %s\nPath : %s\n\n", token_type_names[head->type], head->value, head->path);
-        head = (head->next);
-        i++;
-    }
-    printf("\n");
-}
-
-t_token_type identify_type(char *token, t_op *operators) //include? change strcmp to ft_strcmp
-{
-	int i;
-
-	i = 0;
-	if (strcmp(token, "&&") == 0)
-		return (AND_IF);
-	if (strcmp(token, "||") == 0)
-		return (OR_IF);
-	if (strcmp(token, "(") == 0)
-		return (PAREN_LEFT);
-	if (strcmp(token, ")") == 0)
-		return (PAREN_RIGHT);
-	if (token[0] == '$' && ft_strncmp(token, "$?", 3) != 0)
-		return (VARIABLE);
-	if (token[0] == '-')
-		return (FLAG);
-    while (operators[i].symbol)
-    {
-        if (strcmp(token, operators[i].symbol) == 0)
-            return (operators[i].type);
-        i++;
-    }
-    return (WORD);
-}
-
-void    print_raw_tokens(char **raw_tokens) //include?
-{
-    int i;    i = 0;
-    printf("\n\n< < < < Raw Tokens > > > >\n\n"); // replace
-    while (raw_tokens[i])
-            printf("%s\n", raw_tokens[i++]); // replace
-    printf("\n");  // replace
+    operators[0] = (t_op){"|", PIPE};
+    operators[1] = (t_op){">", REDIR_OUT};
+    operators[2] = (t_op){"<", REDIR_IN};
+    operators[3] = (t_op){">>", APPEND};
+    operators[4] = (t_op){"<<", HEREDOC};
+    operators[5] = (t_op){NULL, WORD};
+    operators[6] = (t_op){NULL, END_OF_FILE};
 }
 
 t_token     *lexing(char *line, char **envp)
@@ -138,14 +31,8 @@ t_token     *lexing(char *line, char **envp)
     t_op    operators[7];
     t_token *head = NULL;
     t_token *last;
+	populate_operators(operators);
     t_token *new_node;
-	operators[0] = (t_op){"|", PIPE};
-    operators[1] = (t_op){">", REDIR_OUT};
-    operators[2] = (t_op){"<", REDIR_IN};
-    operators[3] = (t_op){">>", APPEND};
-    operators[4] = (t_op){"<<", HEREDOC};
-    operators[5] = (t_op){NULL, WORD};
-	operators[6] = (t_op){NULL, END_OF_FILE};
     if (!line)
         return (NULL);
     raw_tokens = split_line(line);

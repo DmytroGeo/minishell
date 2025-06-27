@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:48:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/26 11:36:41 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/27 13:16:07 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <limits.h>
 # include <stdio.h>
 # include <stdarg.h>
+#include <stdbool.h>
 
 typedef struct s_simple_command
 {

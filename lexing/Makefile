@@ -6,7 +6,7 @@
 #    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/04 16:44:12 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/06/25 17:33:59 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/06/27 15:16:50 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,9 @@ SRC = ft_toknew \
 		ft_tokindex \
 		ft_tokfind \
 		ft_splitter \
-		read_line \
-		lexing
+		lexing \
+		quote_utils \
+		lexing_utils
 
 SRCS = $(addsuffix .c, $(SRC))
 OBJS = $(addsuffix .o, $(SRC))
