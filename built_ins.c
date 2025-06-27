@@ -5,21 +5,30 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/02 11:15:40 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/23 13:11:46 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/06/27 11:02:06 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/06/27 13:01:33 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-// this function gets the current working directory and saves it into str.
-// no memory problems but I haven't norminetted yet.
-
-char	*get_cwd(void)
+int	evaluate_built_ins(t_token *token_chain, int *exit_status, char **prompt)
 {
-	char	buffer[PATH_MAX];
-	char	*str;
-	str = getcwd(buffer, PATH_MAX);
-	return (str);
+	if (ft_strncmp(token_chain->value, "cd", 3) == 0 && !is_EOF(token_chain->next)) // this doesn't work for smth like cd | > outfile
+	{
+		change_directory(token_chain->next->value, prompt);
+		return (EXIT_SUCCESS);			
+	}
+	else if ((ft_strncmp(token_chain->value, "cd", 3) == 0 && is_EOF(token_chain->next)))
+	{
+		change_directory("..", prompt); // this needs to be edited. cd has to take you to home or root (Whatever "~" is).
+		return (EXIT_SUCCESS);		
+	}
+	else if (ft_strncmp(token_chain->value, "$?", 3) == 0)
+	{
+		ft_printf("%d\n", *exit_status);	
+		return (EXIT_SUCCESS);		
+	}
+	else
+		return (EXIT_FAILURE);	
 }

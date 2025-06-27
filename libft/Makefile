@@ -6,19 +6,20 @@
 #    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/04 16:44:12 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/06/01 10:04:45 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/06/25 20:28:30 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 AR = ar rcs
 SRC = ft_array_free \
 		ft_array_len \
 		ft_atoi \
 		ft_bzero \
 		ft_calloc \
+		ft_int_array_len \
 		ft_isalnum \
 		ft_isalpha \
 		ft_isdigit \

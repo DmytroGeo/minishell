@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:54:09 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/01 19:06:28 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:03:41 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		proc_call(int i, char c);
 char	*get_path(char *str, char **envp);
 char	**get_flags(char **arr);
 void	init_list(int number_of_commands, char **commands, char **envp, t_list **head);
-void	init_setup(int **pid, int ***fd, int ac, t_list **head);
+void	init_setup(int **pid, int ***fd, t_simple_command *simple_command, t_list **head);
 int		proc_call(int i, char c);
 int		execution(int number_of_commands, t_simple_command *simple_command, char **envp);
 void	execute(int i, int **fd, int *pid, t_list **head);
@@ -53,6 +53,7 @@ void	free_and_exit(int *pid, int **fd, t_list **head);
 void	ft_free_paths_and_flags(void *content);
 void	ft_perror(char *str, char c);
 void	ft_intarr_free(int **fd, int len);
+int	heredoc(char *limiter);
 void	process_loop(t_list **head, int *pid, int **fd, t_simple_command *simple_command);
 
 t_list	*ft_find_node(int i, t_list **head);

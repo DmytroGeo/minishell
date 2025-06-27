@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:48:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/01 19:01:04 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/27 13:16:07 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 # include <limits.h>
 # include <stdio.h>
 # include <stdarg.h>
+#include <stdbool.h>
 
 typedef struct s_simple_command
 {
-    char *infile;
-    char *outfile;
-	int *is_append;
+    int **infiles;
+    int **outfiles;
     char **commands;
 }           t_simple_command;
 
@@ -50,6 +50,7 @@ int		ft_atoi(const char *nptr);
 int		ft_lstsize(t_list *lst);
 int		ft_printf(const char *str, ...);
 int		ft_array_len(char **array);
+int		ft_int_array_len(int **array);
 
 void	ft_convert(char c, va_list args, int *count);
 void	*ft_memmove(void *dest, const void *src, size_t n);

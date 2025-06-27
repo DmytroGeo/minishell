@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/04 22:17:29 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:49:28 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,66 +31,69 @@
 //         i++;
 //         current = current->next;
 //     }
-// }
-
-// char **evaluate(t_simple_command *simple_command)
-// {
-//     char    **processed_command = NULL;
-//     int     number_of_commands = ft_array_len(simple_command->commands);
-//     int     i = 1;
-//     processed_command = malloc((number_of_commands + 4) * sizeof(char *)); // number_of_commands + 2 (for infile and outfile) + 1 (standin for executable) + 1 (for NULL termination)
-//     processed_command[0] = "exec";
-//     processed_command[1] = ft_strdup(simple_command->infile);
-//     processed_command[number_of_commands + 2] = ft_strdup(simple_command->outfile);
-//     processed_command[number_of_commands + 3] = NULL;   
-//     while (++i < number_of_commands + 2)
-//         processed_command[i] = ft_strdup((simple_command->commands)[i - 2]);
-//     return(processed_command);
-// }
-
-char *get_prompt(void)
-{
-    char *cwd = get_cwd();
-    char *temp = ft_strjoin("minishell:", cwd);
-    char *prompt = ft_strjoin(temp, "$ ");
-    free(temp);
-    return(prompt);
-}
-
-void    change_directory(t_token *token_chain, char **prompt)
-{
-    if (chdir(token_chain->next->value) != 0)
-    {
-        ft_printf("Directory doesn't exist \n");
-        return ;        
-    }
-    *prompt = get_prompt();            
-}
-
+// }   
+  
 int main(int argc, char **argv, char **envp)
 {
-    char *line;
     (void)argc;
     (void)argv;
+    char *prompt = get_prompt();
+    char *line;
+    int *exit_status = malloc(sizeof(int *));
     t_token *token_chain;
     t_simple_command *simple_command;
-    char *prompt = get_prompt();
+	// char **env_copy;
+
+	copy_envp(&envp);
     while ((line = readline(prompt)) != NULL)
     {
         if (*line)
         {
+            // if cd is the first word, then we change directory
+            // same with exit (apart from exit | ...). If exit is in a pipe process, say < infile cat | exit | wc > out, then it exits the child process but doesn't kill main process.
+            // with $? always print exit_code.
             add_history(line);
             token_chain = lexing(line, envp);
-            if (ft_strncmp(token_chain->value, "cd", 2) == 0 && !is_EOF(token_chain->next)) // this doesn't work for smth like cd | > outfile
-                change_directory(token_chain, &prompt);
+			if (token_chain->type == EXPORT)
+			{
+				t_token *arg = token_chain->next;
+				while (arg && arg->type != END_OF_FILE)
+				{
+					if (is_valid_variable_assignment(arg->value))
+						export_variable(&envp, arg->value);
+					else
+						ft_printf("Invalid export format: %s\n", arg->value);
+					arg = arg->next;
+				}
+				// print_env(env_copy);
+			}
+			else if (token_chain->type == UNSET)
+			{
+				t_token *arg = token_chain->next;
+				while (arg && arg->type != END_OF_FILE)
+				{
+					unset_variable(&envp, arg->value);
+					arg = arg->next;
+				}
+				// print_env(env_copy);
+			}
             else
             {
+                // expand_variables(&token_chain);
                 simple_command = parse(token_chain);
-                int number_of_commands = ft_array_len(simple_command->commands);
-                execution(number_of_commands, simple_command, envp);                
+                // evaluate_built_ins(token_chain, exit_status, &prompt);
+                // free(&token_chain);
+                if (simple_command)
+                {
+                    *exit_status = execution(ft_array_len(simple_command->commands), simple_command, envp);
+                }
+                else
+                {
+                    ft_printf("Program was exited\n");
+                }
             }
         }
-        free(line);
+        free(line);             
     }
     return (0);
 }
