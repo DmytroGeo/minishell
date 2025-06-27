@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/27 15:25:04 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:49:28 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int main(int argc, char **argv, char **envp)
     int *exit_status = malloc(sizeof(int *));
     t_token *token_chain;
     t_simple_command *simple_command;
-	char **env_copy;
+	// char **env_copy;
 
-	env_copy = copy_envp(envp);
+	copy_envp(&envp);
     while ((line = readline(prompt)) != NULL)
     {
         if (*line)
@@ -60,7 +60,7 @@ int main(int argc, char **argv, char **envp)
 				while (arg && arg->type != END_OF_FILE)
 				{
 					if (is_valid_variable_assignment(arg->value))
-						export_variable(&env_copy, arg->value);
+						export_variable(&envp, arg->value);
 					else
 						ft_printf("Invalid export format: %s\n", arg->value);
 					arg = arg->next;
@@ -72,7 +72,7 @@ int main(int argc, char **argv, char **envp)
 				t_token *arg = token_chain->next;
 				while (arg && arg->type != END_OF_FILE)
 				{
-					unset_variable(&env_copy, arg->value);
+					unset_variable(&envp, arg->value);
 					arg = arg->next;
 				}
 				// print_env(env_copy);

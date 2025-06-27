@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/27 15:31:57 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:48:57 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,28 +111,28 @@ void	export_variable(char ***envp, const char *assignment)
 	}
 }
 
-char **copy_envp(char **envp)
+void copy_envp(char ***envp)
 {
 	int		i;
 	char	**copy;
 
-	if (!envp)
-		return (NULL);
+	if (!*envp)
+		return ;
 	i = 0;
-	while (envp[i])
+	while ((*envp)[i])
 		i++;
 	copy = malloc(sizeof(char *) * (i + 1));
 	if (!copy)
-		return (NULL);
+		return ;
 	i = 0;
-	while (envp[i])
+	while ((*envp)[i])
 	{
-		copy[i] = ft_strdup(envp[i]);
+		copy[i] = ft_strdup((*envp)[i]);
 		i++;
 	}
 	copy[i] = NULL;
-	// ft_print_envp(copy);
-	return (copy);
+	*envp = copy;
+	return ;
 }
 
 int	is_export(t_token *token)
