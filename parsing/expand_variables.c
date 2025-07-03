@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 10:18:04 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/03 11:51:56 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/03 18:34:00 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void do_all_expansions(t_token **token_chain, int exit_status, char **envp)
 	{
 		if (is_variable(current_token))
 		{
-			// expand_variable();
+			expand_variable(exit_status, envp, &current_token);
 			ft_printf(1, "There's a variable\n");
 		}
 		else if (is_single_quotes(current_token))

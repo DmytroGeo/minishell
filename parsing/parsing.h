@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:21:46 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/03 11:29:23 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/03 18:51:30 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef struct s_simple_command
     char **address_of_prompt;
     int **outfiles;
     char **commands;
+    int		*pid;
+	int		**fd;
 }           t_simple_command;
 
 t_simple_command  *parse(t_token *token_chain);

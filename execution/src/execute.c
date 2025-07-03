@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 11:48:53 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/02 17:32:41 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/03 19:18:40 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-void	execute(int i, int **fd, int *pid, t_list **head)
+void	execute(int i, int **fd, int *pid, char **envp)
 {
 	char	**array;
 	t_list	*node;
 	int		n;
 	t_execution_content *node_content;
 	
-	node = ft_find_node(i, head);
 	node_content = node->content;
 	array = malloc((2 + ft_array_len((node_content->flags))) * sizeof(char *));
 	if (!array)
@@ -28,7 +27,7 @@ void	execute(int i, int **fd, int *pid, t_list **head)
 	if (!array[0] && !is_built_in(node_content->command_name))
 	{
 		ft_array_free(array, ft_array_len(array));
-		free_and_exit(pid, fd, head);
+		free_and_exit(pid, fd);
 		exit (127);
 	}
 	n = 0;
@@ -37,17 +36,17 @@ void	execute(int i, int **fd, int *pid, t_list **head)
 	array[n] = NULL;
 	if (is_built_in(node_content->command_name))
 	{
-		execute_built_ins_in_child(node_content->command_name, array, *head);
+		execute_built_ins_in_child(node_content->command_name, );
 		ft_array_free(array, ft_array_len(array));
-		free_and_exit(pid, fd, head);
+		free_and_exit(pid, fd);
 		exit(errno);
 	}
 	else
 	{
-		if (execve(node_content->path, array, (((t_execution_content *)((*head)->content))->envp)) < 0)
+		if (execve(node_content->path, array, envp)) < 0)
 		{
 			ft_array_free(array, ft_array_len(array));
-			free_and_exit(pid, fd, head);
+			free_and_exit(pid, fd);
 			return ;
 		}	
 	}

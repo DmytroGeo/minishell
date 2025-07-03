@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   dup_read_and_write.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 23:42:24 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/26 12:14:58 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/03 19:15:14 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-void	dup_infile(int **fd, int *pid, t_list **head, t_simple_command *simple_command)
+void	dup_infile(int **fd, int *pid, t_simple_command *simple_command)
 {
 	int		number_of_commands;
 	int		number_of_infiles;
@@ -28,7 +28,7 @@ void	dup_infile(int **fd, int *pid, t_list **head, t_simple_command *simple_comm
 		{
 			perror(NULL);
 			close_fds(fd, number_of_commands - 1);
-			free_and_exit(pid, fd, head);
+			free_and_exit(pid, fd);
 			exit(EXIT_FAILURE);
 		}
 		proc_call(dup2(*(infiles[i]), STDIN_FILENO), 'i');
@@ -38,7 +38,7 @@ void	dup_infile(int **fd, int *pid, t_list **head, t_simple_command *simple_comm
 	return ;
 }
 
-void	dup_outfile(int **fd, int *pid, t_list **head, t_simple_command *simple_command)
+void	dup_outfile(int **fd, int *pid, t_simple_command *simple_command)
 {
 	int		number_of_commands;
 	int		number_of_outfiles;
@@ -54,7 +54,7 @@ void	dup_outfile(int **fd, int *pid, t_list **head, t_simple_command *simple_com
 		{
 			perror("No access");
 			close_fds(fd, number_of_commands - 1);
-			free_and_exit(pid, fd, head);
+			free_and_exit(pid, fd);
 			exit(EXIT_FAILURE);
 		}
 		proc_call(dup2(*(outfile[i]), STDOUT_FILENO), 'o');

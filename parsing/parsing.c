@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/03 11:33:50 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/03 19:28:59 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,7 @@ void    find_outfiles(t_simple_command *simple_command, t_token *token_chain)
                 else if (is_append(previous_token))
                     *((simple_command->outfiles)[i]) = open(current_token->value, O_CREAT | O_APPEND | O_WRONLY, 0644);                
                 i++; 
-            }     
+            }     t_list	*ft_find_node(int i, t_list **head);
         }   
         current_token = current_token->next;
     }
@@ -293,6 +293,8 @@ t_simple_command *create_simple_command(t_token *token_chain)
     find_outfiles(simple_command, token_chain);
     simple_command->commands = malloc((number_of_commands + 1) * sizeof(char *));
     find_commands_and_arguments(&simple_command, token_chain);
+	simple_command->pid = NULL;
+	simple_command->fd = NULL;
     return(simple_command);
 }
 
