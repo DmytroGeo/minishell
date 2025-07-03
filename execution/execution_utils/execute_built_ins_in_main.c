@@ -1,38 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flags_and_paths.c                                  :+:      :+:    :+:   */
+/*   execute_built_ins_in_main.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/20 12:30:41 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/28 13:11:42 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/07/02 17:12:04 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/02 17:25:50 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-char	**get_flags(char **arr)
+void	execute_built_ins_in_main(t_simple_command *simple_command, char ***envp, char **prompt)
 {
-	char	**flags;
-	int		i;
-	int		len;
-
-	i = 0;
-	len = ft_array_len(arr);
-	if (len == 0)
-		return (NULL);
-	flags = malloc((len + 1) * sizeof(char *));
-	if (!flags)
-		return (NULL);
-	while (i < len)
-	{
-		flags[i] = malloc(ft_strlen(arr[i]) + 1);
-		if (!flags[i])
-			return (ft_array_free(flags, i));
-		flags[i] = ft_strcpy(flags[i], arr[i]);
-		i++;
-	}
-	flags[i] = NULL;
-	return (flags);
+	int outfile_fd = 1;
+	if (simple_command->outfiles)
+		outfile_fd = *((simple_command->outfiles)[ft_int_array_len(simple_command->outfiles) - 1]);
+	execute_built_ins(*(simple_command->commands), outfile_fd, envp, prompt);
 }

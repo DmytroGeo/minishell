@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:37:59 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/27 15:19:38 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/06/28 14:24:05 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int is_surrounded_by(char *str, char quote)
 
     if (!str || str[0] != quote)
         return (0); // doesn't start with quote
-
     len = ft_strlen(str);
     if (len < 2)
         return (0); // too short to have both quotes
@@ -48,6 +47,5 @@ int is_surrounded_by(char *str, char quote)
         result = 1;
     else
         result = 0;
-
     return (result);
 }

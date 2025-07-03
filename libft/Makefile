@@ -6,13 +6,13 @@
 #    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/04 16:44:12 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/06/25 20:28:30 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/06/28 17:47:43 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror # -g3 -fsanitize=address
 AR = ar rcs
 SRC = ft_array_free \
 		ft_array_len \
@@ -72,7 +72,9 @@ SRC = ft_array_free \
 		ft_lstclear \
 		ft_lstiter \
 		ft_lstmap \
-		get_next_line
+		is_built_in \
+		get_next_line \
+		get_prompt
 
 SRCS = $(addsuffix .c, $(SRC))
 OBJS = $(addsuffix .o, $(SRC))

@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/27 15:49:28 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/03 10:56:41 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,7 @@
     You may need to compile with readline lib "cc read_line.c -lreadline"
     but that may be because im using mbp, the school computers probaly
     have the libraries installed and you dont neet to include the lib.
-*/
-// void    print_tokens(t_token *token_chain)
-// {
-//     t_token *current = token_chain;
-//     int i = 0;
-//     while (current)
-//     {
-//         ft_printf("%d \n", i);
-//         i++;
-//         current = current->next;
-//     }
-// }   
+*/ 
   
 int main(int argc, char **argv, char **envp)
 {
@@ -39,11 +28,9 @@ int main(int argc, char **argv, char **envp)
     (void)argv;
     char *prompt = get_prompt();
     char *line;
-    int *exit_status = malloc(sizeof(int *));
+    int *exit_status = malloc(sizeof(int));
     t_token *token_chain;
-    t_simple_command *simple_command;
-	// char **env_copy;
-
+    // t_simple_command *simple_command;
 	copy_envp(&envp);
     while ((line = readline(prompt)) != NULL)
     {
@@ -54,44 +41,16 @@ int main(int argc, char **argv, char **envp)
             // with $? always print exit_code.
             add_history(line);
             token_chain = lexing(line, envp);
-			if (token_chain->type == EXPORT)
-			{
-				t_token *arg = token_chain->next;
-				while (arg && arg->type != END_OF_FILE)
-				{
-					if (is_valid_variable_assignment(arg->value))
-						export_variable(&envp, arg->value);
-					else
-						ft_printf("Invalid export format: %s\n", arg->value);
-					arg = arg->next;
-				}
-				// print_env(env_copy);
-			}
-			else if (token_chain->type == UNSET)
-			{
-				t_token *arg = token_chain->next;
-				while (arg && arg->type != END_OF_FILE)
-				{
-					unset_variable(&envp, arg->value);
-					arg = arg->next;
-				}
-				// print_env(env_copy);
-			}
-            else
-            {
-                // expand_variables(&token_chain);
-                simple_command = parse(token_chain);
-                // evaluate_built_ins(token_chain, exit_status, &prompt);
-                // free(&token_chain);
-                if (simple_command)
-                {
-                    *exit_status = execution(ft_array_len(simple_command->commands), simple_command, envp);
-                }
-                else
-                {
-                    ft_printf("Program was exited\n");
-                }
-            }
+            expand_variables(&token_chain, *exit_status, envp); /* make sure to expand $? into the last error code.*/
+            // simple_command = parse(token_chain);
+            // if (simple_command)
+            // {
+            //     *exit_status = execution(simple_command, &envp, &prompt);
+            // }
+            // else
+            // {
+            //     ft_printf(2, "Program was exited\n");
+            // }
         }
         free(line);             
     }

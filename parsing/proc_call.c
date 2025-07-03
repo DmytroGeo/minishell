@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   proc_call.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 11:30:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/03 11:16:28 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/02/27 18:44:18 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/06/28 18:04:33 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-#include "execution.h"
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <linux/limits.h>
+#include "parsing.h"
 
-
-#endif
+int	proc_call(int i, char c)
+{
+	if ((c == 'o' || c == 'i') && i < 0)
+		perror(NULL);
+	else if (c == 'a' && i < 0)
+		perror("Can't access file");
+	return (0);
+}

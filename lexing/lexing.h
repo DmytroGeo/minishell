@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:48:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/27 15:13:37 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/03 11:05:03 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@
 #ifndef LEXING_H
 # define LEXING_H
 
-# include "libft.h"
-# include "../execution/execution.h"
+# include "../libft/libft.h"
+// # include "../parsing/parsing.h"
 
 // We can do this instead of hardcoding the path (say for example "../libft/libft.h")
 // We can do this because of the -I stuff in the Makefile 
@@ -111,10 +111,10 @@ typedef enum e_token_type
 	OR_IF,
 	PAREN_LEFT,
 	PAREN_RIGHT,
-	CD,
-	EXPORT,
-	UNSET,
-	EXIT
+	// CD,
+	// EXPORT,
+	// UNSET,
+	// EXIT
 }	t_token_type;
 
 typedef struct s_token
@@ -158,5 +158,9 @@ int is_surrounded_by(char *str, char quote);
 int	is_operator_start(char *line, int i);
 int	operator_length(char *line);
 void	populate_operators(t_op *operators);
+char	*get_path(char *str, char **envp);
+char	*find_path_variable(char **envp);
+char	*find_home_variable(char **envp);
+void	ft_perror(char *str, char c);
 
 #endif

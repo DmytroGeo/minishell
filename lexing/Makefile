@@ -6,7 +6,7 @@
 #    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/04 16:44:12 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/06/27 15:16:50 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/01 09:03:18 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC = ft_toknew \
 		ft_splitter \
 		lexing \
 		quote_utils \
+		ft_perror \
 		lexing_utils
 
 SRCS = $(addsuffix .c, $(SRC))

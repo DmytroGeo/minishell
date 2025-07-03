@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   get_prompt.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 11:30:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/03 11:16:28 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/06/27 10:53:52 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/01 11:01:53 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-#include "execution.h"
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <linux/limits.h>
+# include "libft.h"
 
+char	*ft_get_cwd(void)
+{
+	char	buffer[PATH_MAX];
+	char	*str;
+	str = getcwd(buffer, PATH_MAX);
+	return (str);
+}
 
-#endif
+char *get_prompt(void)
+{
+    char *cwd = ft_get_cwd();
+    char *temp = ft_strjoin("minishell:", cwd);
+    char *prompt = ft_strjoin(temp, "$ ");
+    // char **address_of_prompt = malloc(sizeof(char *));
+    // address_of_prompt = &prompt;
+    free(temp);
+    return(prompt);
+}

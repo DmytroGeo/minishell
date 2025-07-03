@@ -6,7 +6,7 @@
 #    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/12 11:38:45 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/06/25 17:39:28 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/01 09:03:10 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,11 +38,11 @@ OBJS = $(SRCS:.c=.o)
 # OBJS = $(patsubst .c, .o, $(SRCS))
 
 %.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@ -I../libft -I../lexing -I../parsing
+	$(CC) $(CFLAGS) -c $< -o $@ -I../libft -I../parsing -I../lexing 
 
 all: $(NAME)
 
-$(NAME): $(OBJS) 
+$(NAME): $(OBJS)
 	$(AR) $(NAME) $(OBJS)
 
 clean:

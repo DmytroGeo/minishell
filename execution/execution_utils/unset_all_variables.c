@@ -1,38 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flags_and_paths.c                                  :+:      :+:    :+:   */
+/*   unset_all_variables.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/20 12:30:41 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/28 13:11:42 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/06/28 12:32:48 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/01 09:28:11 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-char	**get_flags(char **arr)
+void	unset_all_variables(char **arguments, char ***envp)
 {
-	char	**flags;
-	int		i;
-	int		len;
-
-	i = 0;
-	len = ft_array_len(arr);
-	if (len == 0)
-		return (NULL);
-	flags = malloc((len + 1) * sizeof(char *));
-	if (!flags)
-		return (NULL);
-	while (i < len)
+	while (*arguments)
 	{
-		flags[i] = malloc(ft_strlen(arr[i]) + 1);
-		if (!flags[i])
-			return (ft_array_free(flags, i));
-		flags[i] = ft_strcpy(flags[i], arr[i]);
-		i++;
+		unset_variable(envp, *arguments);
+		arguments++;
 	}
-	flags[i] = NULL;
-	return (flags);
 }

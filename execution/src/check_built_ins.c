@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_prompt.c                                       :+:      :+:    :+:   */
+/*   check_built_ins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/27 10:53:52 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/27 10:55:40 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/06/28 17:15:04 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/06/28 17:49:46 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "../execution.h"
 
-char	*get_cwd(void)
+int		check_built_ins(t_simple_command *simple_command)
 {
-	char	buffer[PATH_MAX];
-	char	*str;
-	str = getcwd(buffer, PATH_MAX);
-	return (str);
-}
-
-char *get_prompt(void)
-{
-    char *cwd = get_cwd();
-    char *temp = ft_strjoin("minishell:", cwd);
-    char *prompt = ft_strjoin(temp, "$ ");
-    free(temp);
-    return(prompt);
+	char **array = ft_split(*(simple_command->commands), ' ');
+	int i = 0;
+	if (is_built_in(*array))
+		i += 1;
+	ft_array_free(array, ft_array_len(array));
+	return (i);
 }

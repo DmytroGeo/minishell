@@ -6,44 +6,13 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:41:49 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/25 18:11:09 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/01 09:11:34 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-// void	init_list(int ac, char **av, char **envp, t_list **head)
-// {
-// 	int		i;
-// 	t_list	*temp_node;
-// 	t_execution_content *temp_content;
-// 	char	**array;
-// 	char	*path;
-// 	char	**flags;
-
-// 	i = ac - 1;
-// 	temp_node = NULL;
-// 	temp_content = NULL;
-// 	while (i > 2)
-// 	{
-// 		i--;
-// 		array = ft_split(av[i], ' ');
-// 		if (access(array[0], F_OK | X_OK) == 0)
-// 			path = ft_strdup(array[0]);
-// 		else
-// 			path = get_path(array[0], envp);
-// 		if (!path)
-// 			ft_perror(array[0], 'p');
-// 		flags = get_flags(&array[1]);
-// 		temp_content = ft_init_content(path, flags, ac, envp);
-// 		temp_content->index = i - 2;
-// 		temp_content->av = av;
-// 		temp_node = ft_lstnew(temp_content);
-// 		(ft_lstadd_front(head, temp_node), ft_array_free(array, ft_array_len(array)));
-// 	}
-// }
-
-void	init_list(int number_of_commands, char **commands, char **envp, t_list **head)
+void	init_list(t_simple_command *simple_command, char **commands, char **envp, t_list **head)
 {
     int		i;
 	t_list	*temp_node;
@@ -52,7 +21,7 @@ void	init_list(int number_of_commands, char **commands, char **envp, t_list **he
 	char	*path;
 	char	**flags;
 
-	i = number_of_commands;
+	i = ft_array_len(simple_command->commands);
 	temp_node = NULL;
 	temp_content = NULL;
 	while (i > 0)
@@ -63,11 +32,13 @@ void	init_list(int number_of_commands, char **commands, char **envp, t_list **he
 			path = ft_strdup(array[0]);
 		else
 			path = get_path(array[0], envp);
-		if (!path)
+		if (!path && !is_built_in(array[0]))
 			ft_perror(array[0], 'p');
 		flags = get_flags(&array[1]);
-		temp_content = ft_init_content(path, flags, number_of_commands, envp);
+		temp_content = ft_init_content(path, flags, ft_array_len(simple_command->commands), envp);
 		temp_content->index = i;
+		temp_content->command_name = ft_strdup(array[0]);
+		// temp_content->address_of_prompt = simple_command->address_of_prompt;
 		temp_node = ft_lstnew(temp_content);
 		(ft_lstadd_front(head, temp_node), ft_array_free(array, ft_array_len(array)));
 	}
@@ -84,7 +55,7 @@ void	init_setup(int **pid, int ***fd, t_simple_command *simple_command, t_list *
 	if (number_of_commands == 0)
 		*fd = malloc(0 * sizeof(int *));
 	else 
-		*fd = malloc((number_of_commands - 1) * sizeof(int *)); // if the number of commands is 0, such as << eof or < infile we run into an error here as 0 - 1 = -1.
+		*fd = malloc((number_of_commands - 1) * sizeof(int *));
 	if (!*fd)
 		return ;
 	while (++i < number_of_commands - 1)

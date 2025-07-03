@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 11:33:51 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/04/02 16:38:29 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/01 14:09:01 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_printf(const char *str, ...)
+int	ft_printf(int fd, const char *str, ...)
 {
 	int		n;
 	int		count;
@@ -26,10 +26,10 @@ int	ft_printf(const char *str, ...)
 		if (str[n] == '%')
 		{
 			n++;
-			ft_convert(str[n], args, &count);
+			ft_convert(fd, str[n], args, &count);
 		}
 		else
-			ft_putchar(str[n], 1, &count);
+			ft_putchar(str[n], fd, &count);
 		n++;
 	}
 	va_end(args);

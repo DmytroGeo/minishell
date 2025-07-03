@@ -6,7 +6,7 @@
 #    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/09 17:20:58 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/06/25 17:33:48 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/03 11:17:02 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,11 @@ NAME = libparsing.a
 AR = ar rcs
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
-SRC = parsing
+SRC = parsing \
+		expand_variables \
+		is_some_token \
+		proc_call \
+		environment_functs
 
 SRCS = $(addsuffix .c, $(SRC))
 OBJS = $(addsuffix .o, $(SRC))

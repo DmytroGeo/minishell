@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:48:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/27 13:16:07 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/01 14:07:36 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,10 @@
 # include <stdlib.h>
 # include <stdint.h>
 # include <limits.h>
+# include <linux/limits.h>
 # include <stdio.h>
 # include <stdarg.h>
 #include <stdbool.h>
-
-typedef struct s_simple_command
-{
-    int **infiles;
-    int **outfiles;
-    char **commands;
-}           t_simple_command;
 
 typedef struct s_list
 {
@@ -48,11 +42,12 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 int		ft_atoi(const char *nptr);
 int		ft_lstsize(t_list *lst);
-int		ft_printf(const char *str, ...);
+int		ft_printf(int fd, const char *str, ...);
 int		ft_array_len(char **array);
 int		ft_int_array_len(int **array);
+int	    is_built_in(char *str);
 
-void	ft_convert(char c, va_list args, int *count);
+void	ft_convert(int fd, char c, va_list args, int *count);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 void	ft_bzero(void *s, size_t n);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
@@ -92,6 +87,8 @@ char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*get_next_line(int fd);
+char	*ft_get_cwd(void);
+char	*get_prompt(void);
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);

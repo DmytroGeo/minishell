@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:59:28 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/27 15:27:11 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/03 10:49:32 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_token     *lexing(char *line, char **envp)
     if (!line)
         return (NULL);
     raw_tokens = split_line(line);
-    // print_raw_tokens(raw_tokens);
+    print_raw_tokens(raw_tokens);
     while (*raw_tokens)
     {
         new_node = malloc(sizeof(t_token));
@@ -83,6 +83,6 @@ t_token     *lexing(char *line, char **envp)
 	new_node->path = NULL;
 	last->next = new_node;
 	last = new_node;
-    // print_token_list(head);
+    print_token_list(head);
     return (head);
 }
