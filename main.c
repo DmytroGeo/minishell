@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/03 10:56:41 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/03 12:18:39 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int main(int argc, char **argv, char **envp)
     (void)argv;
     char *prompt = get_prompt();
     char *line;
-    int *exit_status = malloc(sizeof(int));
+    // int *exit_status = malloc(sizeof(int));
     t_token *token_chain;
     // t_simple_command *simple_command;
 	copy_envp(&envp);
@@ -41,7 +41,7 @@ int main(int argc, char **argv, char **envp)
             // with $? always print exit_code.
             add_history(line);
             token_chain = lexing(line, envp);
-            expand_variables(&token_chain, *exit_status, envp); /* make sure to expand $? into the last error code.*/
+            // do_all_expansions(&token_chain, *exit_status, envp); /* make sure to expand $? into the last error code.*/
             // simple_command = parse(token_chain);
             // if (simple_command)
             // {

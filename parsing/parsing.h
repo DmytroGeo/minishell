@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:21:46 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/03 11:17:45 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/03 11:29:23 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		is_pipe(t_token *current_token);
 int		is_flag(t_token *current_token);
 int		is_append(t_token *current_token);
 int		is_heredoc(t_token *current_token);
-void    expand_variables(t_token **token_chain, int exit_status, char **envp);
+void    do_all_expansions(t_token **token_chain, int exit_status, char **envp);
 int     is_variable(t_token *current_token);
 int     is_single_quotes(t_token *current_token);
 int     is_double_quotes(t_token *current_token);

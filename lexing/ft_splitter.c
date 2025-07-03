@@ -34,7 +34,6 @@ char	**split_line(char *line)
 	tokens = malloc(sizeof(char *) * 256);
 	if (!tokens)
 		return (NULL);
-
 	while (line[i])
 	{
 		if ((line[i] == '\'' || line[i] == '"') &&
