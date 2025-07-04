@@ -3,24 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   lexing_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:37:13 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/03 11:14:58 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/04 17:05:32 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexing.h"
 
-char	*find_path_variable(char **envp)
+char	*find_variable_in_envp(char **envp, char *variable)
 {
 	char	**ptr;
-	char	*path_variable;
+	char	*found_variable;
+	char	*variable_with_equal_sign;
 
 	ptr = envp;
+	variable_with_equal_sign = ft_strjoin(variable, "=");
+	if (!variable_with_equal_sign)
+		retun (NULL);
 	while (*ptr)
 	{
-		if ((ft_strncmp(*ptr, "PATH=", 5)) == 0)
+		if ((ft_strncmp(*ptr, variable_with_equal_sign, ft_strlen(variable_with_equal_sign))) == 0)
 			break ;
 		ptr++;
 	}
@@ -29,31 +33,10 @@ char	*find_path_variable(char **envp)
 		ft_perror("", 'p');
 		return (NULL);
 	}
-	path_variable = *ptr;
-	path_variable += ft_strlen("PATH=");
-	return (path_variable);
-}
-
-char	*find_home_variable(char **envp)
-{
-	char	**ptr;
-	char	*home_variable;
-
-	ptr = envp;
-	while (*ptr)
-	{
-		if ((ft_strncmp(*ptr, "HOME=", 5)) == 0)
-			break ;
-		ptr++;
-	}
-	if (*ptr == NULL)
-	{
-		ft_perror("", 'p');
-		return (NULL);
-	}
-	home_variable = *ptr;
-	home_variable += ft_strlen("HOME=");
-	return (home_variable);
+	found_variable = *ptr;
+	found_variable += ft_strlen(variable_with_equal_sign);
+	free(variable_with_equal_sign);
+	return (found_variable);
 }
 
 char	*get_path(char *str, char **envp)
@@ -102,14 +85,6 @@ t_token_type identify_type(char *token, t_op *operators) //include? change strcm
 		return (VARIABLE);
 	if (token[0] == '-')
 		return (FLAG);	
-	// if (ft_strncmp(token, "cd", 3) == 0)
-	// 	return (CD);
-	// if (ft_strncmp(token, "export", 7) == 0)
-	// 	return (EXPORT);
-	// if (ft_strncmp(token, "unset", 6) == 0)
-	// 	return (UNSET);
-	// if (ft_strncmp(token, "exit", 5) == 0)
-	// 	return (EXIT);
 	while (operators[i].symbol)
 	{
 		if (ft_strncmp(token, operators[i].symbol, ft_strlen(token) + 1) == 0 && ft_strncmp(token, operators[i].symbol, ft_strlen(operators[i].symbol) + 1) == 0)
@@ -140,10 +115,6 @@ void    print_token_list(t_token *head)
 	"OR_IF",
 	"PAREN_LEFT",
 	"PAREN_RIGHT",
-	"CD",
-	// "EXPORT",
-	// "UNSET",
-	// "EXIT"
 	};
 	i = 1;
 	printf("\n< < < < Token List > > > >\n\n");

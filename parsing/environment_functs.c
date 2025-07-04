@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment_functs.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 15:51:57 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/03 10:42:08 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/04 17:56:04 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	unset_variable(char ***envp, const char *key)
 
 	if (index < 0)
 		return;
-
 	while ((*envp)[i])
 		i++;
 	new_env = malloc(sizeof(char *) * i); // one less

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/04 11:42:18 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/04 19:29:10 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /// find number of commands, outfiles, infiles
 
-int find_number_of_commands(t_token *token_chain) // this needs to be updated. Currently it's overcounting the commands.
+int find_number_of_commands(t_token *token_chain)
 {
     int number_of_commands = 0;
     t_token *current_token = token_chain;

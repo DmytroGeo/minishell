@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export_all_variables.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 12:27:45 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/02 13:51:35 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/04 17:53:35 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-void	export_all_variables(char **arguments, char ***envp)
+int	export_all_variables(char **arguments, char ***envp)
 {
 	while (*arguments)
 	{
@@ -22,4 +22,5 @@ void	export_all_variables(char **arguments, char ***envp)
 			ft_printf(2, "Invalid export format: %s\n", *arguments);
 		arguments++;
 	}
+	return (0);
 }

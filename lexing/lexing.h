@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:48:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/03 11:05:03 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/04 17:06:17 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,6 @@ typedef enum e_token_type
 	OR_IF,
 	PAREN_LEFT,
 	PAREN_RIGHT,
-	// CD,
-	// EXPORT,
-	// UNSET,
-	// EXIT
 }	t_token_type;
 
 typedef struct s_token
@@ -150,7 +146,7 @@ t_token_type identify_type(char *token, t_op *operators);
 void    print_raw_tokens(char **raw_tokens);
 void	print_token_list(t_token *head);
 void    array_free(char **arr);
-
+char	*find_variable_in_envp(char **envp, char *variable);
 char	**split_line(char *line);
 char	*strip_quotes(char *str);
 

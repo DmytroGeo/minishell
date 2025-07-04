@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_loop.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:12:37 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/04 10:26:57 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:17:37 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	process_loop(int *pid, int **fd, t_simple_command *simple_command, char **e
 		pid[i] = fork();
 		if (pid[i] < 0)
 		{
-			free_and_exit(pid, fd);
+			free_and_exit(pid, fd, simple_command);
 			exit(EXIT_FAILURE);
 		}
 		if (pid[i] == 0)
@@ -38,7 +38,7 @@ void	process_loop(int *pid, int **fd, t_simple_command *simple_command, char **e
 			else
 				proc_call(dup2(fd[i][1], STDOUT_FILENO), 'o');
 			close_fds(fd, number_of_commands - 1);
-			execute(i, fd, pid, simple_command, envp);
+			execute(i, fd, pid, simple_command);
 			exit(EXIT_FAILURE);
 		}
 		i++;

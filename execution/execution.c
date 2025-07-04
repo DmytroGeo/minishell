@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 13:19:06 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/04 12:59:46 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:46:20 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ int	execution(t_simple_command *simple_command, char ***envp, char **address_of_
 	fd = NULL;
 	if (ft_array_len(simple_command->commands) == 1 && is_built_in((simple_command->commands)[1]) == 1)
 	{	
-		execute_built_ins(simple_command, envp, address_of_prompt, (simple_command->commands)[1]);
-		return(errno);
+		exit_status = execute_built_ins(simple_command, (simple_command->commands)[1], pid, fd);
+		free_simple_command(simple_command);
+		return(exit_status);
 	}
 	init_setup(&pid, &fd, simple_command);
 	process_loop(pid, fd, simple_command);

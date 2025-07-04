@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:15:59 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/03 09:52:11 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:43:11 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		is_echo_flag(char *str)
 	return (EXIT_SUCCESS);
 }
 
-void	ft_echo(int fd, char **arguments)
+int	ft_echo(int fd, char **arguments)
 {
 	char *big_string;
 	int has_flag = 0;
@@ -65,5 +65,5 @@ void	ft_echo(int fd, char **arguments)
 	}
 	if (has_flag == 0)
 		ft_printf(fd, "\n", big_string);		
-	return;
+	return (0);
 }
