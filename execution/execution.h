@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:54:09 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/03 19:26:57 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/04 14:13:52 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,33 +30,19 @@
 # include <stdarg.h>
 # include <linux/limits.h>
 
-typedef struct s_execution_content
-{
-	int				number_of_commands;
-	int				index;
-	char			*command_name;
-	// char			**address_of_prompt;
-	char			*path;
-	char			**flags;
-	char			**envp;	
-} t_execution_content;
-
 void	close_fds(int **fd, int len);
 int		proc_call(int i, char c);
-char	**get_flags(char **arr);
 void	init_list(t_simple_command *simple_command, char **commands, char **envp);
-void	init_setup(int **pid, int ***fd, t_simple_command *simple_command);
 int		proc_call(int i, char c);
 int		execution(t_simple_command *simple_command, char ***envp, char **address_of_prompt);
-void	execute(int i, int **fd, int *pid);
+void	init_setup(int **pid, int ***fd, t_simple_command *simple_command);
 int		wait_for_processes(int *pid, int ac);
 void	dup_infile(int **fd, int *pid, t_simple_command *simple_command);
 void	dup_outfile(int **fd, int *pid, t_simple_command *simple_command);
-void	free_and_exit(int *pid, int **fd);
-void	ft_free_paths_and_flags(void *content);
+void	free_and_exit(int *pid, int **fd, t_simple_command *simple_command);
 void	ft_perror(char *str, char c);
 void	ft_intarr_free(int **fd, int len);
-int		heredoc(char *limiter);
+void	export_all_variables(char **arguments, char ***envp);
 void	process_loop(int *pid, int **fd, t_simple_command *simple_command);
 void	execute_built_ins_in_child(char *command_name, char **arguments);
 void    change_directory(char **new_directory, char **prompt, char **envp);
@@ -64,9 +50,9 @@ void	export_all_variables(char **arguments, char ***envp);
 void	unset_all_variables(char **arguments, char ***envp);
 int		check_built_ins(t_simple_command *simple_command);
 void	ft_echo(int fd, char **arguments);
-int		execute_built_ins(char *full_command, int outfile_fd, char ***envp, char **prompt);
 void	execute_built_ins_in_main(t_simple_command *simple_command, char ***envp, char **prompt);
-
-t_execution_content *ft_init_content(char *pa, char **fl, int ac, char **envp);
-
+void	print_env(int fd, char **envp);
+void	execute(int i, int **fd, int *pid, char **envp, t_simple_command *simple_command);
+void	free_simple_command(t_simple_command *simple_command);
+int		execute_built_ins(t_simple_command *simple_command, char ***envp, char **prompt, char *full_command);
 #endif

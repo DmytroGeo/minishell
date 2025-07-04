@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:21:46 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/03 18:51:30 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/04 13:21:51 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@
 typedef struct s_simple_command
 {
     int **infiles;
-    char **address_of_prompt;
+    // char **address_of_prompt;
     int **outfiles;
     char **commands;
-    int		*pid;
-	int		**fd;
+    // int		*pid;
+	// int		**fd;
 }           t_simple_command;
 
 t_simple_command  *parse(t_token *token_chain);

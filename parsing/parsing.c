@@ -3,32 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/03 19:28:59 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/04 11:42:18 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void print_env(int fd, char **envp)
-{
-	int i;
+/// find number of commands, outfiles, infiles
 
-	i = 0;
-	while (envp[i])
-		ft_printf(fd, "%s\n", envp[i++]);
-}
-
-int find_number_of_commands(t_token *token_chain)
+int find_number_of_commands(t_token *token_chain) // this needs to be updated. Currently it's overcounting the commands.
 {
     int number_of_commands = 0;
     t_token *current_token = token_chain;
     while (!is_EOF(current_token))
     {
         if (is_command(current_token))
+        {
             number_of_commands += 1;
+            current_token = current_token->next;
+            while (is_flag(current_token) || is_file(current_token) || is_command(current_token))
+                current_token = current_token->next;         
+        }
         current_token = current_token->next;
     }
     return (number_of_commands);
@@ -61,6 +59,10 @@ int find_number_of_infiles(t_token *token_chain)
     }
     return (number_of_infiles);
 }
+
+///////////////////////
+
+///// pre-parse to make sure everything is being followed by the correct thing
 
 int pre_parse(t_token *token_chain)
 {
@@ -122,6 +124,11 @@ int pre_parse(t_token *token_chain)
     }
     return (EXIT_SUCCESS);
 }
+
+/////////////
+
+////////// initialise infile and outfile fds:
+///////// we're counting heredoc as an infile.
 
 void    find_infiles(t_simple_command *simple_command, t_token *token_chain)
 {
@@ -240,7 +247,7 @@ void    find_outfiles(t_simple_command *simple_command, t_token *token_chain)
                 else if (is_append(previous_token))
                     *((simple_command->outfiles)[i]) = open(current_token->value, O_CREAT | O_APPEND | O_WRONLY, 0644);                
                 i++; 
-            }     t_list	*ft_find_node(int i, t_list **head);
+            }
         }   
         current_token = current_token->next;
     }
@@ -248,6 +255,9 @@ void    find_outfiles(t_simple_command *simple_command, t_token *token_chain)
     return;   
 }
 
+///////////////////
+
+///////////// initialialise commands
  
 void    collect_arguments(t_token **current_token, t_simple_command **simple_command, int counter)
 {
@@ -268,6 +278,7 @@ void    find_commands_and_arguments(t_simple_command **simple_command, t_token *
 {
     t_token *current_token = token_chain;
     int counter = 0;
+    char *path;
     while (!is_EOF(current_token))
     {
         if (is_command(current_token))
@@ -276,7 +287,7 @@ void    find_commands_and_arguments(t_simple_command **simple_command, t_token *
             current_token = current_token->next;
             if (is_flag(current_token) || is_file(current_token) || is_command(current_token))
                 collect_arguments(&current_token, simple_command, counter);
-            counter++;          
+            counter++;
         }
         else
             current_token = current_token->next;
@@ -285,7 +296,7 @@ void    find_commands_and_arguments(t_simple_command **simple_command, t_token *
     return ;
 }
 
-t_simple_command *create_simple_command(t_token *token_chain)
+t_simple_command *create_simple_command(t_token *token_chain, char **envp)
 {
     t_simple_command *simple_command = malloc(sizeof(t_simple_command));
     int number_of_commands = find_number_of_commands(token_chain);
@@ -293,12 +304,10 @@ t_simple_command *create_simple_command(t_token *token_chain)
     find_outfiles(simple_command, token_chain);
     simple_command->commands = malloc((number_of_commands + 1) * sizeof(char *));
     find_commands_and_arguments(&simple_command, token_chain);
-	simple_command->pid = NULL;
-	simple_command->fd = NULL;
     return(simple_command);
 }
 
-t_simple_command  *parse(t_token *token_chain)
+t_simple_command  *parse(t_token *token_chain, char **envp)
 {
     t_simple_command  *simple_command = NULL;
     if (!token_chain)
@@ -312,8 +321,6 @@ t_simple_command  *parse(t_token *token_chain)
         return (NULL);       
     }
     else
-    {
-        simple_command = create_simple_command(token_chain);
-    }
+        simple_command = create_simple_command(token_chain, envp);
     return (simple_command); 
 }

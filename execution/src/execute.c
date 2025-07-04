@@ -3,51 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 11:48:53 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/03 19:18:40 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/04 13:11:36 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-void	execute(int i, int **fd, int *pid, char **envp)
+void	execute(int i, int **fd, int *pid, char **envp, t_simple_command *simple_command)
 {
-	char	**array;
-	t_list	*node;
-	int		n;
-	t_execution_content *node_content;
+	char *command_to_be_executed = (simple_command->commands)[i];
+	char *array = ft_split(command_to_be_executed, ' ');
+	char *path;
 	
-	node_content = node->content;
-	array = malloc((2 + ft_array_len((node_content->flags))) * sizeof(char *));
-	if (!array)
-		return ;
-	array[0] = node_content->path;
-	if (!array[0] && !is_built_in(node_content->command_name))
+    if (is_built_in(array[0]))
 	{
+		execute_built_ins(simple_command, envp, prompt, (simple_command->commands)[i]); /////// I think we need to stitch more things into t_simple_command; envp, prompt, exit_status.
 		ft_array_free(array, ft_array_len(array));
-		free_and_exit(pid, fd);
-		exit (127);
+		free_and_exit(pid, fd, simple_command);
+		exit(errno);		
 	}
-	n = 0;
-	while (++n <= ft_array_len(node_content->flags))
-		array[n] = (node_content->flags)[n - 1];
-	array[n] = NULL;
-	if (is_built_in(node_content->command_name))
-	{
-		execute_built_ins_in_child(node_content->command_name, );
-		ft_array_free(array, ft_array_len(array));
-		free_and_exit(pid, fd);
-		exit(errno);
-	}
-	else
-	{
-		if (execve(node_content->path, array, envp)) < 0)
+    else
+    {
+        path = get_path(array[0], envp);
+    	if (!path)
 		{
+			ft_perror(array[0], 'p');
+			// free path
 			ft_array_free(array, ft_array_len(array));
-			free_and_exit(pid, fd);
-			return ;
-		}	
+			free_and_exit(pid, fd, simple_command);
+			exit (127);			
+		}
+		else
+		{
+			if ((execve(path, array + 1, envp)) < 0)
+			{
+				ft_array_free(array, ft_array_len(array));
+				free_and_exit(pid, fd, simple_command);
+				return ;
+			}
+		}
 	}
 }

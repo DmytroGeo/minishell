@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/03 12:18:39 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/04 10:30:16 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,26 @@ int main(int argc, char **argv, char **envp)
     (void)argv;
     char *prompt = get_prompt();
     char *line;
-    // int *exit_status = malloc(sizeof(int));
+    int *exit_status = malloc(sizeof(int));
     t_token *token_chain;
-    // t_simple_command *simple_command;
+    t_simple_command *simple_command;
 	copy_envp(&envp);
     while ((line = readline(prompt)) != NULL)
     {
         if (*line)
         {
-            // if cd is the first word, then we change directory
-            // same with exit (apart from exit | ...). If exit is in a pipe process, say < infile cat | exit | wc > out, then it exits the child process but doesn't kill main process.
-            // with $? always print exit_code.
             add_history(line);
             token_chain = lexing(line, envp);
-            // do_all_expansions(&token_chain, *exit_status, envp); /* make sure to expand $? into the last error code.*/
-            // simple_command = parse(token_chain);
-            // if (simple_command)
-            // {
-            //     *exit_status = execution(simple_command, &envp, &prompt);
-            // }
-            // else
-            // {
-            //     ft_printf(2, "Program was exited\n");
-            // }
+            do_all_expansions(&token_chain, *exit_status, envp); /* make sure to expand $? into the last error code.*/
+            simple_command = parse(token_chain);
+            if (simple_command)
+            {
+                *exit_status = execution(simple_command, &envp, &prompt);
+            }
+            else
+            {
+                ft_printf(2, "Program was exited\n");
+            }
         }
         free(line);             
     }

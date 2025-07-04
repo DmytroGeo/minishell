@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 11:09:15 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/28 13:13:34 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/03 22:07:51 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	ft_perror(char *str, char c)
 	if (c == 'p')
 		error_message = "PATH not found";
 	else if (c == 'o')
-		error_message = "my zsh: no such file or directory: ";
+		error_message = "minishell: no such file or directory: ";
 	else
-		error_message = "my zsh: command not found: ";
+		error_message = "minishell: command not found: ";
 	temp1 = ft_strjoin(error_message, str);
 	if (!temp1)
 		return ;

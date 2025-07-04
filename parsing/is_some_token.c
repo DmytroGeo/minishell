@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 13:42:50 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/03 11:15:34 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/04 13:00:53 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int is_command(t_token *current_token)
     {
         return (is_built_in(current_token->value) || (current_token->path != NULL));
     }
-    return (current_token->path != NULL);
+    return(false);
 }
 
 int is_redir_in(t_token *current_token)
