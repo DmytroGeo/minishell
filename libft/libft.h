@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:48:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/01 14:07:36 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/05 12:50:57 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int		ft_array_len(char **array);
 int		ft_int_array_len(int **array);
 int	    is_built_in(char *str);
 
+void	ft_intarr_free(int **fd, int len);
 void	ft_convert(int fd, char c, va_list args, int *count);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 void	ft_bzero(void *s, size_t n);
@@ -67,7 +68,6 @@ void	ft_puthex(unsigned int n, int fd, int *count);
 void	ft_putchex(unsigned int n, int fd, int *count);
 void	ft_putuns(unsigned int n, int fd, int *count);
 void	ft_putptr(void *ptr, int fd, int *count);
-
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 void	ft_lstadd_front(t_list **lst, t_list *new);
 void	ft_lstadd_back(t_list **lst, t_list *new);

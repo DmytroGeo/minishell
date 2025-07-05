@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:54:09 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/04 16:43:47 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/05 15:32:40 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,24 @@
 # include <linux/limits.h>
 
 int		execute_built_ins(t_simple_command *simple_command, char *full_command, int *pid, int **fd);
-void	close_fds(int **fd, int len);
+int     change_directory(char **new_directory, char **prompt, char ***envp);
 int		proc_call(int i, char c);
-void	init_list(t_simple_command *simple_command, char **commands, char **envp);
-int		proc_call(int i, char c);
-int		execution(t_simple_command *simple_command, char ***envp, char **address_of_prompt);
-void	init_setup(int **pid, int ***fd, t_simple_command *simple_command);
+int     execution(t_simple_command *simple_command);
 int		wait_for_processes(int *pid, int ac);
-void	dup_infile(int **fd, int *pid, t_simple_command *simple_command);
-void	dup_outfile(int **fd, int *pid, t_simple_command *simple_command);
-int     free_and_exit(int *pid, int **fd, t_simple_command *simple_command);
-void	ft_perror(char *str, char c);
 int     free_simple_command(t_simple_command *simple_command);
-void	ft_intarr_free(int **fd, int len);
-void	process_loop(int *pid, int **fd, t_simple_command *simple_command);
-void	execute_built_ins_in_child(char *command_name, char **arguments);
 int     export_all_variables(char **arguments, char ***envp);
 int     unset_all_variables(char **arguments, char ***envp);
 int		check_built_ins(t_simple_command *simple_command);
 int     ft_echo(int fd, char **arguments);
-void	execute_built_ins_in_main(t_simple_command *simple_command, char ***envp, char **prompt);
-int     print_env(int fd, char **envp);
-void	execute(int i, int **fd, int *pid, t_simple_command *simple_command);
-int     change_directory(char **new_directory, char **prompt, char **envp);
+int     print_envp(int fd, char **envp);
+int     ft_exit(char **commands_and_arguments, int *pid, int **fd, t_simple_command *simple_command);
+
+void	close_fds(int **fd, int len);
+void	init_setup(int **pid, int ***fd, t_simple_command *simple_command);
+void	dup_infile(int **fd, int *pid, t_simple_command *simple_command);
+void	dup_outfile(int **fd, int *pid, t_simple_command *simple_command);
+void	ft_perror(char *str, char c);
+void	process_loop(int *pid, int **fd, t_simple_command *simple_command);
+void	execute(char *command_to_be_executed, int **fd, int *pid, t_simple_command *simple_command);
+void	free_and_exit(int *pid, int **fd, t_simple_command *simple_command);
 #endif

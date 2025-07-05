@@ -6,13 +6,13 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 13:19:06 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/04 16:46:20 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/05 13:09:57 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "execution.h"
 
-int	execution(t_simple_command *simple_command, char ***envp, char **address_of_prompt)
+int	execution(t_simple_command *simple_command)
 {
 	int		exit_status;
 	int		*pid;
@@ -35,11 +35,3 @@ int	execution(t_simple_command *simple_command, char ***envp, char **address_of_
 	free(pid);
 	return (exit_status);
 }
-    // ft_printf("From execution, the prompt is %s\n", simple_command->prompt);
-	// ft_printf("The number of commands is %d\n", number_of_commands);
-	// char **cur = simple_command->commands;
-	// while (*cur)
-	// {
-	// 	ft_printf("The command is %s\n", *cur);
-	// 	cur++;          
-	// }

@@ -6,13 +6,13 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:12:37 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/04 16:17:37 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/05 15:35:27 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-void	process_loop(int *pid, int **fd, t_simple_command *simple_command, char **envp)
+void	process_loop(int *pid, int **fd, t_simple_command *simple_command)
 {
 	int		i;
 	int		number_of_commands;
@@ -38,7 +38,7 @@ void	process_loop(int *pid, int **fd, t_simple_command *simple_command, char **e
 			else
 				proc_call(dup2(fd[i][1], STDOUT_FILENO), 'o');
 			close_fds(fd, number_of_commands - 1);
-			execute(i, fd, pid, simple_command);
+			execute((simple_command->commands)[i], fd, pid, simple_command);
 			exit(EXIT_FAILURE);
 		}
 		i++;

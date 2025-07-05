@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 15:51:57 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/04 17:56:04 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/05 12:46:13 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,11 +156,9 @@ int	is_valid_variable_assignment(char *str)
 	equal_sign = ft_strchr(str, '=');
 	if (!equal_sign/* || equals == str || *(equals + 1) == '\0'*/)
 		return (0); // no '=' → not a variable assignment
-
 	// Check for space around '='
 	if (equal_sign == str || equal_sign[-1] == ' ' || equal_sign[1] == ' ')
 		return (0); // starts with '=' or has space around it
-
 	// Check the name before '='
 	i = 0;
 	if (!ft_isalpha(str[i]) && str[i] != '_')

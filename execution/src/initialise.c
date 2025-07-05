@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialise.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:41:49 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/04 10:58:04 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/05 13:08:45 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ void	init_setup(int **pid, int ***fd, t_simple_command *simple_command)
 	i = -1;
 	*pid = malloc((number_of_commands) * sizeof(int));
 	if (!*pid)
-		return ;
-	else 
-		*fd = malloc((number_of_commands - 1) * sizeof(int *));
+		return ; 
+	*fd = malloc((number_of_commands - 1) * sizeof(int *));
 	if (!*fd)
 		return ;
 	while (++i < number_of_commands - 1)

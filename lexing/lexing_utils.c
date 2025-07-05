@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:37:13 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/04 17:05:32 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/05 15:44:02 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*find_variable_in_envp(char **envp, char *variable)
 	ptr = envp;
 	variable_with_equal_sign = ft_strjoin(variable, "=");
 	if (!variable_with_equal_sign)
-		retun (NULL);
+		return (NULL);
 	while (*ptr)
 	{
 		if ((ft_strncmp(*ptr, variable_with_equal_sign, ft_strlen(variable_with_equal_sign))) == 0)
@@ -48,7 +48,7 @@ char	*get_path(char *str, char **envp)
 	int		i;
 
 	i = -1;
-	path_variable = find_path_variable(envp);
+	path_variable = find_variable_in_envp(envp, "PATH");
 	if (!path_variable)
 		return (NULL);
 	arr = ft_split(path_variable, ':');

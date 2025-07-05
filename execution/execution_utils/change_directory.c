@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 10:57:10 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/04 19:19:12 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/05 13:41:33 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int    change_directory(char **new_directory, char **prompt, char ***envp)
     {
         if (chdir(*new_directory) != 0)
         {
-            ft_printf(2, "Directory doesn't exist \n");
+            ft_printf(2, "Directory doesn't exist\n");
             free(pwd_before_cd);
             return (-1);        
         }

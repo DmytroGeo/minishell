@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:15:59 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/04 16:43:11 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/05 12:54:07 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	ft_echo(int fd, char **arguments)
 	int i = 0;
 	char *temp;
 	char *previous_big_string;
+
 	if (arguments[i] && is_echo_flag(arguments[i]) == EXIT_SUCCESS)
 	{
 		has_flag = 1;
@@ -43,9 +44,7 @@ int	ft_echo(int fd, char **arguments)
 	}
 	number_of_arguments = ft_array_len(arguments + i);
 	if (number_of_arguments == 1)
-	{
-		ft_printf(fd, "%s", arguments[i]);		
-	}
+		ft_printf(fd, "%s", arguments[i]);
 	else if (number_of_arguments > 1)
 	{
 		previous_big_string = ft_strjoin(arguments[i], " ");
