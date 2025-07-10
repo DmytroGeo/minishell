@@ -6,56 +6,36 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 12:37:16 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/05 12:37:43 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/10 13:39:46 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-/// find number of commands, outfiles, infiles
+// this function finds the number of infiles.
+// if ANY of the infiles havedon't exist or have the wrong permissions,
+// we return -1. This tells find_infiles() to return -1 to parsing and not execute the process.
 
-int find_number_of_commands(t_token *token_chain)
+int find_number_of_infiles(t_token *start)
 {
-	int number_of_commands = 0;
-	t_token *current_token = token_chain;
-	while (!is_EOF(current_token))
+	int	number_of_infiles;
+	
+	number_of_infiles = 0;
+	while (!is_eof(start) && !is_pipe(start))
 	{
-		if (is_command(current_token))
+		if (is_heredoc(start) || is_redir_in(start))
 		{
-			number_of_commands += 1;
-			current_token = current_token->next;
-			while (is_flag(current_token) || is_file(current_token) || is_command(current_token))
-				current_token = current_token->next;         
+			start = start->next;
+			if (is_heredoc(start->previous) && !is_valid_heredoc_name(start->value))
+				return (ft_printf(2, "minishell: syntax error near unexpected token '%s'\n", start->value), -1);
+			else if (is_redir_in(start->previous) && !access(start->value, F_OK))
+				return (ft_printf(2, "minishell: %s: No such file or directory\n", start->value), -1);
+			else if (is_redir_in(start->previous) && !access(start->value, R_OK))
+				return (ft_printf(2, "minishell: %s: Permission denied\n", start->value), -1);
+			else
+				number_of_infiles++;
 		}
-		current_token = current_token->next;
-	}
-	return (number_of_commands);
-}
-
-int find_number_of_outfiles(t_token *token_chain)
-{
-	int number_of_outfiles = 0;
-	t_token *current_token = token_chain;
-	
-	while (!is_EOF(current_token))
-	{
-		if (is_redir_out(current_token))
-			number_of_outfiles++;
-		current_token = current_token->next;
-	}
-	return (number_of_outfiles);
-}
-
-int find_number_of_infiles(t_token *token_chain)
-{
-	int number_of_infiles = 0;
-	t_token *current_token = token_chain;
-	
-	while (!is_EOF(current_token))
-	{
-		if (is_redir_in(current_token))
-			number_of_infiles++;
-		current_token = current_token->next;
-	}
+		start = start->next;
+	}										
 	return (number_of_infiles);
 }

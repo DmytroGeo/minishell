@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:37:13 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/05 15:44:02 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:22:26 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,26 +72,14 @@ t_token_type identify_type(char *token, t_op *operators) //include? change strcm
 {
 	int i;
 
-	i = 0;
-	if (ft_strncmp(token, "&&", 3) == 0)
-		return (AND_IF);
-	if (ft_strncmp(token, "||", 3) == 0)
-		return (OR_IF);
-	if (ft_strncmp(token, "(", 2) == 0)
-		return (PAREN_LEFT);
-	if (ft_strncmp(token, ")", 2) == 0)
-		return (PAREN_RIGHT);
-	if (token[0] == '$')
-		return (VARIABLE);
-	if (token[0] == '-')
-		return (FLAG);	
+	i = 0;	
 	while (operators[i].symbol)
 	{
 		if (ft_strncmp(token, operators[i].symbol, ft_strlen(token) + 1) == 0 && ft_strncmp(token, operators[i].symbol, ft_strlen(operators[i].symbol) + 1) == 0)
 			return (operators[i].type);
 		i++;
 	}
-	return (WORD);
+	return (word);
 }
 
 void    print_token_list(t_token *head)
@@ -106,15 +94,6 @@ void    print_token_list(t_token *head)
 	"APPEND",
 	"HEREDOC",
 	"END_OF_FILE",
-	"FLAG",
-	"SINGLE_QUOTED_STRING",
-	"DOUBLE_QUOTED_STRING",
-	"COMMAND",
-	"VARIABLE",
-	"AND_IF",
-	"OR_IF",
-	"PAREN_LEFT",
-	"PAREN_RIGHT",
 	};
 	i = 1;
 	printf("\n< < < < Token List > > > >\n\n");

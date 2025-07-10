@@ -6,25 +6,11 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:42:54 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/05 15:19:51 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/09 13:55:41 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-int is_command(t_token *current_token)
-{
-    if (!is_EOF(current_token))
-    {
-        return (is_built_in(current_token->value) || (current_token->path != NULL));
-    }
-    return(false);
-}
-
-int is_flag(t_token *current_token)
-{
-    return (current_token->type == FLAG);
-}
 
 void    collect_arguments(t_token **current_token, t_simple_command *simple_command, int counter)
 {
@@ -41,13 +27,19 @@ void    collect_arguments(t_token **current_token, t_simple_command *simple_comm
 	}
 }
 
-void    find_commands_and_arguments(t_simple_command *simple_command, t_token *token_chain)
+void    find_command_and_arguments(t_simple_command *simple_command, t_token **token_chain)
 {
-	t_token *current_token = token_chain;
-	int counter = 0;
-	while (!is_EOF(current_token))
+	t_token *current_token;
+	int counter;
+	int number_of_commands;
+
+	number_of_commands = find_number_of_commands(token_chain);
+	current_token = token_chain;
+	counter = 0;
+	simple_command->commands = malloc((number_of_commands + 1) * sizeof(char *));
+	while (!is_eof(current_token))
 	{
-		if (is_command(current_token))
+		if (is_word(current_token))
 		{
 			(simple_command->commands)[counter] = ft_strdup(current_token->value);
 			current_token = current_token->next;

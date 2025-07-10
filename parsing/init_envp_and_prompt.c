@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_intarr_free.c                                   :+:      :+:    :+:   */
+/*   init_envp_and_prompt.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/04 14:45:54 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/08 11:08:27 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/07/10 13:20:20 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/10 13:23:52 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "parsing.h"
 
-void	ft_intarr_free(int **fd, int len)
+int		init_envp_and_prompt(t_big_struct *big_struct, char **envp)
 {
-	int	i;
+    char **my_envp;
 
-	i = 0;
-	if (!fd)
-		return ;
-	while (i < len)
-	{
-		free(fd[i]);
-		i++;
-	}
-	free(fd);
+    big_struct->prompt = get_prompt();
+    my_envp = copy_envp(envp);
+    big_struct->envp = my_envp;
 }

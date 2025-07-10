@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/05 15:23:03 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/10 14:54:24 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,39 +26,26 @@ int main(int argc, char **argv, char **envp)
 {
     (void)argc;
     (void)argv;
-    char *prompt = get_prompt();
-    char *line;
-    int exit_status;
-    t_token *token_chain;
-    t_simple_command *simple_command;
-	copy_envp(&envp);
-    exit_status = 0;
-    simple_command = NULL;
-    while ((line = readline(prompt)) != NULL)
+    char *line; // var 1
+    int exit_status; // var 2
+    t_token *token_chain; // var 3
+    t_big_struct *big_struct; // var 4
+    
+    big_struct = malloc(sizeof(t_big_struct));
+    if (!big_struct)
+        exit (1);
+    init_envp_and_prompt(big_struct, envp);
+    while ((line = readline(big_struct->prompt)) != NULL)
     {
-        if (*line)
+        if (*line) // if there's something in the line 
         {
             add_history(line);
-            token_chain = lexing(line, envp);
-            if (!token_chain)
-            {
-                ft_array_free(envp, ft_array_len(envp));
-            }
-            // do_all_expansions(&token_chain, exit_status, envp); /* make sure to expand $? into the last error code. Also ~ expands to home*/
-            simple_command = init_exec_struct(prompt, envp);
-            if (simple_command)
-            {
-                init_exec_struct_2(simple_command, token_chain);
-                if (simple_command && ft_array_len(simple_command->commands) > 0)
-                {
-                    exit_status = execution(simple_command);
-                }
-                else
-                {
-                    ft_printf(2, "Program was exited\n");
-                }                
-            }
-
+            token_chain = lexing(line, big_struct->envp);
+            //
+            // if token chain finds a | at the end of the command, we do a heredoc style thing where we wait for the rest of the command (prompt = >)
+            init_processes(big_struct, token_chain);
+            // free token chain
+            exit_status = execution(big_struct);
         }
         free(line);             
     }

@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:21:46 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/05 15:22:44 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/10 14:24:55 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,28 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-typedef struct s_simple_command
+typedef struct s_proc_struct
 {
-	int **infiles;
-	char **address_of_prompt;
-	char ***address_of_envp;
+	int **infiles; // this is an array of integer pointers so that I can null-terminate it. I like dealing with NULL-terminated arrays
 	int **outfiles;
-	char **commands;
-}           t_simple_command;
+	char **command_and_args;
+}           t_proc_struct;
 
-t_simple_command  *parse(t_token *token_chain);
+typedef struct s_big_struct
+{
+	char *prompt;
+	char **envp;
+	int	num_of_proc;
+	t_proc_struct *proc_array;	
+}           t_big_struct;
 
-int		is_command(t_token *current_token);
-int		is_file(t_token *current_token);
+t_proc_struct  *parse(t_token *token_chain);
+
+int 	is_word(t_token *current_token);
 int		is_pipe(t_token *current_token);
-int		is_flag(t_token *current_token);
 int		is_append(t_token *current_token);
 int		is_heredoc(t_token *current_token);
-int		is_EOF(t_token *current_token);
+int		is_eof(t_token *current_token);
 int		is_redir_in(t_token *current_token);
 int		is_redir_out(t_token *current_token);
 int		proc_call(int i, char c);
@@ -47,18 +51,16 @@ int     is_variable(t_token *current_token);
 int 	find_number_of_commands(t_token *token_chain);
 int 	find_number_of_outfiles(t_token *token_chain);
 int		find_number_of_infiles(t_token *token_chain);
+int		find_infiles(t_proc_struct *process, t_token *start);
 
-void    find_commands_and_arguments(t_simple_command *simple_command, t_token *token_chain);
-void    find_outfiles(t_simple_command *simple_command, t_token *token_chain);
-void    find_infiles(t_simple_command *simple_command, t_token *token_chain);
+void    find_command_and_arguments(t_proc_struct *simple_command, t_token *token_chain);
+void    find_outfiles(t_proc_struct *process, t_token *token_chain);
 void	unset_variable(char ***envp, const char *key);
-void	copy_envp(char ***envp);
-void    copy_envp(char ***envp);
 void	export_variable(char ***envp, const char *assignment);
 void	unset_variable(char ***envp, const char *key);
 void    do_all_expansions(t_token **token_chain, int exit_status, char **envp);
-void	init_exec_struct_2(t_simple_command *simple_command, t_token *token_chain);
+void	init_processes(t_big_struct *big_struct, t_token *token_chain);
+char	**copy_envp(char **envp);
 
-t_simple_command	*init_exec_struct(char *prompt, char **envp);
-
+int		init_envp_and_prompt(t_big_struct *big_struct, char **envp);
 #endif

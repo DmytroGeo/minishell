@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 15:51:57 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/05 12:46:13 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/07 14:31:46 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,28 +87,27 @@ void	export_variable(char ***envp, const char *assignment)
 	}
 }
 
-void copy_envp(char ***envp)
+char **copy_envp(char **envp)
 {
 	int		i;
 	char	**copy;
 
-	if (!*envp)
-		return ;
+	if (!envp)
+		return (NULL);
 	i = 0;
-	while ((*envp)[i])
+	while ((envp)[i])
 		i++;
 	copy = malloc(sizeof(char *) * (i + 1));
 	if (!copy)
-		return ;
+		return (NULL);
 	i = 0;
-	while ((*envp)[i])
+	while ((envp)[i])
 	{
-		copy[i] = ft_strdup((*envp)[i]);
+		copy[i] = ft_strdup((envp)[i]);
 		i++;
 	}
 	copy[i] = NULL;
-	*envp = copy;
-	return ;
+	return (copy);
 }
 
 int	is_valid_variable_name(char *str)

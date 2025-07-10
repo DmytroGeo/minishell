@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:54:09 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/05 15:32:40 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:34:00 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@
 # include <stdarg.h>
 # include <linux/limits.h>
 
-int		execute_built_ins(t_simple_command *simple_command, char *full_command, int *pid, int **fd);
+int		execute_built_ins(t_big_struct *big_struct, int i, int *pid, int **fd);
 int     change_directory(char **new_directory, char **prompt, char ***envp);
 int		proc_call(int i, char c);
-int     execution(t_simple_command *simple_command);
+int     execution(t_big_struct *big_struct);
 int		wait_for_processes(int *pid, int ac);
 int     free_simple_command(t_simple_command *simple_command);
 int     export_all_variables(char **arguments, char ***envp);

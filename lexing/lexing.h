@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:48:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/04 17:06:17 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:23:08 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,22 +95,13 @@
 
 typedef enum e_token_type 
 {
-    WORD,
-    PIPE,
-    REDIR_IN,
-    REDIR_OUT,
-    APPEND,
-    HEREDOC,
-	END_OF_FILE,
-	FLAG,
-	SINGLE_QUOTED_STRING,
-	DOUBLE_QUOTED_STRING,
-	COMMAND,
-	VARIABLE,
-	AND_IF,
-	OR_IF,
-	PAREN_LEFT,
-	PAREN_RIGHT,
+    word,
+    _pipe,
+    redir_in,
+    redir_out,
+    append,
+    heredoc,
+	end_of_file,
 }	t_token_type;
 
 typedef struct s_token
