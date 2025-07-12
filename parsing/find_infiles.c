@@ -6,98 +6,63 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:12:29 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/10 13:50:13 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/12 10:27:11 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int is_redir_in(t_token *current_token)
+int find_number_of_infiles(t_token *start)
 {
-    return (current_token->type == redir_in);
-}
-
-int is_heredoc(t_token *current_token)
-{
-    return (current_token->type == heredoc);
-}
-
-// if even one of the infiles in the process doesn't exist or doesn't have read permissions, that process doesn't execute
-// however, all the other processes do.
-
-// int		find_infiles(t_proc_struct *process, t_token *start)
-// {
-// 	int		number_of_infiles;
-// 	int		i;
-// 	char	*limiter;
-// 	int		*fd;
-
-// 	i = 0;
-// 	number_of_infiles = find_number_of_infiles(start);
-// 	if (number_of_infiles < 0)
-// 		return (-1);
-// 	process->infiles = malloc((number_of_infiles + 1) * sizeof(int *));
-// 	while (!is_eof(start) && !is_pipe(start))
-// 	{
-// 		if (is_redir_in(start))
-// 		{
-// 			start = start->next;
-// 			(process->infiles)[i] = malloc(sizeof(int *));
-// 			*((process->infiles)[i]) = open(start->value, O_RDONLY);
-// 			i++;
-// 		}
-// 		else if (is_heredoc(start))
-// 		{
-// 			limiter = start->next->value;
-// 			fd = malloc(2 * sizeof(int));
-// 			pipe(fd);
-// 			while (1)
-// 			{
-// 				write(1, "> ", 2);
-// 				char *line_read = get_next_line(0);
-// 				if (ft_strncmp(line_read, limiter, ft_strlen(limiter)) == 0 && ft_strncmp(line_read, limiter, ft_strlen(line_read) - 1) == 0)
-// 				{
-// 					*((process->infiles)[i]) = fd[0];
-// 					close(fd[1]);               
-// 					break;
-// 				}
-// 				else
-// 					write(fd[1], line_read, ft_strlen(line_read));
-// 			}
-// 		}
-// 		start = start->next;
-// 	}
-// 	(process->infiles)[number_of_infiles] = NULL;
-// 	return (0);
-// }
-
-int		return_heredoc(char *limiter)
-{
-	int *fd;
-	int read_end;
+	int	number_of_infiles;
+	char *file_name;
 	
-	read_end = -1;
-	fd = malloc(2 * sizeof(int));
-	if (!fd)
-		return (read_end);
-	pipe(fd);
-	while (1)
+	number_of_infiles = 0;
+	while (!is_eof(start) && !is_pipe(start))
 	{
-		write(1, "> ", 2);
-		char *line_read = get_next_line(0);
-		if (ft_strncmp(line_read, limiter, ft_strlen(limiter)) == 0 && ft_strncmp(line_read, limiter, ft_strlen(line_read) - 1) == 0)
+		if (is_heredoc(start) || is_redir_in(start))
 		{
-			read_end = fd[0];
-			close(fd[1]);        
-			break;
+			start = start->next;
+			file_name = ((t_token_content *)(start->content))->value;
+			if (is_heredoc(start->previous) && !is_valid_heredoc_name(file_name))
+				return (infile_err1(file_name), -1);
+			else if (is_redir_in(start->previous) && access(file_name, F_OK) != 0)
+				return (infile_err2(file_name), -1);
+			else if (is_redir_in(start->previous) && access(file_name, R_OK) != 0)
+				return (ifile_err3(file_name), -1);
+			number_of_infiles++;
 		}
-		else
-			write(fd[1], line_read, ft_strlen(line_read));
-	}
-	return (read_end);
+		start = start->next;
+	}										
+	return (number_of_infiles);
 }
 
-int		find_infiles(t_proc_struct *process, t_token *start)
+int		no_infiles(t_proc *proc_struct)
+{
+	proc_struct->infiles = malloc(2 * sizeof(int *));
+	if (!(proc_struct->infiles))
+		return (-2);
+	*((proc_struct->infiles)[0]) = STDIN_FILENO;
+	((proc_struct->infiles)[1]) = NULL;
+	return (0);
+}
+
+int init_infile(int i, t_token *start, t_proc *proc_struct)
+{
+	char *file_name;
+
+	file_name = ((t_token_content *)(start->content))->value;
+	(proc_struct->infiles)[i] = malloc(sizeof(int *));
+	if (!((proc_struct->infiles)[i]))
+		return (-2);
+	if (is_redir_in(start->previous))
+		*((proc_struct->infiles)[i]) = open(file_name, O_RDONLY);
+	else if (is_heredoc(start->previous))
+		*((proc_struct->infiles)[i]) = heredoc_fd(file_name);
+	return (0);
+}
+
+int		find_infiles(t_proc *proc_struct, t_token *start)
 {
 	int		number_of_infiles;
 	int		i;
@@ -106,21 +71,22 @@ int		find_infiles(t_proc_struct *process, t_token *start)
 	number_of_infiles = find_number_of_infiles(start);
 	if (number_of_infiles < 0)
 		return (-1);
-	process->infiles = malloc((number_of_infiles + 1) * sizeof(int *));
-	while (!is_eof(start) && !is_pipe(start))
+	else if (number_of_infiles == 0)
+		return(no_infiles(proc_struct));
+	proc_struct->infiles = malloc((number_of_infiles + 1) * sizeof(int *));
+	if (!(proc_struct->infiles))
+		return (-2);
+	while (i < number_of_infiles)
 	{
 		if (is_redir_in(start) || is_heredoc(start))
 		{
 			start = start->next;
-			(process->infiles)[i] = malloc(sizeof(int *));
-			if (is_redir_in(start->previous))
-				*((process->infiles)[i]) = open(start->value, O_RDONLY);
-			else if (is_heredoc(start->previous))
-				*((process->infiles)[i]) = return_heredoc(start->value);
+			if (init_infile(i, start, proc_struct) == -2)
+				return (free_infiles(i, proc_struct), -2); 
 			i++;
 		}
 		start = start->next;
 	}
-	(process->infiles)[number_of_infiles] = NULL;
+	(proc_struct->infiles)[number_of_infiles] = NULL;
 	return (0);
 }

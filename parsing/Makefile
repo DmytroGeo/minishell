@@ -6,7 +6,7 @@
 #    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/09 17:20:58 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/07/08 10:27:23 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/12 10:08:02 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRC = environment_functs \
 		find_outfiles \
 		proc_call \
 		init_simple_command \
-		is_some_token
+		is_some_token \
+		is_some_token2
 
 SRCS = $(addsuffix .c, $(SRC))
 OBJS = $(addsuffix .o, $(SRC))

@@ -1,42 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_some_token.c                                    :+:      :+:    :+:   */
+/*   is_some_token2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/28 13:42:50 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/11 14:14:05 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/07/11 13:41:03 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/11 13:42:41 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	is_eof(t_token *current_token)
-{
-	return (current_token->next == NULL);
-}
-
-int	is_word(t_token *current_token)
+int is_heredoc(t_token *current_token)
 {
 	t_token_content *content;
 	
 	content = (t_token_content *)(current_token->content);
-	return (content->type == word);
+	return (content->type == heredoc);
 }
 
-int	is_pipe(t_token *current_token)
+int is_redir_in(t_token *current_token)
 {
 	t_token_content *content;
 	
 	content = (t_token_content *)(current_token->content);
-	return (content->type == _pipe);
+	return (content->type == redir_in);
 }
 
-int	is_redirect(t_token *current_token)
+int is_redir_out(t_token *current_token)
 {
-	return (is_redir_in(current_token)
-		|| is_heredoc(current_token)
-		|| is_redir_out(current_token)
-		|| is_append(current_token));
+	t_token_content *content;
+	
+	content = (t_token_content *)(current_token->content);
+    return (content->type == redir_out);
+}
+
+int is_append(t_token *current_token)
+{
+	t_token_content *content;
+	
+	content = (t_token_content *)(current_token->content);
+    return (content->type == append);
 }

@@ -6,50 +6,89 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:42:54 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/09 13:55:41 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/11 18:20:27 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void    collect_arguments(t_token **current_token, t_simple_command *simple_command, int counter)
+int		find_number_of_commands_and_args(t_token *start)
 {
-	char *temp = NULL;
-	while (is_flag(*current_token) || is_file(*current_token) || is_command(*current_token))
+	int	number_of_commands_and_args;
+	char *file_name;
+	
+	number_of_commands_and_args = 0;
+	while (!is_eof(start) && !is_pipe(start))
 	{
-		temp = ft_strjoin((simple_command->commands)[counter], " ");
-		free((simple_command->commands)[counter]);
-		(simple_command->commands)[counter] = temp;
-		temp = ft_strjoin((simple_command->commands)[counter], (*current_token)->value);
-		free((simple_command->commands)[counter]);
-		(simple_command->commands)[counter] = temp;
-		(*current_token) = (*current_token)->next;               
-	}
+		if (is_redirect(start))
+			start = start->next->next;
+		else
+		{
+			number_of_commands_and_args++;
+			start = start->next;	
+		}
+	}										
+	return (number_of_commands_and_args);
 }
 
-void    find_command_and_arguments(t_simple_command *simple_command, t_token **token_chain)
+int		init_command(t_proc *proc_struct, t_token *start, char **envp)
 {
-	t_token *current_token;
-	int counter;
-	int number_of_commands;
+	t_token_content *content;
+	char *path;
 
-	number_of_commands = find_number_of_commands(token_chain);
-	current_token = token_chain;
-	counter = 0;
-	simple_command->commands = malloc((number_of_commands + 1) * sizeof(char *));
-	while (!is_eof(current_token))
+	content = (t_token_content *)(start->content);
+
+	if (access(content->value, F_OK | X_OK) == 0)
+		(proc_struct->cmd_and_args)[0] = ft_strdup(content->value);
+	else
 	{
-		if (is_word(current_token))
-		{
-			(simple_command->commands)[counter] = ft_strdup(current_token->value);
-			current_token = current_token->next;
-			if (is_flag(current_token) || is_file(current_token) || is_command(current_token))
-				collect_arguments(&current_token, simple_command, counter);// here we're passing the address of current token because we want to skip it to the end of the flags
-			counter++;
-		}
+		path = get_path(content->value, envp);
+		if (!path)
+			(proc_struct->cmd_and_args)[0] = ft_strdup(content->value);
 		else
-			current_token = current_token->next;
+			(proc_struct->cmd_and_args)[0] = path;	
 	}
-	(simple_command->commands)[counter] = NULL;
-	return ;
+
+	if (!((proc_struct->cmd_and_args)[0]))
+		return (-1);
+	return (0);
+}
+
+int		init_arg(t_proc *proc_struct, t_token *start, int counter)
+{
+	t_token_content *content;
+
+	content = (t_token_content *)(start->content);
+	(proc_struct->cmd_and_args)[counter] = ft_strdup(content->value);
+	if (!((proc_struct->cmd_and_args)[counter]))
+		return (-1);
+	return (0);
+}
+
+int    find_command_and_arguments(t_proc *proc_struct, t_token *start, char **envp)
+{
+	int counter;
+	int num_cmd_args;
+
+	counter = 0;
+	num_cmd_args = find_number_of_commands_and_args(start);
+	proc_struct->cmd_and_args = malloc((num_cmd_args + 1) * sizeof(char *));
+	if (!(proc_struct->cmd_and_args))
+		return (-1);
+	while (counter < num_cmd_args)
+	{
+		if (is_redirect(start))
+			start = start->next->next;
+		else
+		{
+			if (counter == 0 && init_command(proc_struct, start, envp) < 0)
+				return (free(proc_struct->cmd_and_args), -1);
+			else if (counter != 0 && init_arg(proc_struct, start, counter) < 0)
+				return (ft_array_free(proc_struct->cmd_and_args, num_cmd_args), -1);
+			counter++;
+			start = start->next;
+		}
+	}
+	(proc_struct->cmd_and_args)[counter] = NULL;
+	return (0);
 }
