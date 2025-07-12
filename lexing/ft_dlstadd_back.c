@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_intarr_free.c                                   :+:      :+:    :+:   */
+/*   ft_dlstadd_back.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/04 14:45:54 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/08 11:08:27 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2024/07/08 16:16:30 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/11 11:47:29 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lexing.h"
 
-void	ft_intarr_free(int **fd, int len)
+void	ft_dlstadd_back(t_token **head, t_token *new)
 {
-	int	i;
+	t_token	*current;
 
-	i = 0;
-	if (!fd)
+	if (head == NULL || new == NULL)
 		return ;
-	while (i < len)
+	if (*head == NULL)
 	{
-		free(fd[i]);
-		i++;
+		*head = new;
+		return ;
 	}
-	free(fd);
+	current = *head;
+	while (current->next != NULL)
+		current = current->next;
+	current->next = new;
+	new->previous = current;
 }

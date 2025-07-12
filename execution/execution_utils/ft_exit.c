@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:38:36 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/07 15:29:22 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/11 17:27:10 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	ft_exit(char **command_and_arguments, int *pid, int **fd, t_simple_command *
 	if (pid && fd)
 	{
 		free(pid);
-		ft_intarr_free(fd, ft_int_array_len(fd));
+		ft_array_free(fd, ft_int_array_len(fd));
 	}
 	free_simple_command(simple_command);
 	ft_printf(1, "exit\n");

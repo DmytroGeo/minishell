@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:48:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/05 12:50:57 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/11 17:28:06 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int		ft_array_len(char **array);
 int		ft_int_array_len(int **array);
 int	    is_built_in(char *str);
 
-void	ft_intarr_free(int **fd, int len);
 void	ft_convert(int fd, char c, va_list args, int *count);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 void	ft_bzero(void *s, size_t n);
@@ -59,7 +58,7 @@ void	ft_putnbr_fd(int n, int fd);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
-char	**ft_array_free(char **array, size_t k);
+void	ft_array_free(void **array, size_t k);
 void	ft_putnbr(int n, int fd, int *count);
 void	ft_putchar(char c, int fd, int *count);
 void	ft_putstr(char *s, int fd, int *count);

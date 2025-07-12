@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 17:26:48 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/10 15:35:09 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/11 17:15:21 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		execute_built_ins(t_big_struct *big_struct, int i, int *pid, int **fd)
 {
-	t_proc_struct process;
+	t_proc process;
 	int		outfile_fd;
 	
 	process = big_struct->proc_array[i];

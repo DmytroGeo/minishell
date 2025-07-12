@@ -25,12 +25,17 @@ int	operator_length(char *line)
 char	**split_line(char *line)
 {
 	char	**tokens;
-	int		i = 0;
-	int		token_count = 0;
-	int		start = -1;
-	int		inside_single_quotes = 0;
-	int		inside_double_quotes = 0;
+	int		i;
+	int		token_count;
+	int		start;
+	int		inside_single_quotes;
+	int		inside_double_quotes;
 
+	i = 0;
+	start = -1;
+	token_count = 0;
+	inside_double_quotes = 0;
+	inside_single_quotes = 0;
 	tokens = malloc(sizeof(char *) * 256);
 	if (!tokens)
 		return (NULL);

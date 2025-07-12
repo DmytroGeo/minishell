@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_int_array_len.c                                 :+:      :+:    :+:   */
+/*   init_token_content.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/25 20:26:22 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/07 15:40:31 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/07/11 11:50:48 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/11 11:56:27 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lexing.h"
 
-int	ft_int_array_len(int **array)
+t_token_content	*init_token_content(char *raw_token, t_op *operators)
 {
-	int	n;
-
-	n = 0;
-	if (!array)
-		return (n);
-	while (array[n] != NULL)
-		n++;
-	return (n);
+	t_token_content *content;
+	
+	content = malloc(sizeof(t_token_content));
+	if (!content)
+		return (NULL);
+	content->value = ft_strdup(raw_token);
+    content->type = identify_type(raw_token, operators);
 }

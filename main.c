@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/10 14:54:24 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/12 10:22:14 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
   
 int main(int argc, char **argv, char **envp)
 {
+    // test yes | head -n 1
     (void)argc;
     (void)argv;
     char *line; // var 1
@@ -41,11 +42,9 @@ int main(int argc, char **argv, char **envp)
         {
             add_history(line);
             token_chain = lexing(line, big_struct->envp);
-            //
-            // if token chain finds a | at the end of the command, we do a heredoc style thing where we wait for the rest of the command (prompt = >)
-            init_processes(big_struct, token_chain);
-            // free token chain
-            exit_status = execution(big_struct);
+            // init_processes(big_struct, token_chain);
+            // // free token chain
+            // exit_status = execution(big_struct);
         }
         free(line);             
     }

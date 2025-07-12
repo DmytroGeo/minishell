@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:15:04 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/11 18:13:10 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/12 13:12:47 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int    find_outfiles(t_proc *proc_struct, t_token *start)
 		{
 			start = start->next;
 			if (init_outfile(i, start, proc_struct) < 0)
-				return (free_outfiles(i, proc_struct), -1);          
+				return (free_outfiles(i, proc_struct), -1);
 			i++;
 		}
 		start = start->next;
