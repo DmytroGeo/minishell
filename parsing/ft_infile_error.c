@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_token_content.c                               :+:      :+:    :+:   */
+/*   infile_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/11 11:50:48 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/15 15:43:32 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/07/15 14:57:55 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/15 15:01:54 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexing.h"
+#include "parsing.h"
 
-t_token_content	*init_token_content(char *raw_token, t_op *operators)
+void	infile_err2(char *file_name)
 {
-	t_token_content *content;
-	
-	content = malloc(sizeof(t_token_content));
-	if (!content)
-		return (NULL);
-	content->value = ft_strdup(raw_token);
-    content->type = identify_type(raw_token, operators);
-	return (content);
+    ft_printf(2, "minishell: %s: No such file or directory\n", file_name);
+}
+
+void	infile_err3(char *file_name)
+{
+    ft_printf(2, "minishell: %s: Permission denied\n", file_name);
 }

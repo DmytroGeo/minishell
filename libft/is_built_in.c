@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 17:08:50 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/07 12:53:05 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/14 15:56:16 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	is_built_in(char *str)
 {
+    if (!str)
+        return (false);
     if (ft_strncmp(str, "cd", 3) == 0)
         return(true);
     else if (ft_strncmp(str, "exit", 5) == 0)

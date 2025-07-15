@@ -6,18 +6,18 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 10:18:04 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/09 17:29:25 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/15 13:29:24 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-// void do_all_expansions(t_token **token_chain, int exit_status, char **envp)
+// void do_all_expansions(t_token **tok_chain, int exit_status, char **envp)
 // {
 // 	t_token *current_token;
 // 	(void)exit_status;
 // 	(void)envp;
-// 	current_token = *token_chain;
+// 	current_token = *tok_chain;
 // 	while (!is_EOF(current_token))
 // 	{
 // 		if (is_variable(current_token))

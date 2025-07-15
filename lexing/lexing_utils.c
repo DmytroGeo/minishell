@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:37:13 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/11 15:06:48 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:46:57 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,23 @@ char    *find_variable_in_envp(char **envp, char *variable)
 {
     char    **ptr;
     char    *found_variable;
-    char    *variable_with_equal_sign;
+    char    *var_and_eqls;
 
     ptr = envp;
-    variable_with_equal_sign = ft_strjoin(variable, "=");
-    if (!variable_with_equal_sign)
+    var_and_eqls = ft_strjoin(variable, "=");
+    if (!var_and_eqls)
         return (NULL);
     while (*ptr)
     {
-        if ((ft_strncmp(*ptr, variable_with_equal_sign, ft_strlen(variable_with_equal_sign))) == 0)
+        if ((ft_strncmp(*ptr, var_and_eqls, ft_strlen(var_and_eqls))) == 0)
             break ;
         ptr++;
     }
-    if (*ptr == NULL)
-    {
-        ft_perror("", 'p');
-        return (NULL);
-    }
+    if (!*ptr)
+        return (ft_printf(2, "%s not found in PATH\n", variable), NULL);
     found_variable = *ptr;
-    found_variable += ft_strlen(variable_with_equal_sign);
-    free(variable_with_equal_sign);
+    found_variable += ft_strlen(var_and_eqls);
+    free(var_and_eqls);
     return (found_variable);
 }
 
@@ -58,13 +55,10 @@ char    *get_path(char *str, char **envp)
         temp2 = ft_strjoin(temp1, str);
         free(temp1);
         if (access(temp2, F_OK | X_OK) == 0)
-        {
-            ft_array_free(arr, ft_array_len(arr));
-            return (temp2);
-        }
+            return (ft_array_free((void **)arr, ft_array_len(arr)), temp2);
         free(temp2);
     }
-    ft_array_free(arr, ft_array_len(arr));
+    ft_array_free((void **)arr, ft_array_len(arr));
     return (NULL);
 }
 
@@ -101,7 +95,6 @@ void    print_token_list(t_token *head)
     "redir_out",
     "append",
     "heredoc",
-    "end_of_file",
     };
     i = 1;
     printf("\n< < < < Token List > > > >\n\n");

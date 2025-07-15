@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   proc_call.c                                        :+:      :+:    :+:   */
+/*   ft_dlstsize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/27 18:44:18 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/28 18:04:33 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2024/07/08 16:13:36 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/15 13:02:38 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "lexing.h"
 
-int	proc_call(int i, char c)
+int	ft_dlstsize(t_token *tok)
 {
-	if ((c == 'o' || c == 'i') && i < 0)
-		perror(NULL);
-	else if (c == 'a' && i < 0)
-		perror("Can't access file");
-	return (0);
+	int		count;
+	t_token	*current;
+
+	count = 0;
+	current = tok;
+	while (current != NULL)
+	{
+		count++;
+		current = current->next;
+	}
+	return (count);
 }

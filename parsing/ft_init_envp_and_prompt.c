@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_token_content.c                               :+:      :+:    :+:   */
+/*   ft_init_envp_and_prompt.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/11 11:50:48 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/15 15:43:32 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/07/15 16:53:29 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/15 16:57:39 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexing.h"
+# include "parsing.h"
 
-t_token_content	*init_token_content(char *raw_token, t_op *operators)
+void	init_envp_and_prompt(t_main *main, char **envp)
 {
-	t_token_content *content;
-	
-	content = malloc(sizeof(t_token_content));
-	if (!content)
-		return (NULL);
-	content->value = ft_strdup(raw_token);
-    content->type = identify_type(raw_token, operators);
-	return (content);
+	main->envp = copy_envp(envp);
+	main->prompt = get_prompt();
+	main->proc_array = NULL;
 }

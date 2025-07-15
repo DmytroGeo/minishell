@@ -4,8 +4,7 @@ int	is_operator_start(char *line, int i)
 {
 	if (!line[i])
 		return (0);
-	if (line[i] == '|' || line[i] == '&' || line[i] == '<' ||
-		line[i] == '>' || line[i] == '(' || line[i] == ')')
+	if (line[i] == '|' || line[i] == '<' || line[i] == '>')
 		return (1);
 	return (0);
 }
@@ -14,8 +13,7 @@ int	operator_length(char *line)
 {
 	if (!line)
 		return (0);
-	if ((line[0] == '&' && line[1] == '&') ||
-		(line[0] == '|' && line[1] == '|') ||
+	if ((line[0] == '|' && line[1] == '|') ||
 		(line[0] == '>' && line[1] == '>') ||
 		(line[0] == '<' && line[1] == '<'))
 		return (2);
@@ -75,7 +73,6 @@ char	**split_line(char *line)
 		// Start a new token if needed
 		else if (start == -1)
 			start = i;
-
 		i++;
 	}
 	// Handle any final token at the end of line

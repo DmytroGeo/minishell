@@ -6,7 +6,7 @@
 #    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/04 16:44:12 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/07/07 17:56:45 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/15 15:42:55 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,27 +14,23 @@ NAME = liblexing.a
 AR = ar rcs
 CC = cc
 LIBFT = ../libft/libft.a
-CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
-SRC = ft_toknew \
-		ft_tokadd_front \
-		ft_toksize \
-		ft_toklast \
-		ft_tokadd_back \
-		ft_tokdelone \
-		ft_tokclear \
-		ft_tokindex \
-		ft_tokfind \
-		ft_splitter \
-		lexing \
-		quote_utils \
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+SRC = ft_dlstadd_back \
+		ft_dlstadd_front \
+		ft_dlstnew \
+		ft_dlstsize \
 		ft_perror \
-		lexing_utils
+		ft_splitter \
+		init_token_content \
+		lexing_utils \
+		lexing \
+		quote_utils
 
 SRCS = $(addsuffix .c, $(SRC))
 OBJS = $(addsuffix .o, $(SRC))
 
 %.o : %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ -I../libft -I../execution
+	@$(CC) $(CFLAGS) -c $< -o $@ -I../libft 
 
 # “Hey compiler, also search in ../libft and ft (your local headers folder) for any #include "..." directives.”
 # Keeps path handling in the build system, not the code.

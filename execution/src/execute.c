@@ -6,40 +6,34 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 11:48:53 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/05 15:30:07 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/15 12:55:07 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-void	execute(char *command_to_be_executed, int **fd, int *pid, t_simple_command *simple_command)
+void	execute(int i, int **fd, int *pid, t_main *main)
 {
-	char **array = ft_split(command_to_be_executed, ' ');
-	char *path;
-	int exit_code = 0;
-		
-    if (is_built_in(array[0]))
+	int exit_code;
+	char **args;
+	t_proc proc;
+	
+	exit_code = 0;
+	proc = (main->proc_array)[i];
+    if (is_built_in(proc.cmd_and_args[0]))
 	{		
-		exit_code = execute_built_ins(simple_command, command_to_be_executed, pid, fd);
-		(ft_array_free(array, ft_array_len(array)), free_and_exit(pid, fd, simple_command));
-		exit(exit_code);	
+		exit_code = execute_built_ins(main, i, pid, fd);
+		(free_and_exit(pid, fd, main), exit(exit_code));
 	}
     else
     {
-        path = get_path(array[0], *(simple_command->address_of_envp));
-    	if (!path)
-		{
-			ft_perror(array[0], 'p');
-			(ft_array_free(array, ft_array_len(array)), free_and_exit(pid, fd, simple_command));
-			exit (127);			
-		}
+    	if (access((proc.cmd_and_args)[0], F_OK | X_OK) != 0)
+			(free_and_exit(pid, fd, main), exit(127));
 		else
 		{
-			if ((execve(path, array + 1, *(simple_command->address_of_envp))) < 0)
-			{
-				(free(path), ft_array_free(array, ft_array_len(array)), free_and_exit(pid, fd, simple_command));
-				exit(-1) ;
-			}
+			args = (proc.cmd_and_args) + 1;
+			if ((execve((proc.cmd_and_args)[0], args, main->envp)) < 0)
+				(free_and_exit(pid, fd, main), exit(1));
 		}
 	}
 }

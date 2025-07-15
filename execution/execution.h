@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:54:09 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/10 15:34:00 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/15 16:58:53 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,24 @@
 # include <stdarg.h>
 # include <linux/limits.h>
 
-int		execute_built_ins(t_big_struct *big_struct, int i, int *pid, int **fd);
-int     change_directory(char **new_directory, char **prompt, char ***envp);
-int		proc_call(int i, char c);
-int     execution(t_big_struct *big_struct);
+int		execute_built_ins(t_main *main, int i, int *pid, int **fd);
+int     ft_chdir(char **new_directory, char **prompt, char ***envp);
+int     execution(t_main *main);
 int		wait_for_processes(int *pid, int ac);
-int     free_simple_command(t_simple_command *simple_command);
 int     export_all_variables(char **arguments, char ***envp);
 int     unset_all_variables(char **arguments, char ***envp);
-int		check_built_ins(t_simple_command *simple_command);
 int     ft_echo(int fd, char **arguments);
 int     print_envp(int fd, char **envp);
-int     ft_exit(char **commands_and_arguments, int *pid, int **fd, t_simple_command *simple_command);
+int		ft_exit(char **cmd_and_args, int *pid, int **fd, t_main *main);
+int		execute_in_main(t_main *main, int *pid, int **fd);
 
 void	close_fds(int **fd, int len);
-void	init_setup(int **pid, int ***fd, t_simple_command *simple_command);
-void	dup_infile(int **fd, int *pid, t_simple_command *simple_command);
-void	dup_outfile(int **fd, int *pid, t_simple_command *simple_command);
 void	ft_perror(char *str, char c);
-void	process_loop(int *pid, int **fd, t_simple_command *simple_command);
-void	execute(char *command_to_be_executed, int **fd, int *pid, t_simple_command *simple_command);
-void	free_and_exit(int *pid, int **fd, t_simple_command *simple_command);
+void	process_loop(int *pid, int **fd, t_main *main);
+void	execute(int i, int **fd, int *pid, t_main *main);
+void	free_and_exit(int *pid, int **fd, t_main *main);
+void	dup_infile(int i, int **fd, int *pid, t_main *main);
+void	dup_outfile(int i, int **fd, int *pid, t_main *main);
+void	init_setup(int **pid, int ***fd, t_main *main);
+
 #endif

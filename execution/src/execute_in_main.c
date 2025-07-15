@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_simple_command.c                              :+:      :+:    :+:   */
+/*   execute_in_main.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/04 11:01:40 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/11 17:27:10 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/07/15 10:41:31 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/15 13:01:56 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-int	free_simple_command(t_simple_command *simple_command)
+int execute_in_main(t_main *main, int *pid, int **fd)
 {
-	ft_array_free(simple_command->commands, ft_array_len(simple_command->commands));
-	ft_array_free(simple_command->infiles, ft_int_array_len(simple_command->infiles));
-	ft_array_free(simple_command->outfiles, ft_int_array_len(simple_command->outfiles));
-	// free(simple_command->address_of_envp);
-	free(simple_command);
-	return (0);
+	int exit_status;
+	
+	exit_status = execute_built_ins(main, 0, pid, fd);
+	free_main(main);
+	return (exit_status);
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:59:24 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/31 17:02:33 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:37:25 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	**ft_arrayfill(char **array, char const *s, char c)
 				len++;
 			array[k] = ft_malloccpy(n + len, len, s);
 			if (array[k] == NULL)
-				return (ft_array_free(array, k));
+				return (ft_array_free((void **)array, k), NULL);
 			k++;
 			n = n + len;
 			len = 0;

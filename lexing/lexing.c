@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:59:28 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/11 18:12:38 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:47:19 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void    populate_operators(t_op *operators)
     operators[5] = (t_op){NULL, word};
 }
 
-t_token     *lexing(char *line, char **envp)
+t_token     *lexing(char *line)
 {
     char    **raw_tokens;
     t_op    operators[6];
@@ -49,7 +49,7 @@ t_token     *lexing(char *line, char **envp)
         {
             // free list up to this point
             return (NULL);            
-        }        
+        }     
         ft_dlstadd_back(&head, new_token);
         raw_tokens++;
     }

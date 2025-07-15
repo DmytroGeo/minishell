@@ -6,24 +6,24 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:16:30 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/11 11:47:29 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/14 13:46:19 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexing.h"
 
-void	ft_dlstadd_back(t_token **head, t_token *new)
+void	ft_dlstadd_back(t_token **address_of_head, t_token *new)
 {
 	t_token	*current;
 
-	if (head == NULL || new == NULL)
+	if (address_of_head == NULL || new == NULL)
 		return ;
-	if (*head == NULL)
+	if (*address_of_head == NULL)
 	{
-		*head = new;
+		*address_of_head = new;
 		return ;
 	}
-	current = *head;
+	current = *address_of_head;
 	while (current->next != NULL)
 		current = current->next;
 	current->next = new;

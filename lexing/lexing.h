@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:48:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/11 15:09:55 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/15 16:23:04 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@
 // // and it makes the header location-dependant.
 
 
-#ifndef LEXING_H
-# define LEXING_H
 
-# include "../libft/libft.h"
 // # include "../parsing/parsing.h"
 
 // We can do this instead of hardcoding the path (say for example "../libft/libft.h")
@@ -94,58 +91,65 @@
 // char	*find_home_variable(char **envp);
 // void	ft_perror(char *str, char c);
 
+#ifndef LEXING_H
+# define LEXING_H
+
+# include "../libft/libft.h"
 
 typedef enum e_token_type
 {
-    word,
-    _pipe,
-    redir_in,
-    redir_out,
-    append,
-    heredoc,
+	word,
+	_pipe,
+	redir_in,
+	redir_out,
+	append,
+	heredoc,
 }   t_token_type;
 
 typedef struct s_token_content
 {
-    // int             index; // the index of the token
-    t_token_type    type; // the type of token like 'PIPE'
-    char            *value; // the literal value of the token like '|'   
+	t_token_type    type; // the type of token like 'PIPE'
+	char            *value; // the literal value of the token like '|'   
 } t_token_content;
 
 typedef struct s_token
 {
-    void            *content;
-    struct s_token  *previous;
-    struct s_token  *next;
+	void            *content;
+	struct s_token  *previous;
+	struct s_token  *next;
 }           t_token;
 
 typedef struct s_op
 {
-    char *symbol;
-    t_token_type type;
+	char *symbol;
+	t_token_type type;
 }   t_op;
 
 void	ft_dlstadd_back(t_token **tok, t_token *new);
 void	ft_dlstadd_front(t_token **tok, t_token *new);
-t_token	*ft_dlstnew(void *content);
+void    print_raw_tokens(char **raw_tokens);
+void    print_token_list(t_token *head);
+void	populate_operators(t_op *operators);
+void	ft_perror(char *str, char c);
 
-
+int		is_surrounded_by(char *str, char quote);
+int		is_operator_start(char *line, int i);
+int		operator_length(char *line);
 int     ft_tokindex(t_token *elem, t_token **head);
 int     ft_toksize(t_token *tok);
 
-t_token *lexing(char *line, char **envp);
+t_token *lexing(char *line);
 t_token *ft_toklast(t_token *tok);
+t_token	*ft_dlstnew(void *content);
+
 t_token_type identify_type(char *token, t_op *operators);
-void    print_raw_tokens(char **raw_tokens);
-void    print_token_list(t_token *head);
-char    *find_variable_in_envp(char **envp, char *variable);
-char    **split_line(char *line);
-char    *strip_quotes(char *str);
-int     is_surrounded_by(char *str, char quote);
-int     is_operator_start(char *line, int i);
-int     operator_length(char *line);
-void    populate_operators(t_op *operators);
-char    *get_path(char *str, char **envp);
-void    ft_perror(char *str, char c);
+
+t_token_content	*init_token_content(char *raw_token, t_op *operators);
+
+char	*find_variable_in_envp(char **envp, char *variable);
+char	**split_line(char *line);
+char	*strip_quotes(char *str);
+char	*get_path(char *str, char **envp);
+
 
 #endif

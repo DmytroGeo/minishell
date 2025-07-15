@@ -6,42 +6,32 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:12:37 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/05 15:35:27 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/15 12:58:34 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-void	process_loop(int *pid, int **fd, t_simple_command *simple_command)
+void	process_loop(int *pid, int **fd, t_main *main)
 {
 	int		i;
-	int		number_of_commands;
+	int		num_of_proc;
 
 	i = 0;
-	number_of_commands = ft_array_len(simple_command->commands);
-	while (i < number_of_commands)
+	num_of_proc = main->num_of_proc;
+	while (i < num_of_proc)
 	{
 		pid[i] = fork();
 		if (pid[i] < 0)
-		{
-			free_and_exit(pid, fd, simple_command);
-			exit(EXIT_FAILURE);
-		}
+			(free_and_exit(pid, fd, main), exit(EXIT_FAILURE));
 		if (pid[i] == 0)
 		{
-			if (i == 0)
-				dup_infile(fd, pid, simple_command);
-			else
-				proc_call(dup2(fd[i - 1][0], STDIN_FILENO), 'i');
-			if (i == number_of_commands - 1)
-				dup_outfile(fd, pid, simple_command);
-			else
-				proc_call(dup2(fd[i][1], STDOUT_FILENO), 'o');
-			close_fds(fd, number_of_commands - 1);
-			execute((simple_command->commands)[i], fd, pid, simple_command);
+			dup_infile(i, fd, pid, main);
+			dup_outfile(i, fd, pid, main);
+			close_fds(fd, num_of_proc - 1);
+			execute(i, fd, pid, main);
 			exit(EXIT_FAILURE);
 		}
 		i++;
 	}
 }
-

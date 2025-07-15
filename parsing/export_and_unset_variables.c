@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 15:51:57 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/07 14:31:46 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/14 10:44:41 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ void	export_variable(char ***envp, const char *assignment)
 {
 	char	**new_env;
 	char	*key;
-	int		i = 0;
+	int		i;
 	int		index;
 
+	i = 0;
 	key = ft_substr(assignment, 0, ft_strchr(assignment, '=') - assignment);
 	index = find_env_index(*envp, key);
 	free(key);
-
 	if (index >= 0)
 	{
 		free((*envp)[index]);

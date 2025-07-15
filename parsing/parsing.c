@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/12 12:53:20 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:47:55 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,37 @@
 
 ///// pre-parse to make sure everything is being followed by the correct thing
 
-// 1. < (REDIR_IN) and << (HEREDOC) and > (REDIR_OUT) and >> (APPEND) should be followed by some word.
+// 1. < (REDIR_IN) and << (HEREDOC) and 
+// > (REDIR_OUT) and >> (APPEND) should be followed by some word.
 
-// 3. | (PIPE) cannot start a line.
-// 4. pipe should be followed by a word or operator (< or > or << or >>).
+// 2. | (PIPE) cannot start a line.
 
-int check_syntax(t_token *token_chain)
+// 3. pipe should be followed by a word or redirect operator
+// (< or > or << or >>).
+
+// 4. pipe cannot end a line.
+
+int check_syntax(t_token *tok_chain)
 {
-	char	*err_msg_1;
 	char	*err_msg_2;
+	char	*oper;
 
-	err_msg_1 = "minishell: syntax error near unexpected token `newline'";
 	err_msg_2 = "minishell: syntax error near unexpected token `|'";
-	while (!is_eof(token_chain))
+	while (!is_eof(tok_chain))
 	{
-		if (pre_parsing_condition1(token_chain))
-			return(ft_printf(2, "%s\n", err_msg_1), EXIT_FAILURE);
-		if (pre_parsing_condition2(token_chain))
-			return (ft_printf(2, "%s\n", err_msg_2), EXIT_FAILURE);
-		if (pre_parsing_condition3(token_chain))
-			return(ft_printf(2, "%s\n", err_msg_2), EXIT_FAILURE);
-		if (pre_parsing_condition4(token_chain))
-			return(ft_printf(2, "%s\n", err_msg_2), EXIT_FAILURE);
-		token_chain = token_chain->next;
+		if (syntax_check_1(tok_chain))
+		{
+			oper = ((t_token_content *)(tok_chain->content))->value;
+			ft_printf(2, "minishell: %s should be followed by a word\n", oper);
+			return (1);
+		}
+		if (syntax_check_2(tok_chain))
+			return (ft_printf(2, "%s\n", err_msg_2), 1);
+		if (syntax_check_3(tok_chain))
+			return(ft_printf(2, "%s\n", err_msg_2), 1);
+		if (syntax_check_4(tok_chain))
+			return(ft_printf(2, "%s\n", err_msg_2), 1);
+		tok_chain = tok_chain->next;
 	}
 	return (EXIT_SUCCESS);
 }
@@ -69,50 +77,41 @@ t_token *find_next_pipe(t_token *start)
 // finds the number of processes. this is always one more than the number of pipes.
 ///////
 
-int find_num_of_proc(t_token *token_chain)
+int find_num_of_proc(t_token *tok_chain)
 {
 	int number_of_pipes;
 
 	number_of_pipes = 0;
-	while (!is_eof(token_chain))
+	while (!is_eof(tok_chain))
 	{
-		if (is_pipe(token_chain))
+		if (is_pipe(tok_chain))
 			number_of_pipes += 1;
-		token_chain = token_chain->next;
+		tok_chain = tok_chain->next;
 	}
 	return (number_of_pipes + 1);
 }
 
-// we want to set the process equal to null 
-
-int	init_process(t_big_struct *big_struct, int counter, t_token **start)
+int	init_process(t_main *main, int counter, t_token **address_of_start)
 {
-	t_proc	*proc;
+	t_proc	*address_of_proc;
 	t_token *pipe_ptr;
 	int infile_exit_code;
 	int outfile_exit_code;
+	int cmd_and_args_exit_code;
 
-	proc = &((big_struct->proc_array)[counter]);
-	pipe_ptr = find_next_pipe(*start); // finds the first (or in later cases, next) pipe (or eof)
-	infile_exit_code = find_infiles(proc, *start);
-	if (infile_exit_code == -1) // at least one of the infiles doesn't exist or has wrong permissions.
-	{
-		
-	}
-	//// we don't execute this process, no outfiles are created, but the rest of the processes still execute.
-	else if (infile_exit_code == -2)
-	{
-		
-	}
-	outfile_exit_code = find_outfiles(proc, *start); // finds and opens all outfiles up to the first (or in later cases, next) pipe or eof and initialises the struct outfiles
-	if (outfile_exit_code == -2)
-	{
-		
-	}
-	if (find_command_and_arguments(proc, *start, big_struct->envp) < 0)	// finds all commands and args up to the first (or in later cases, next) pipe or eof and initialises the struct commands and args
-	/// free and exit everything
-	(*start) = pipe_ptr; // move the starting pointer to the location of the pipe found
-	(*start) = (*start)->next;
+	address_of_proc = &((main->proc_array)[counter]);
+	pipe_ptr = find_next_pipe(*address_of_start); // finds the first (or in later cases, next) pipe (or eof)
+	infile_exit_code = find_infiles(address_of_proc, *address_of_start);
+	if (infile_exit_code == -1 || infile_exit_code == -2) // at least one of the infiles doesn't exist or has wrong permissions.
+		return (infile_exit_code);
+	outfile_exit_code = find_outfiles(address_of_proc, *address_of_start); // finds and opens all outfiles up to the first (or in later cases, next) pipe or eof and initialises the struct outfiles
+	if (outfile_exit_code == -1 || outfile_exit_code == -2)
+		return (outfile_exit_code);
+	cmd_and_args_exit_code = find_cmd_and_args(address_of_proc, *address_of_start, main->envp);
+	if (cmd_and_args_exit_code == -1 || cmd_and_args_exit_code == -2)
+		return (outfile_exit_code);
+	(*address_of_start) = pipe_ptr; // move the starting pointer to the location of the pipe found
+	(*address_of_start) = (*address_of_start)->next;
 	return (0);	
 }
 
@@ -120,23 +119,23 @@ int	init_process(t_big_struct *big_struct, int counter, t_token **start)
 
 ////////////// initialise the array of processes in a loop:
 
-void	init_processes(t_big_struct *big_struct, t_token *token_chain)
+void	init_processes(t_main *main, t_token *tok_chain)
 {
-	int num_of_proc;
 	int counter;
+	t_token *copy_of_start;
 
-	if (check_syntax(token_chain) == EXIT_FAILURE)
-		return (free_big_struct(big_struct));
-	num_of_proc = find_num_of_proc(token_chain);
-	big_struct->num_of_proc = num_of_proc;
-	big_struct->proc_array = malloc(num_of_proc * sizeof(t_proc));
-	if (!(big_struct->proc_array))
-		return (free_big_struct(big_struct));
+	if (check_syntax(tok_chain) == EXIT_FAILURE)
+		return (free_main(main), free_tok_chain(&tok_chain, del_tok_cont));
+	main->num_of_proc = find_num_of_proc(tok_chain);
+	main->proc_array = malloc(main->num_of_proc * sizeof(t_proc));
+	if (!(main->proc_array))
+		return (free_main(main), free_tok_chain(&tok_chain, del_tok_cont));
 	counter = 0;
-	while (counter < num_of_proc)
+	copy_of_start = tok_chain;
+	while (counter < main->num_of_proc)
 	{
-		if (init_process(big_struct, counter, &token_chain) == -2) // something wrong with malloc so we free the big struct.
-			return (free_big_struct(big_struct));	
+		if (init_process(main, counter, &tok_chain) == -2)
+			return (free_main(main), free_tok_chain(&tok_chain, del_tok_cont)); // we need a case for if we get -1 (i.e) unidentified command, arg, wrong permissions for outfile or infile
 		counter++;
 	}
 }

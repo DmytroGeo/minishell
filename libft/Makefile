@@ -6,7 +6,7 @@
 #    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/04 16:44:12 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/07/11 17:27:10 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/14 11:22:24 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,6 @@ SRC = ft_array_free \
 		ft_atoi \
 		ft_bzero \
 		ft_calloc \
-		ft_int_array_len \
 		ft_array_free \
 		ft_isalnum \
 		ft_isalpha \

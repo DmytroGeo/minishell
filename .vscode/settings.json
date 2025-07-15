@@ -5,7 +5,8 @@
 		"lists.h": "c",
 		"parsing.h": "c",
 		"readline.h": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"array": "c"
 	},
 	"makefile.configureOnOpen": false
 }

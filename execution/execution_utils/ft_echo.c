@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:15:59 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/05 12:54:07 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/14 15:37:04 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int		is_echo_flag(char *str)
 {
-	int i = 0;
+	int i;
+	
+	i = 0;
 	if (str[i] != '-')
 		return (EXIT_FAILURE);
 	i++;
@@ -27,15 +29,19 @@ int		is_echo_flag(char *str)
 	return (EXIT_SUCCESS);
 }
 
+/// instead of joining everything into one big string, just loop and print one string at a time.
+
 int	ft_echo(int fd, char **arguments)
 {
 	char *big_string;
-	int has_flag = 0;
+	int has_flag;
 	int number_of_arguments;
-	int i = 0;
+	int i;
 	char *temp;
 	char *previous_big_string;
 
+	i = 0;
+	has_flag = 0;
 	if (arguments[i] && is_echo_flag(arguments[i]) == EXIT_SUCCESS)
 	{
 		has_flag = 1;

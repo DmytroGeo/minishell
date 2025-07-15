@@ -6,7 +6,7 @@
 #    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/12 11:38:45 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/07/11 17:27:10 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/15 17:01:00 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,31 +14,28 @@ NAME = libexecution.a
 CC = cc
 AR = ar rcs
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
-SRCS = $(shell find . -name '*.c') # remove this before eval
-
-# src/close_pipes.c \
-# 			src/flags_and_paths.c \
-# 			src/dup_read_and_write.c \
-# 			src/execute.c \
-# 			src/initialise.c \
-# 			src/free_and_exit.c \
-# 			src/proc_call.c \
-# 			src/process_loop.c \
-# 			src/wait_for_processes.c \
-# 			execution.c \
-# 			lists/ft_find_node.c \
-# 			lists/ft_array_free.c \
-# 			lists/ft_exec_lstadd_front.c \
-# 			lists/ft_perror.c \
-# 			lists/ft_exec_lstclear.c \
-# 			lists/ft_exec_lstnew.c
+SRCS = execution_utils/change_directory.c \
+		execution_utils/execute_built_ins.c \
+		execution_utils/export_all_variables.c \
+		execution_utils/free_and_exit.c \
+		execution_utils/ft_echo.c \
+		execution_utils/ft_exit.c \
+		execution_utils/print_env.c \
+		execution_utils/proc_call.c \
+		execution_utils/unset_all_variables.c \
+		src/close_pipes.c \
+		src/dup_infiles_and_outfiles.c \
+		src/execute_in_main.c \
+		src/execute.c \
+		src/initialise.c \
+		src/process_loop.c \
+		src/wait_for_processes.c \
+		execution.c
 			
 OBJS = $(SRCS:.c=.o)
 
-# OBJS = $(patsubst .c, .o, $(SRCS))
-
 %.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@ -I../libft -I../parsing -I../lexing 
+	$(CC) $(CFLAGS) -c $< -o $@ -I../libft -I../lexing -I../parsing
 
 all: $(NAME)
 

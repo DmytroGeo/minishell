@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_token_content.c                               :+:      :+:    :+:   */
+/*   proc_call.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/11 11:50:48 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/15 15:43:32 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/07/15 17:01:11 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/15 17:02:20 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexing.h"
+#include "../execution.h"
 
-t_token_content	*init_token_content(char *raw_token, t_op *operators)
+int	proc_call(int i, char c)
 {
-	t_token_content *content;
-	
-	content = malloc(sizeof(t_token_content));
-	if (!content)
-		return (NULL);
-	content->value = ft_strdup(raw_token);
-    content->type = identify_type(raw_token, operators);
-	return (content);
+	if ((c == 'o' || c == 'i') && i < 0)
+		perror(NULL);
+	else if (c == 'a' && i < 0)
+		perror("Can't access file");
+	return (0);
 }

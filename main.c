@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/12 10:22:14 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:47:40 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,24 @@ int main(int argc, char **argv, char **envp)
     (void)argv;
     char *line; // var 1
     int exit_status; // var 2
-    t_token *token_chain; // var 3
-    t_big_struct *big_struct; // var 4
+    t_token *tok_chain; // var 3
+    t_main *main; // var 4
     
-    big_struct = malloc(sizeof(t_big_struct));
-    if (!big_struct)
+    exit_status = 0;
+    main = malloc(sizeof(t_main));
+    if (!main)
         exit (1);
-    init_envp_and_prompt(big_struct, envp);
-    while ((line = readline(big_struct->prompt)) != NULL)
+    init_envp_and_prompt(main, envp);
+    while ((line = readline(main->prompt)) != NULL)
     {
         if (*line) // if there's something in the line 
         {
             add_history(line);
-            token_chain = lexing(line, big_struct->envp);
-            // init_processes(big_struct, token_chain);
-            // // free token chain
-            // exit_status = execution(big_struct);
+            tok_chain = lexing(line);
+            // expansions(&tok_chain);
+            init_processes(main, tok_chain);
+            free_tok_chain(&tok_chain, del_tok_cont);
+            exit_status = execution(main);
         }
         free(line);             
     }
