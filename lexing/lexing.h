@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:48:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/15 16:23:04 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/16 14:18:19 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,8 @@ void    print_raw_tokens(char **raw_tokens);
 void    print_token_list(t_token *head);
 void	populate_operators(t_op *operators);
 void	ft_perror(char *str, char c);
+void  	del_tok_cont(void *content);
+void	free_tok_chain(t_token **start, void (*del)(void*));
 
 int		is_surrounded_by(char *str, char quote);
 int		is_operator_start(char *line, int i);
@@ -138,7 +140,7 @@ int		operator_length(char *line);
 int     ft_tokindex(t_token *elem, t_token **head);
 int     ft_toksize(t_token *tok);
 
-t_token *lexing(char *line);
+void	lexing(t_token **tok_chain, char *line);
 t_token *ft_toklast(t_token *tok);
 t_token	*ft_dlstnew(void *content);
 

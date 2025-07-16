@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:59:28 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/15 15:47:19 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/16 14:19:31 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,37 +22,26 @@ void    populate_operators(t_op *operators)
     operators[5] = (t_op){NULL, word};
 }
 
-t_token     *lexing(char *line)
+void     lexing(t_token **tok_chain, char *line)
 {
     char    **raw_tokens;
     t_op    operators[6];
-    t_token *head;
     t_token *new_token;
     t_token_content *new_content;
     
-    head = NULL;
-    if (!line)
-        return (NULL);
     populate_operators(operators);
     raw_tokens = split_line(line);
-    // print_raw_tokens(raw_tokens);
+    print_raw_tokens(raw_tokens);
     while (*raw_tokens)
     {
         new_content = init_token_content(*raw_tokens, operators);
         if (!new_content)
-        {
-            // free list up to this point
-            return (NULL);            
-        }
+            return (free_tok_chain(tok_chain, del_tok_cont));       
         new_token = ft_dlstnew(new_content);
-        if (!new_content)
-        {
-            // free list up to this point
-            return (NULL);            
-        }     
-        ft_dlstadd_back(&head, new_token);
+        if (!new_token)
+            return (del_tok_cont((void *)new_content), free_tok_chain(tok_chain, del_tok_cont));          
+        ft_dlstadd_back(tok_chain, new_token);
         raw_tokens++;
     }
-    // print_token_list(head);
-    return (head);
+    return ;
 }

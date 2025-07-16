@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "parsing.h"
+# include "lexing.h"
 
 void	free_tok_chain(t_token **start, void (*del)(void*))
 {

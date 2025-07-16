@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:21:46 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/15 16:57:56 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/16 13:51:49 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,17 @@ int		find_infiles(t_proc *process, t_token *start);
 int		find_outfiles(t_proc *process, t_token *tok_chain);
 int		find_cmd_and_args(t_proc *simple_command, t_token *tok_chain, char **envp);
 int		return_heredoc_fd(char *limiter);
-void	init_envp_and_prompt(t_main *main, char **envp);
 int     syntax_check_1(t_token *curr);
 int     syntax_check_2(t_token *curr);
 int     syntax_check_3(t_token *curr);
 int     syntax_check_4(t_token *curr);
-
 int		check_syntax(t_token *tok_chain);
 
+void	init_envp_and_prompt(t_main *main, char **envp);
 void	unset_variable(char ***envp, const char *key);
 void	export_variable(char ***envp, const char *assignment);
 void    do_all_expansions(t_token **tok_chain, int exit_status, char **envp);
 void	init_processes(t_main *main, t_token *tok_chain);
-void    free_tok_chain(t_token **start, void (*del)(void*));
-void  	del_tok_cont(void *content);
 void	infile_err2(char *file_name);
 void	infile_err3(char *file_name);
 void	outfile_err(char *file_name);

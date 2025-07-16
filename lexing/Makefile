@@ -6,7 +6,7 @@
 #    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/04 16:44:12 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/07/15 15:42:55 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/16 13:50:02 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@ CC = cc
 LIBFT = ../libft/libft.a
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 SRC = ft_dlstadd_back \
+		del_tok_content \
+		free_token_chain \
 		ft_dlstadd_front \
 		ft_dlstnew \
 		ft_dlstsize \

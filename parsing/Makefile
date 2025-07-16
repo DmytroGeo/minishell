@@ -6,7 +6,7 @@
 #    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/09 17:20:58 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/07/15 17:00:15 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/16 13:50:24 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,12 @@ NAME = libparsing.a
 AR = ar rcs
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
-SRC = del_tok_content \
-		ft_init_envp_and_prompt \
+SRC = ft_init_envp_and_prompt \
 		export_and_unset_variables \
 		find_commands_and_arguments \
 		find_infiles \
 		find_outfiles \
 		free_main \
-		free_token_chain \
 		ft_infile_error \
 		ft_outfile_error \
 		heredoc \

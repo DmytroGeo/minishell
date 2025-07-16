@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/15 15:47:40 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/16 14:21:24 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int main(int argc, char **argv, char **envp)
     t_main *main; // var 4
     
     exit_status = 0;
+    tok_chain = NULL;
     main = malloc(sizeof(t_main));
     if (!main)
         exit (1);
@@ -42,13 +43,14 @@ int main(int argc, char **argv, char **envp)
         if (*line) // if there's something in the line 
         {
             add_history(line);
-            tok_chain = lexing(line);
+            lexing(&tok_chain, line);
+            print_token_list(tok_chain);
             // expansions(&tok_chain);
-            init_processes(main, tok_chain);
+            // init_processes(main, tok_chain);
             free_tok_chain(&tok_chain, del_tok_cont);
-            exit_status = execution(main);
+            // exit_status = execution(main);
         }
-        free(line);             
+        free(line);
     }
     return (0);
 }
