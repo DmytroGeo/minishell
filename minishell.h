@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:30:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/03 11:16:28 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:39:23 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,11 @@
 #include <readline/history.h>
 #include <linux/limits.h>
 
+typedef struct s_exit_codes
+{
+    int main_exit_code;
+    int lexing_exit_code;
+    int parsing_exit_code;
+} t_exit_codes;
 
 #endif

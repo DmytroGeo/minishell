@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/16 14:21:24 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/17 18:02:15 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,128 @@
 
 //  use CTRL + D to exit the shell
 /*
-    if CTRL + D is pressed (which sends an EOF — End Of File to *line)
-    essentialy setting it to NULL which ends loop and shell terminates
-    but prompt needs to be empty for CTRL + D to work (for now) .
-    You may need to compile with readline lib "cc read_line.c -lreadline"
-    but that may be because im using mbp, the school computers probaly
-    have the libraries installed and you dont neet to include the lib.
+	if CTRL + D is pressed (which sends an EOF — End Of File to *line)
+	essentialy setting it to NULL which ends loop and shell terminates
+	but prompt needs to be empty for CTRL + D to work (for now) .
+	You may need to compile with readline lib "cc read_line.c -lreadline"
+	but that may be because im using mbp, the school computers probaly
+	have the libraries installed and you dont neet to include the lib.
 */ 
-  
+// typedef struct s_proc
+// {
+// 	int num_inf;
+// 	int num_outf;
+// 	int *infiles;
+// 	int *outfiles;
+// 	char **cmd_and_args;
+// }           t_proc;
+
+// typedef struct s_main
+// {
+// 	char *prompt;
+// 	char **envp;
+// 	int	num_of_proc;
+// 	t_proc *proc_array;	
+// }           t_main;
+
+// void    print_main_stuff1(t_main *main)
+// {
+//     char **envp = main->envp;
+//     char *prompt = main->prompt;
+//     char **curr = envp;
+//     ft_printf(1, "\n");
+//     ft_printf(1, "Prompt : \n");
+//     ft_printf(1, "\n");
+//     ft_printf(1, "%s\n", prompt);
+//     ft_printf(1, "\n");   
+//     ft_printf(1, "Environment Variables : \n");
+//     ft_printf(1, "\n");
+//     while (*curr)
+//     {
+//         ft_printf(1, "%s\n", *curr);
+//         curr++;
+//     }
+//     return ;
+// }
+
+void	print_processes_and_their_contents(t_proc *process_array, int number_of_processes)
+{
+	int i = 0;
+	int k = 0;
+	while (i < number_of_processes)
+	{
+		ft_printf(1, "For process %d\n", i);
+		ft_printf(1, "\n");
+		ft_printf(1, "The number of legal infiles is: \n");
+		ft_printf(1, "\n");
+		ft_printf(1, "%d\n", (process_array[i]).num_inf);
+		ft_printf(1, "\n");
+		ft_printf(1, "The number of legal outfiles is: \n");
+		ft_printf(1, "\n");
+		ft_printf(1, "%d\n", (process_array[i]).num_outf);
+		ft_printf(1, "\n");
+		ft_printf(1, "The number of commands and arguments is: \n");
+		ft_printf(1, "\n");
+		ft_printf(1, "%d\n", ft_array_len((process_array[i]).cmd_and_args));
+		ft_printf(1, "\n");
+		if (((process_array[i]).cmd_and_args))
+		{
+			while (k < ft_array_len((process_array[i]).cmd_and_args))
+			{
+				if (k == 0)
+				{
+					ft_printf(1, "The command is:\n");
+					ft_printf(1, "%s\n", (process_array[i]).cmd_and_args[k]);
+					ft_printf(1, "\n");		
+				}
+				else
+				{
+					ft_printf(1, "Argument %d is:\n", k);
+					ft_printf(1, "%s\n", (process_array[i]).cmd_and_args[k]);
+					ft_printf(1, "\n");						
+				}
+			}
+		}
+		
+	}
+}
+	
+void    print_main_stuff2(t_main *main)
+{
+	int number_of_processes = main->num_of_proc;
+	t_proc *process_array = main->proc_array;
+	
+	ft_printf(1, "\n");
+	ft_printf(1, "The number of processes is: \n");
+	ft_printf(1, "\n");
+	ft_printf(1, "%d\n", number_of_processes);
+	ft_printf(1, "\n");
+	print_processes_and_their_contents(process_array, number_of_processes);
+
+	return ;
+}
+
 int main(int argc, char **argv, char **envp)
 {
-    // test yes | head -n 1
-    (void)argc;
-    (void)argv;
-    char *line; // var 1
-    int exit_status; // var 2
-    t_token *tok_chain; // var 3
-    t_main *main; // var 4
-    
-    exit_status = 0;
-    tok_chain = NULL;
-    main = malloc(sizeof(t_main));
-    if (!main)
-        exit (1);
-    init_envp_and_prompt(main, envp);
-    while ((line = readline(main->prompt)) != NULL)
-    {
-        if (*line) // if there's something in the line 
-        {
-            add_history(line);
-            lexing(&tok_chain, line);
-            print_token_list(tok_chain);
-            // expansions(&tok_chain);
-            // init_processes(main, tok_chain);
-            free_tok_chain(&tok_chain, del_tok_cont);
-            // exit_status = execution(main);
-        }
-        free(line);
-    }
-    return (0);
+	(void)argc;
+	(void)argv;
+	char *line;
+	int exit_code;
+	t_main main;
+
+	init_main(&main, envp);
+	while ((line = readline(main.prompt)) != NULL)
+	{
+		if (*line) // if there's something in the line 
+		{
+			exit_code = 0;
+			add_history(line);
+			lexing(&main, line);
+			// expansions(&main, exit_code);
+			init_processes(&main, &exit_code);
+			evaluate_and_execute(&main, exit_code);
+		}
+		free(line);
+	}
+	return (0);
 }

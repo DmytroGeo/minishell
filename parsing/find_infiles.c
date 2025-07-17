@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:12:29 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/15 14:33:09 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/17 15:41:52 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,22 @@ int find_number_of_infiles(t_token *start)
 int init_infile(int i, t_token *start, t_proc *proc)
 {
 	char *file_name;
+	int fd;
 
 	file_name = ((t_token_content *)(start->content))->value;
 	if (is_redir_in(start->previous))
-		(proc->infiles)[i] = open(file_name, O_RDONLY);
+	{
+		fd = open(file_name, O_RDONLY);
+		(proc->infiles)[i] = fd;		
+	}
 	else if (is_heredoc(start->previous))
-		(proc->infiles)[i] = heredoc_fd(file_name);
+	{
+		fd = heredoc_fd(file_name);
+		if (fd == -42)
+			return (-42);
+		else
+			(proc->infiles)[i] = fd;
+	}
 	return (0);
 }
 
@@ -55,17 +65,18 @@ int		find_infiles(t_proc *proc, t_token *start)
 
 	i = 0;
 	proc->num_inf = find_number_of_infiles(start);
-	if (proc->num_inf < 0)
-		return (-1);
+	if (proc->num_inf == 0)
+		return (0);
 	proc->infiles = malloc((proc->num_inf) * sizeof(int));
 	if (!(proc->infiles))
-		return (-2);
+		return (-42);
 	while (i < proc->num_inf)
 	{
 		if (is_redir_in(start) || is_heredoc(start))
 		{
 			start = start->next;
-			init_infile(i, start, proc);
+			if (init_infile(i, start, proc) == -42)
+				return (-42);
 			i++;
 		}
 		start = start->next;

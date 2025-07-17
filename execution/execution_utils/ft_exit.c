@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:38:36 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/15 16:08:33 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/17 11:45:52 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	ft_exit(char **cmd_and_args, int *pid, int **fd, t_main *main)
 		}
 	}
 	if (pid && fd)
-		(free(pid), ft_array_free((void **)fd, main->num_of_proc - 1));
+		(free(pid), ft_array_free2((void **)fd, main->num_of_proc - 1));
 	free_main(main);
 	ft_printf(1, "exit\n");
 	exit(exit_code);    

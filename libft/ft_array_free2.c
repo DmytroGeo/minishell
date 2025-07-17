@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_envp_and_prompt.c                          :+:      :+:    :+:   */
+/*   ft_array_free.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/15 16:53:29 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/15 16:57:39 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/02/14 18:03:41 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/17 11:32:22 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "parsing.h"
+#include "libft.h"
 
-void	init_envp_and_prompt(t_main *main, char **envp)
+void	ft_array_free2(void **array, size_t k)
 {
-	main->envp = copy_envp(envp);
-	main->prompt = get_prompt();
-	main->proc_array = NULL;
+	size_t	j;
+
+	j = 0;
+	if (!array)
+		return ;
+	while (j < k)
+	{
+		free(array[j]);
+		j++;
+	}
+	free(array);
+	return ;
 }

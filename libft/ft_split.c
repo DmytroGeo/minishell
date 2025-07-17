@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:59:24 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/15 15:37:25 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/17 11:59:17 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	**ft_arrayfill(char **array, char const *s, char c)
 				len++;
 			array[k] = ft_malloccpy(n + len, len, s);
 			if (array[k] == NULL)
-				return (ft_array_free((void **)array, k), NULL);
+				return (ft_array_free2((void **)array, k), NULL);
 			k++;
 			n = n + len;
 			len = 0;

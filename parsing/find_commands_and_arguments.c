@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:42:54 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/15 15:53:45 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/17 15:41:48 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,17 @@ int		init_command(t_proc *proc_struct, t_token *start, char **envp)
 			(proc_struct->cmd_and_args)[0] = path;	
 	}
 	if (!((proc_struct->cmd_and_args)[0]))
-		return (-2);
+		return (-42);
 	return (0);
 }
 
+/**
+ * @brief banana
+ * @return returns banana
+ * @param proc_struct main struct
+ * @param start starts
+ * @warning dont call me
+ */
 int		init_arg(t_proc *proc_struct, t_token *start, int counter)
 {
 	t_token_content *content;
@@ -62,9 +69,10 @@ int		init_arg(t_proc *proc_struct, t_token *start, int counter)
 	content = (t_token_content *)(start->content);
 	(proc_struct->cmd_and_args)[counter] = ft_strdup(content->value);
 	if (!((proc_struct->cmd_and_args)[counter]))
-		return (-2);
+		return (-42);
 	return (0);
 }
+
 
 int    find_cmd_and_args(t_proc *proc_struct, t_token *start, char **envp)
 {
@@ -73,23 +81,22 @@ int    find_cmd_and_args(t_proc *proc_struct, t_token *start, char **envp)
 
 	counter = 0;
 	num_cmd_args = find_number_of_commands_and_args(start);
-	proc_struct->cmd_and_args = malloc((num_cmd_args + 1) * sizeof(char *));
+	proc_struct->cmd_and_args = ft_calloc((num_cmd_args + 1), sizeof(char *));
 	if (!(proc_struct->cmd_and_args))
-		return (-2);
+		return (-42);
 	while (counter < num_cmd_args)
 	{
 		if (is_redirect(start))
 			start = start->next->next;
 		else
 		{
-			if (counter == 0 && init_command(proc_struct, start, envp) == -2)
-				return (free(proc_struct->cmd_and_args), -2);
-			else if (counter != 0 && init_arg(proc_struct, start, counter) == -2)
-				return (ft_array_free((void **)proc_struct->cmd_and_args, num_cmd_args), -2);
+			if (counter == 0 && init_command(proc_struct, start, envp) == -42)
+				return (-42);
+			else if (counter != 0 && init_arg(proc_struct, start, counter) == -42)
+				return (-42);
 			counter++;
 			start = start->next;
 		}
 	}
-	(proc_struct->cmd_and_args)[counter] = NULL;
 	return (0);
 }

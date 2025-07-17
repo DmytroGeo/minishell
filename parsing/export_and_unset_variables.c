@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment_functs.c                               :+:      :+:    :+:   */
+/*   export_and_unset_variables.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 15:51:57 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/14 10:44:41 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/17 12:02:20 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ void	unset_variable(char ***envp, const char *key)
 		return;
 	while ((*envp)[i])
 		i++;
-	new_env = malloc(sizeof(char *) * i); // one less
-
+	new_env = malloc(sizeof(char *) * i); // one less 
+	// needs a malloc guard. What happens if malloc fails?
+	// then we need to free everything.
 	i = 0;
 	while ((*envp)[i])
 	{
@@ -74,6 +75,8 @@ void	export_variable(char ***envp, const char *assignment)
 		while ((*envp)[i])
 			i++;
 		new_env = malloc(sizeof(char *) * (i + 2));
+		// needs a malloc guard. What happens if malloc fails?
+		// then we need to free everything.
 		i = 0;
 		while ((*envp)[i])
 		{
@@ -98,6 +101,8 @@ char **copy_envp(char **envp)
 	while ((envp)[i])
 		i++;
 	copy = malloc(sizeof(char *) * (i + 1));
+	// needs a malloc guard. What happens if malloc fails?
+	// then we need to free everything.
 	if (!copy)
 		return (NULL);
 	i = 0;
@@ -132,6 +137,8 @@ char *find_variable_name(char *str)
 {
 	char *equal_sign = ft_strchr(str, '=');
 	char *variable_name = malloc(sizeof(char) * (equal_sign - str + 1));
+	// needs a malloc guard. What happens if malloc fails?
+	// then we need to free everything.
 	ft_memcpy(variable_name, str, equal_sign - str);
 	variable_name[equal_sign - str] = '\0';
 	return (variable_name);

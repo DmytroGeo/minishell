@@ -10,16 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "lexing.h"
 
 void	free_proc_contents(t_proc *proc)
 {
+	if (!proc)
+		return ;
 	if (proc->infiles)
 		free(proc->infiles);
 	if (proc->outfiles)
 		free(proc->outfiles);
 	if (proc->cmd_and_args)
-		ft_array_free((void **)proc->cmd_and_args, ft_array_len(proc->cmd_and_args));
+		ft_array_free((void **)proc->cmd_and_args);
 	return ;
 }
 
@@ -42,10 +44,11 @@ void	free_main(t_main *main)
 	if (main->prompt)
 		free (main->prompt);
 	if (main->envp)
-		ft_array_free((void **)main->envp, ft_array_len(main->envp));
+		ft_array_free((void **)main->envp);
 	if (main->proc_array)
 		free_proc_array(main->proc_array, main->num_of_proc);
-	free(main);
+	if (main->token_chain)
+		free_tok_chain(&(main->token_chain), del_tok_cont);
 	return;
 }
 

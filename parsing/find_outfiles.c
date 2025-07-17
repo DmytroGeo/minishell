@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:15:04 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/15 15:59:08 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/17 15:41:54 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,11 @@ int    find_outfiles(t_proc *proc, t_token *start)
 	
 	i = 0;
 	proc->num_outf = find_number_of_outfiles(start);
+	if (proc->num_outf == 0)
+		return (0);
 	proc->outfiles = malloc(proc->num_outf * sizeof(int));
 	if (!(proc->outfiles))
-		return (-1);
+		return (-42);
 	while (i < proc->num_outf) 
 	{
 		if ((is_redir_out(start) || is_append(start)))

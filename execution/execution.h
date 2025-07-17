@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:54:09 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/15 16:58:53 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/17 18:01:50 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,5 @@ void	free_and_exit(int *pid, int **fd, t_main *main);
 void	dup_infile(int i, int **fd, int *pid, t_main *main);
 void	dup_outfile(int i, int **fd, int *pid, t_main *main);
 void	init_setup(int **pid, int ***fd, t_main *main);
-
+int     evaluate_and_execute(t_main *main, int exit_code);
 #endif

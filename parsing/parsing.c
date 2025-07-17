@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/15 15:47:55 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/17 16:35:33 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@
 int check_syntax(t_token *tok_chain)
 {
 	char	*err_msg_2;
-	char	*oper;
+	char	*opr;
 
 	err_msg_2 = "minishell: syntax error near unexpected token `|'";
 	while (!is_eof(tok_chain))
 	{
 		if (syntax_check_1(tok_chain))
 		{
-			oper = ((t_token_content *)(tok_chain->content))->value;
-			ft_printf(2, "minishell: %s should be followed by a word\n", oper);
+			opr = ((t_token_content *)(tok_chain->content))->value;
+			ft_printf(2, "minishell: %s should be followed by a word\n", opr);
 			return (1);
 		}
 		if (syntax_check_2(tok_chain))
@@ -93,25 +93,25 @@ int find_num_of_proc(t_token *tok_chain)
 
 int	init_process(t_main *main, int counter, t_token **address_of_start)
 {
-	t_proc	*address_of_proc;
+	t_proc	proc;
 	t_token *pipe_ptr;
-	int infile_exit_code;
-	int outfile_exit_code;
-	int cmd_and_args_exit_code;
+	int exit_code;
 
-	address_of_proc = &((main->proc_array)[counter]);
+	proc = (main->proc_array)[counter];
+	proc.cmd_and_args = NULL;
+	proc.infiles = NULL;
+	proc.outfiles = NULL;	
 	pipe_ptr = find_next_pipe(*address_of_start); // finds the first (or in later cases, next) pipe (or eof)
-	infile_exit_code = find_infiles(address_of_proc, *address_of_start);
-	if (infile_exit_code == -1 || infile_exit_code == -2) // at least one of the infiles doesn't exist or has wrong permissions.
-		return (infile_exit_code);
-	outfile_exit_code = find_outfiles(address_of_proc, *address_of_start); // finds and opens all outfiles up to the first (or in later cases, next) pipe or eof and initialises the struct outfiles
-	if (outfile_exit_code == -1 || outfile_exit_code == -2)
-		return (outfile_exit_code);
-	cmd_and_args_exit_code = find_cmd_and_args(address_of_proc, *address_of_start, main->envp);
-	if (cmd_and_args_exit_code == -1 || cmd_and_args_exit_code == -2)
-		return (outfile_exit_code);
-	(*address_of_start) = pipe_ptr; // move the starting pointer to the location of the pipe found
-	(*address_of_start) = (*address_of_start)->next;
+	exit_code = find_infiles(&proc, *address_of_start);
+	if (exit_code == -42) // if malloc goes wrong
+		return (exit_code);
+	exit_code = find_outfiles(&proc, *address_of_start);
+	if (exit_code == -42) // if malloc goes_wrong
+		return (exit_code);
+	exit_code = find_cmd_and_args(&proc, *address_of_start, main->envp);
+	if (exit_code == -42) // if malloc goes_wrong
+		return (exit_code);
+	(*address_of_start) = pipe_ptr->next; // move the start pointer to token after the next pipe
 	return (0);	
 }
 
@@ -119,26 +119,33 @@ int	init_process(t_main *main, int counter, t_token **address_of_start)
 
 ////////////// initialise the array of processes in a loop:
 
-void	init_processes(t_main *main, t_token *tok_chain)
+void	init_processes(t_main *main, int *exit_code_addr)
 {
 	int counter;
 	t_token *copy_of_start;
 
-	if (check_syntax(tok_chain) == EXIT_FAILURE)
-		return (free_main(main), free_tok_chain(&tok_chain, del_tok_cont));
-	main->num_of_proc = find_num_of_proc(tok_chain);
-	main->proc_array = malloc(main->num_of_proc * sizeof(t_proc));
-	if (!(main->proc_array))
-		return (free_main(main), free_tok_chain(&tok_chain, del_tok_cont));
-	counter = 0;
-	copy_of_start = tok_chain;
-	while (counter < main->num_of_proc)
+	if (check_syntax(main->token_chain) == EXIT_FAILURE)
 	{
-		if (init_process(main, counter, &tok_chain) == -2)
-			return (free_main(main), free_tok_chain(&tok_chain, del_tok_cont)); // we need a case for if we get -1 (i.e) unidentified command, arg, wrong permissions for outfile or infile
-		counter++;
+		*exit_code_addr = 2;
+		return (free_main(main));		
+	}
+	main->num_of_proc = find_num_of_proc(main->token_chain);
+	main->proc_array = ft_calloc(main->num_of_proc, sizeof(t_proc));
+	if (!(main->proc_array))
+	{
+		*exit_code_addr = -42;
+		return (free_main(main));		
+	}
+	counter = -1;
+	copy_of_start = main->token_chain;
+	while (++counter < main->num_of_proc)
+	{
+		if (init_process(main, counter, &copy_of_start) == -42)
+		{
+			*exit_code_addr = -42;
+			return (free_main(main));		
+		}
 	}
 }
-
 
 ///////////////////////////////////

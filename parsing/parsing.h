@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:21:46 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/16 13:51:49 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/17 18:05:42 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-
-typedef struct s_proc
-{
-	int num_inf;
-	int num_outf;
-	int *infiles;
-	int *outfiles;
-	char **cmd_and_args;
-}           t_proc;
-
-typedef struct s_main
-{
-	char *prompt;
-	char **envp;
-	int	num_of_proc;
-	t_proc *proc_array;	
-}           t_main;
-
-t_proc  *parse(t_token *tok_chain);
 
 int 	is_word(t_token *current_token);
 int		is_pipe(t_token *current_token);
@@ -61,16 +42,16 @@ int     syntax_check_2(t_token *curr);
 int     syntax_check_3(t_token *curr);
 int     syntax_check_4(t_token *curr);
 int		check_syntax(t_token *tok_chain);
+void	init_processes(t_main *main, int *exit_code_addr);
 
-void	init_envp_and_prompt(t_main *main, char **envp);
+void	init_main(t_main *main, char **envp);
 void	unset_variable(char ***envp, const char *key);
 void	export_variable(char ***envp, const char *assignment);
 void    do_all_expansions(t_token **tok_chain, int exit_status, char **envp);
-void	init_processes(t_main *main, t_token *tok_chain);
 void	infile_err2(char *file_name);
 void	infile_err3(char *file_name);
 void	outfile_err(char *file_name);
-void	free_main(t_main *main);
+void	free_proc_contents(t_proc *proc);
 
 char	**copy_envp(char **envp);
 #endif

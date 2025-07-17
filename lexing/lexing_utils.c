@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:37:13 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/15 15:46:57 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/17 11:35:25 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ char    *get_path(char *str, char **envp)
         temp2 = ft_strjoin(temp1, str);
         free(temp1);
         if (access(temp2, F_OK | X_OK) == 0)
-            return (ft_array_free((void **)arr, ft_array_len(arr)), temp2);
+            return (ft_array_free((void **)arr), temp2);
         free(temp2);
     }
-    ft_array_free((void **)arr, ft_array_len(arr));
+    ft_array_free((void **)arr);
     return (NULL);
 }
 

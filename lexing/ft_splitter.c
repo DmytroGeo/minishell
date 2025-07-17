@@ -22,63 +22,58 @@ int	operator_length(char *line)
 
 char	**split_line(char *line)
 {
-	char	**tokens;
-	int		i;
-	int		token_count;
-	int		start;
-	int		inside_single_quotes;
-	int		inside_double_quotes;
+	char	**tokens = malloc(sizeof(char *) * 256); // malloc not accounted for
+	int		token_count = 0;
+	int		i = 0;
+	int		start = -1;
+	int		in_quotes = 0;
+	char	current_quote = 0;
 
-	i = 0;
-	start = -1;
-	token_count = 0;
-	inside_double_quotes = 0;
-	inside_single_quotes = 0;
-	tokens = malloc(sizeof(char *) * 256);
 	if (!tokens)
 		return (NULL);
+
 	while (line[i])
 	{
-		if ((line[i] == '\'' || line[i] == '"') &&
-		!inside_single_quotes && !inside_double_quotes)
+		// Handle entering a quote block
+		if ((line[i] == '\'' || line[i] == '"') && !in_quotes)
 		{
-			char quote = line[i];
-			start = i++; // include the opening quote
-			while (line[i] && line[i] != quote)
-				i++;
-			if (line[i] == quote)
-				i++; // include the closing quote
-			tokens[token_count++] = ft_substr(line, start, i - start);
-			start = -1;
+			in_quotes = 1;
+			current_quote = line[i];
+			if (start == -1)
+				start = i;
+			i++;
 			continue;
 		}
-		// Handle space or operator (only outside of quotes)
-		else if ((line[i] == ' ' || is_operator_start(line, i)) &&
-				!inside_single_quotes && !inside_double_quotes)
+		// Handle closing a quote block
+		else if (in_quotes && line[i] == current_quote)
 		{
-			// Finish the current token if we were building one
+			i++;
+			in_quotes = 0;
+			continue;
+		}
+		// Token end (space outside quotes or operator)
+		else if (!in_quotes && (line[i] == ' ' || is_operator_start(line, i)))
+		{
 			if (start != -1)
 			{
 				tokens[token_count++] = ft_substr(line, start, i - start);
 				start = -1;
 			}
-			// Handle the operator itself as a separate token
 			if (is_operator_start(line, i))
 			{
 				int op_len = operator_length(line + i);
 				tokens[token_count++] = ft_substr(line, i, op_len);
-				i += op_len - 1; // skip past operator
+				i += op_len;
+				continue;
 			}
 		}
-		// Start a new token if needed
 		else if (start == -1)
 			start = i;
 		i++;
 	}
-	// Handle any final token at the end of line
+
 	if (start != -1)
 		tokens[token_count++] = ft_substr(line, start, i - start);
-
-	tokens[token_count] = NULL; // Null-terminate the tokens array
+	tokens[token_count] = NULL;
 	return (tokens);
 }
