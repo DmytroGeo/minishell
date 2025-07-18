@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:42:54 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/17 15:41:48 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/18 10:16:53 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,7 @@ int		init_command(t_proc *proc_struct, t_token *start, char **envp)
 	return (0);
 }
 
-/**
- * @brief banana
- * @return returns banana
- * @param proc_struct main struct
- * @param start starts
- * @warning dont call me
- */
+
 int		init_arg(t_proc *proc_struct, t_token *start, int counter)
 {
 	t_token_content *content;

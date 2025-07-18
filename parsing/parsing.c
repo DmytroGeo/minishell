@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/17 16:35:33 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/18 13:56:52 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,13 @@ int find_num_of_proc(t_token *tok_chain)
 	return (number_of_pipes + 1);
 }
 
-int	init_process(t_main *main, int counter, t_token **address_of_start)
+int	init_process(t_cshell *cshell, int counter, t_token **address_of_start)
 {
 	t_proc	proc;
 	t_token *pipe_ptr;
 	int exit_code;
 
-	proc = (main->proc_array)[counter];
+	proc = (cshell->proc_array)[counter];
 	proc.cmd_and_args = NULL;
 	proc.infiles = NULL;
 	proc.outfiles = NULL;	
@@ -108,44 +108,34 @@ int	init_process(t_main *main, int counter, t_token **address_of_start)
 	exit_code = find_outfiles(&proc, *address_of_start);
 	if (exit_code == -42) // if malloc goes_wrong
 		return (exit_code);
-	exit_code = find_cmd_and_args(&proc, *address_of_start, main->envp);
+	exit_code = find_cmd_and_args(&proc, *address_of_start, cshell->envp);
 	if (exit_code == -42) // if malloc goes_wrong
 		return (exit_code);
 	(*address_of_start) = pipe_ptr->next; // move the start pointer to token after the next pipe
 	return (0);	
 }
 
-
-
 ////////////// initialise the array of processes in a loop:
 
-void	init_processes(t_main *main, int *exit_code_addr)
+int	init_processes(t_cshell *cshell)
 {
 	int counter;
 	t_token *copy_of_start;
 
-	if (check_syntax(main->token_chain) == EXIT_FAILURE)
-	{
-		*exit_code_addr = 2;
-		return (free_main(main));		
-	}
-	main->num_of_proc = find_num_of_proc(main->token_chain);
-	main->proc_array = ft_calloc(main->num_of_proc, sizeof(t_proc));
-	if (!(main->proc_array))
-	{
-		*exit_code_addr = -42;
-		return (free_main(main));		
-	}
+	if (check_syntax(cshell->token_chain) == EXIT_FAILURE)
+		return (2);
+	cshell->num_of_proc = find_num_of_proc(cshell->token_chain);
+	cshell->proc_array = ft_calloc(cshell->num_of_proc, sizeof(t_proc));
+	if (!(cshell->proc_array))
+		return (-42);		
 	counter = -1;
-	copy_of_start = main->token_chain;
-	while (++counter < main->num_of_proc)
+	copy_of_start = cshell->token_chain;
+	while (++counter < cshell->num_of_proc)
 	{
-		if (init_process(main, counter, &copy_of_start) == -42)
-		{
-			*exit_code_addr = -42;
-			return (free_main(main));		
-		}
+		if (init_process(cshell, counter, &copy_of_start) == -42)
+			return (-42);
 	}
+	return (0);
 }
 
 ///////////////////////////////////

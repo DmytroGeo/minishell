@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:38:36 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/17 11:45:52 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/18 13:12:40 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int correct_integer(int n)
 	return (i);
 }
 
-int	ft_exit(char **cmd_and_args, int *pid, int **fd, t_main *main)
+int	ft_exit(char **cmd_and_args, t_cshell *cshell)
 {
 	int exit_code;
 	
@@ -53,9 +53,7 @@ int	ft_exit(char **cmd_and_args, int *pid, int **fd, t_main *main)
 			exit_code = 2;			
 		}
 	}
-	if (pid && fd)
-		(free(pid), ft_array_free2((void **)fd, main->num_of_proc - 1));
-	free_main(main);
+	free_cshell(cshell);
 	ft_printf(1, "exit\n");
 	exit(exit_code);    
 }

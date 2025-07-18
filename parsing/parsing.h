@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:21:46 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/17 18:05:42 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/18 13:56:15 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int		is_redir_in(t_token *current_token);
 int		is_redir_out(t_token *current_token);
 int		is_redirect(t_token *current_token);
 int		heredoc_fd(char *limiter);
-int		proc_call(int i, char c);
 int		is_valid_variable_assignment(char *str);
 int		is_valid_variable_name(char *str);
 int		find_env_index(char **envp, const char *key);
@@ -42,9 +41,10 @@ int     syntax_check_2(t_token *curr);
 int     syntax_check_3(t_token *curr);
 int     syntax_check_4(t_token *curr);
 int		check_syntax(t_token *tok_chain);
-void	init_processes(t_main *main, int *exit_code_addr);
+int     init_processes(t_cshell *cshell);
 
-void	init_main(t_main *main, char **envp);
+void	proc_call(int i, char c);
+void	init_cshell(t_cshell *cshell, char **envp);
 void	unset_variable(char ***envp, const char *key);
 void	export_variable(char ***envp, const char *assignment);
 void    do_all_expansions(t_token **tok_chain, int exit_status, char **envp);

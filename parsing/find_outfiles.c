@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:15:04 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/17 15:41:54 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/18 12:12:05 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int find_number_of_outfiles(t_token *start)
 			start = start->next;
 			file_name = ((t_token_content *)(start->content))->value;
 			if (access(file_name, F_OK) == 0 && access(file_name, W_OK) != 0)
-				return (outfile_err(file_name), number_of_outfiles);
+				return (outfile_err(file_name), number_of_outfiles + 1);
 			number_of_outfiles++;			
 		}
 		start = start->next;

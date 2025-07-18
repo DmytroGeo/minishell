@@ -6,7 +6,7 @@
 #    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/12 11:38:45 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/07/15 17:01:00 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/18 13:40:35 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 SRCS = execution_utils/change_directory.c \
 		execution_utils/execute_built_ins.c \
 		execution_utils/export_all_variables.c \
-		execution_utils/free_and_exit.c \
 		execution_utils/ft_echo.c \
 		execution_utils/ft_exit.c \
 		execution_utils/print_env.c \

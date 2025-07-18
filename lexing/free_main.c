@@ -39,16 +39,20 @@ void free_proc_array(t_proc *proc_array, int len)
 	return ;
 }
 
-void	free_main(t_main *main)
+void	free_cshell(t_cshell *cshell)
 {
-	if (main->prompt)
-		free (main->prompt);
-	if (main->envp)
-		ft_array_free((void **)main->envp);
-	if (main->proc_array)
-		free_proc_array(main->proc_array, main->num_of_proc);
-	if (main->token_chain)
-		free_tok_chain(&(main->token_chain), del_tok_cont);
-	return;
+	if (cshell->prompt)
+		free(cshell->prompt);
+	if (cshell->envp)
+		ft_array_free((void **)cshell->envp);
+	if (cshell->pid)
+		free(cshell->pid);
+	if (cshell->fd)
+		ft_array_free2((void **)cshell->fd, cshell->num_of_proc - 1);
+	if (cshell->proc_array)
+		free_proc_array(cshell->proc_array, cshell->num_of_proc);
+	if (cshell->token_chain)
+		free_tok_chain(&(cshell->token_chain), del_tok_cont);
+	return ;
 }
 

@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/17 18:02:15 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/18 13:56:22 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	print_processes_and_their_contents(t_proc *process_array, int number_of_pro
 	int k = 0;
 	while (i < number_of_processes)
 	{
-		ft_printf(1, "For process %d\n", i);
+		ft_printf(1, "For process %d\n", i + 1);
 		ft_printf(1, "\n");
 		ft_printf(1, "The number of legal infiles is: \n");
 		ft_printf(1, "\n");
@@ -94,17 +94,23 @@ void	print_processes_and_their_contents(t_proc *process_array, int number_of_pro
 					ft_printf(1, "%s\n", (process_array[i]).cmd_and_args[k]);
 					ft_printf(1, "\n");						
 				}
+				k++;
 			}
+			k = 0;
 		}
-		
+		i++;
 	}
 }
 	
-void    print_main_stuff2(t_main *main)
+void    print_cshell_stuff2(t_cshell *cshell, int exit_code)
 {
-	int number_of_processes = main->num_of_proc;
-	t_proc *process_array = main->proc_array;
-	
+	if (exit_code != 0)
+	{
+		ft_printf(1, "Syntax error detected\n");
+		return ;
+	}
+	int number_of_processes = cshell->num_of_proc;
+	t_proc *process_array = cshell->proc_array;
 	ft_printf(1, "\n");
 	ft_printf(1, "The number of processes is: \n");
 	ft_printf(1, "\n");
@@ -115,27 +121,30 @@ void    print_main_stuff2(t_main *main)
 	return ;
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	(void)argc;
-	(void)argv;
+	((void)argc, (void)argv);
 	char *line;
 	int exit_code;
-	t_main main;
-
-	init_main(&main, envp);
-	while ((line = readline(main.prompt)) != NULL)
+	t_cshell cshell;
+	
+	exit_code = 0;
+	init_cshell(&cshell, envp);
+	line = readline(cshell.prompt);
+	while (line != NULL)
 	{
 		if (*line) // if there's something in the line 
 		{
-			exit_code = 0;
 			add_history(line);
-			lexing(&main, line);
-			// expansions(&main, exit_code);
-			init_processes(&main, &exit_code);
-			evaluate_and_execute(&main, exit_code);
+			lexing(&cshell, line);
+			// expansions(&cshell, exit_code);
+			exit_code = init_processes(&cshell);
+			print_cshell_stuff2(&cshell, exit_code);
+			// evaluate_and_execute(&cshell, &exit_code);
 		}
 		free(line);
+		free_cshell(&cshell);
+		init_cshell(&cshell, envp);
+		line = readline(cshell.prompt);
 	}
-	return (0);
 }

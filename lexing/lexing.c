@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:59:28 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/17 11:55:15 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/18 12:59:11 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void    populate_operators(t_op *operators)
     operators[5] = (t_op){NULL, word};
 }
 
-void     lexing(t_main *main, char *line)
+void     lexing(t_cshell *cshell, char *line)
 {
     char    **raw_tokens;
     t_op    operators[6];
@@ -35,14 +35,14 @@ void     lexing(t_main *main, char *line)
     {
         new_content = init_token_content(*raw_tokens, operators);
         if (!new_content)
-            return (free_main(main), exit(1));       
+            return (free_cshell(cshell), exit(1));       
         new_token = ft_dlstnew(new_content);
         if (!new_token)
         {
             del_tok_cont((void *)new_content);
-            return (free_main(main), exit(1));            
+            return (free_cshell(cshell), exit(1));            
         }
-        ft_dlstadd_back(&(main->token_chain), new_token);
+        ft_dlstadd_back(&(cshell->token_chain), new_token);
         raw_tokens++;
     }
     return ;

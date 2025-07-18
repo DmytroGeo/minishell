@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 13:41:03 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/11 13:42:41 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/18 14:00:39 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int is_heredoc(t_token *current_token)
 {
+	if (!current_token)
+		return (false);
 	t_token_content *content;
 	
 	content = (t_token_content *)(current_token->content);
@@ -22,6 +24,8 @@ int is_heredoc(t_token *current_token)
 
 int is_redir_in(t_token *current_token)
 {
+	if (!current_token)
+		return (false);
 	t_token_content *content;
 	
 	content = (t_token_content *)(current_token->content);
@@ -30,6 +34,8 @@ int is_redir_in(t_token *current_token)
 
 int is_redir_out(t_token *current_token)
 {
+	if (!current_token)
+		return (false);
 	t_token_content *content;
 	
 	content = (t_token_content *)(current_token->content);
@@ -38,6 +44,8 @@ int is_redir_out(t_token *current_token)
 
 int is_append(t_token *current_token)
 {
+	if (!current_token)
+		return (false);
 	t_token_content *content;
 	
 	content = (t_token_content *)(current_token->content);

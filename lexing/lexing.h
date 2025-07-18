@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:48:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/17 18:05:50 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/18 13:03:28 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,14 +134,16 @@ typedef struct s_proc
 	char **cmd_and_args; // char array of command and args
 }           t_proc;
 
-typedef struct s_main
+typedef struct s_cshell
 {
 	char *prompt;
 	char **envp;
 	int	num_of_proc;
+	int *pid;
+	int **fd;
 	t_token *token_chain;
 	t_proc *proc_array;	
-}           t_main;
+}           t_cshell;
 
 void	ft_dlstadd_back(t_token **tok, t_token *new);
 void	ft_dlstadd_front(t_token **tok, t_token *new);
@@ -151,7 +153,7 @@ void	populate_operators(t_op *operators);
 void	ft_perror(char *str, char c);
 void  	del_tok_cont(void *content);
 void	free_tok_chain(t_token **start, void (*del)(void*));
-void	free_main(t_main *main);
+void	free_cshell(t_cshell *cshell);
 
 int		is_surrounded_by(char *str, char quote);
 int		is_operator_start(char *line, int i);
@@ -159,7 +161,7 @@ int		operator_length(char *line);
 int     ft_tokindex(t_token *elem, t_token **head);
 int     ft_toksize(t_token *tok);
 
-void	lexing(t_main *main, char *line);
+void	lexing(t_cshell *cshell, char *line);
 t_token *ft_toklast(t_token *tok);
 t_token	*ft_dlstnew(void *content);
 

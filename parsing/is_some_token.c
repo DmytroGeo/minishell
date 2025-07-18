@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 13:42:50 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/11 14:14:05 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/18 14:00:07 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 int	is_eof(t_token *current_token)
 {
-	return (current_token->next == NULL);
+	return (current_token && current_token->next == NULL);
 }
 
 int	is_word(t_token *current_token)
 {
+	if (!current_token)
+		return (false);
 	t_token_content *content;
 	
 	content = (t_token_content *)(current_token->content);
@@ -27,6 +29,8 @@ int	is_word(t_token *current_token)
 
 int	is_pipe(t_token *current_token)
 {
+	if (!current_token)
+		return (false);
 	t_token_content *content;
 	
 	content = (t_token_content *)(current_token->content);

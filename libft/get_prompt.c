@@ -6,11 +6,11 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 10:53:52 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/10 14:26:00 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/18 10:35:27 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libft.h"
+#include "libft.h"
 
 char	*ft_get_cwd(void)
 {
@@ -21,11 +21,15 @@ char	*ft_get_cwd(void)
 	return (str);
 }
 
-char *get_prompt(void)
+char	*get_prompt(void)
 {
-    char *cwd = ft_get_cwd();
-    char *temp = ft_strjoin("minishell:", cwd);
-    char *prompt = ft_strjoin(temp, "$ ");
-    free(temp);
-    return(prompt);
+	char	*cwd;
+	char	*temp;
+	char	*prompt;
+
+	cwd = ft_get_cwd();
+	temp = ft_strjoin("minishell:", cwd);
+	prompt = ft_strjoin(temp, "$ ");
+	free(temp);
+	return (prompt);
 }
