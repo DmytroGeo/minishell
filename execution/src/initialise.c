@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:41:49 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/18 13:20:22 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 10:51:55 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void	init_setup(t_cshell *cshell)
 {
 	int	i;
-	
+
 	i = -1;
 	cshell->pid = ft_calloc(cshell->num_of_proc, sizeof(int));
 	if (!cshell->pid)
-		return (free_cshell(cshell), exit(1)); 
+		return (free_cshell(cshell), exit(1));
 	cshell->fd = ft_calloc(cshell->num_of_proc - 1, sizeof(int *));
 	if (!cshell->fd)
 		return (free_cshell(cshell), exit(1));

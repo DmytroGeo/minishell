@@ -6,16 +6,16 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:15:59 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/14 15:37:04 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 11:20:55 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-int		is_echo_flag(char *str)
+int	is_echo_flag(char *str)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	if (str[i] != '-')
 		return (EXIT_FAILURE);
@@ -29,16 +29,11 @@ int		is_echo_flag(char *str)
 	return (EXIT_SUCCESS);
 }
 
-/// instead of joining everything into one big string, just loop and print one string at a time.
-
 int	ft_echo(int fd, char **arguments)
 {
-	char *big_string;
-	int has_flag;
-	int number_of_arguments;
-	int i;
-	char *temp;
-	char *previous_big_string;
+	int	has_flag;
+	int	number_of_arguments;
+	int	i;
 
 	i = 0;
 	has_flag = 0;
@@ -46,29 +41,16 @@ int	ft_echo(int fd, char **arguments)
 	{
 		has_flag = 1;
 		while (arguments[i] && is_echo_flag(arguments[i]) == EXIT_SUCCESS)
-			i++;		
+			i++;
 	}
 	number_of_arguments = ft_array_len(arguments + i);
-	if (number_of_arguments == 1)
-		ft_printf(fd, "%s", arguments[i]);
-	else if (number_of_arguments > 1)
+	while (i < number_of_arguments - 1)
 	{
-		previous_big_string = ft_strjoin(arguments[i], " ");
+		ft_printf(fd, "%s ", arguments[i]);
 		i++;
-		while (i < number_of_arguments - 1)
-		{
-			temp = ft_strjoin(arguments[i], " ");
-			big_string = ft_strjoin(previous_big_string, temp);
-			free(temp);
-			free(previous_big_string);
-			previous_big_string = big_string;
-			i++;
-		}
-		big_string = ft_strjoin(previous_big_string, arguments[i]);	
-		free(previous_big_string);
-		ft_printf(fd, "%s", big_string);
 	}
+	ft_printf(fd, "%s", arguments[i]);
 	if (has_flag == 0)
-		ft_printf(fd, "\n", big_string);		
+		ft_printf(fd, "\n");
 	return (0);
 }

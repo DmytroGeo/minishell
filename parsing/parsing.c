@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/18 13:56:52 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 12:23:23 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 // 4. pipe cannot end a line.
 
-int check_syntax(t_token *tok_chain)
+int	check_syntax(t_token *tok_chain)
 {
 	char	*err_msg_2;
 	char	*opr;
@@ -43,21 +43,17 @@ int check_syntax(t_token *tok_chain)
 		if (syntax_check_2(tok_chain))
 			return (ft_printf(2, "%s\n", err_msg_2), 1);
 		if (syntax_check_3(tok_chain))
-			return(ft_printf(2, "%s\n", err_msg_2), 1);
+			return (ft_printf(2, "%s\n", err_msg_2), 1);
 		if (syntax_check_4(tok_chain))
-			return(ft_printf(2, "%s\n", err_msg_2), 1);
+			return (ft_printf(2, "%s\n", err_msg_2), 1);
 		tok_chain = tok_chain->next;
 	}
 	return (EXIT_SUCCESS);
 }
 
-////////
-
-////// find and returns a pointer to the next pipe:
-
-t_token *find_next_pipe(t_token *start)
+t_token	*find_next_pipe(t_token *start)
 {
-	t_token *pipe_ptr;
+	t_token	*pipe_ptr;
 
 	pipe_ptr = NULL;
 	while (!is_eof(start))
@@ -69,17 +65,13 @@ t_token *find_next_pipe(t_token *start)
 		}
 		start = start->next;
 	}
-	pipe_ptr = start;	
+	pipe_ptr = start;
 	return (pipe_ptr);
 }
 
-////////////////////
-// finds the number of processes. this is always one more than the number of pipes.
-///////
-
-int find_num_of_proc(t_token *tok_chain)
+int	find_num_of_proc(t_token *tok_chain)
 {
-	int number_of_pipes;
+	int	number_of_pipes;
 
 	number_of_pipes = 0;
 	while (!is_eof(tok_chain))
@@ -94,40 +86,38 @@ int find_num_of_proc(t_token *tok_chain)
 int	init_process(t_cshell *cshell, int counter, t_token **address_of_start)
 {
 	t_proc	proc;
-	t_token *pipe_ptr;
-	int exit_code;
+	t_token	*pipe_ptr;
+	int		exit_code;
 
 	proc = (cshell->proc_array)[counter];
 	proc.cmd_and_args = NULL;
 	proc.infiles = NULL;
-	proc.outfiles = NULL;	
-	pipe_ptr = find_next_pipe(*address_of_start); // finds the first (or in later cases, next) pipe (or eof)
+	proc.outfiles = NULL;
+	pipe_ptr = find_next_pipe(*address_of_start);
 	exit_code = find_infiles(&proc, *address_of_start);
-	if (exit_code == -42) // if malloc goes wrong
+	if (exit_code == -42)
 		return (exit_code);
 	exit_code = find_outfiles(&proc, *address_of_start);
-	if (exit_code == -42) // if malloc goes_wrong
+	if (exit_code == -42)
 		return (exit_code);
 	exit_code = find_cmd_and_args(&proc, *address_of_start, cshell->envp);
-	if (exit_code == -42) // if malloc goes_wrong
+	if (exit_code == -42)
 		return (exit_code);
-	(*address_of_start) = pipe_ptr->next; // move the start pointer to token after the next pipe
-	return (0);	
+	(*address_of_start) = pipe_ptr->next;
+	return (0);
 }
-
-////////////// initialise the array of processes in a loop:
 
 int	init_processes(t_cshell *cshell)
 {
-	int counter;
-	t_token *copy_of_start;
+	int		counter;
+	t_token	*copy_of_start;
 
 	if (check_syntax(cshell->token_chain) == EXIT_FAILURE)
 		return (2);
 	cshell->num_of_proc = find_num_of_proc(cshell->token_chain);
 	cshell->proc_array = ft_calloc(cshell->num_of_proc, sizeof(t_proc));
 	if (!(cshell->proc_array))
-		return (-42);		
+		return (-42);
 	counter = -1;
 	copy_of_start = cshell->token_chain;
 	while (++counter < cshell->num_of_proc)
@@ -137,5 +127,3 @@ int	init_processes(t_cshell *cshell)
 	}
 	return (0);
 }
-
-///////////////////////////////////

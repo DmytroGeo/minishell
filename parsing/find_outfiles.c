@@ -6,22 +6,17 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:15:04 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/18 12:12:05 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 12:42:16 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-// this function finds the number of outfiles in the current process (up to and including the bad one).
-// if an outfile exists and we don't have permission to access it, the function stops there.
-// EXAMPLE: if we had echo hello > out1 > out2 > out3 and we didn't have permissions to access out2,
-// only out1 will be made. The function won't be executed (see init outfile).
-
-int find_number_of_outfiles(t_token *start)
+int	find_number_of_outfiles(t_token *start)
 {
-	int number_of_outfiles;
-	char *file_name;
-	
+	int		number_of_outfiles;
+	char	*file_name;
+
 	number_of_outfiles = 0;
 	while (!is_eof(start) && !is_pipe(start))
 	{
@@ -31,17 +26,17 @@ int find_number_of_outfiles(t_token *start)
 			file_name = ((t_token_content *)(start->content))->value;
 			if (access(file_name, F_OK) == 0 && access(file_name, W_OK) != 0)
 				return (outfile_err(file_name), number_of_outfiles + 1);
-			number_of_outfiles++;			
+			number_of_outfiles++;
 		}
 		start = start->next;
 	}
 	return (number_of_outfiles);
 }
 
-int init_outfile(int i, t_token *start, t_proc *proc_struct)
+int	init_outfile(int i, t_token *start, t_proc *proc_struct)
 {
-	char *file_name;
-	int fd;
+	char	*file_name;
+	int		fd;
 
 	fd = 0;
 	file_name = ((t_token_content *)(start->content))->value;
@@ -53,10 +48,10 @@ int init_outfile(int i, t_token *start, t_proc *proc_struct)
 	return (0);
 }
 
-int    find_outfiles(t_proc *proc, t_token *start)
+int	find_outfiles(t_proc *proc, t_token *start)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	proc->num_outf = find_number_of_outfiles(start);
 	if (proc->num_outf == 0)
@@ -64,7 +59,7 @@ int    find_outfiles(t_proc *proc, t_token *start)
 	proc->outfiles = malloc(proc->num_outf * sizeof(int));
 	if (!(proc->outfiles))
 		return (-42);
-	while (i < proc->num_outf) 
+	while (i < proc->num_outf)
 	{
 		if ((is_redir_out(start) || is_append(start)))
 		{
@@ -74,5 +69,5 @@ int    find_outfiles(t_proc *proc, t_token *start)
 		}
 		start = start->next;
 	}
-	return (0);   
+	return (0);
 }

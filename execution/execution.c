@@ -6,21 +6,20 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 13:19:06 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/18 13:29:54 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 10:51:06 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "execution.h"
+#include "execution.h"
 
 void	evaluate_and_execute(t_cshell *cshell, int *exit_code)
 {
 	if (*exit_code == 0)
 	{
 		*exit_code = execution(cshell);
-		return;	
+		return ;
 	}
-	else
-		return (free_cshell(cshell));
+	return (free_cshell(cshell));
 }
 
 int	execution(t_cshell *cshell)

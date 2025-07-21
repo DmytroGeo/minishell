@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:38:36 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/18 13:12:40 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 11:18:40 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,34 +26,39 @@ int	ft_contains_only_digit(char *str)
 	return (1);
 }
 
-int correct_integer(int n)
+int	correct_integer(int n)
 {
-	int i;
-	
+	int	i;
+
 	i = n % 256;
 	if (i < 0)
 		i += 256;
 	return (i);
 }
 
+void	exit_err1(char *str)
+{
+	ft_printf(2, "exit: %s: numeric argument required\n", str);
+}
+
 int	ft_exit(char **cmd_and_args, t_cshell *cshell)
 {
-	int exit_code;
-	
+	int	exit_code;
+
 	exit_code = 0;
 	if (ft_array_len(cmd_and_args) > 2)
 		return (ft_printf(2, "exit\nminishell: exit: too many arguments"), 1);
 	if (ft_array_len(cmd_and_args) == 2)
 	{
 		if (ft_contains_only_digit(cmd_and_args[1]))
-			exit_code = correct_integer(ft_atoi(cmd_and_args[1])); // converts exit codes to those in range 0 to 255
+			exit_code = correct_integer(ft_atoi(cmd_and_args[1]));
 		else
 		{
-			ft_printf(2, "exit: %s: numeric argument required\n", cmd_and_args[1]);
-			exit_code = 2;			
+			exit_err1(cmd_and_args[1]);
+			exit_code = 2;
 		}
 	}
 	free_cshell(cshell);
 	ft_printf(1, "exit\n");
-	exit(exit_code);    
+	exit(exit_code);
 }

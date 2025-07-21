@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:03:04 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/17 11:38:03 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 12:39:16 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	outfile_err(char *file_name)
 {
-    ft_printf(2, "minishell: %s: Permission denied\n", file_name);
+	ft_printf(2, "minishell: %s: Permission denied\n", file_name);
 }

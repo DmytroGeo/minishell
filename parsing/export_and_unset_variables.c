@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 15:51:57 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/17 12:02:20 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 12:58:36 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 int	find_env_index(char **envp, const char *key)
 {
-	int		i = 0;
-	size_t	len = ft_strlen(key);
+	int		i;
+	size_t	len;
 
+	i = 0;
+	len = ft_strlen(key);
 	while (envp[i])
 	{
 		if (ft_strncmp(envp[i], key, len) == 0 && envp[i][len] == '=')
@@ -28,13 +30,16 @@ int	find_env_index(char **envp, const char *key)
 
 void	unset_variable(char ***envp, const char *key)
 {
-	int		i = 0;
-	int		j = 0;
-	int		index = find_env_index(*envp, key);
+	int		i;
+	int		j;
+	int		index;
 	char	**new_env;
 
+	i = 0;
+	j = 0;
+	index = find_env_index(*envp, key);
 	if (index < 0)
-		return;
+		return ;
 	while ((*envp)[i])
 		i++;
 	new_env = malloc(sizeof(char *) * i); // one less 
@@ -135,8 +140,11 @@ int	is_valid_variable_name(char *str)
 
 char *find_variable_name(char *str)
 {
-	char *equal_sign = ft_strchr(str, '=');
-	char *variable_name = malloc(sizeof(char) * (equal_sign - str + 1));
+	char *equal_sign;
+	char *variable_name;
+	
+	equal_sign = ft_strchr(str, '=');
+	variable_name = malloc(sizeof(char) * (equal_sign - str + 1));
 	// needs a malloc guard. What happens if malloc fails?
 	// then we need to free everything.
 	ft_memcpy(variable_name, str, equal_sign - str);
@@ -149,7 +157,7 @@ int	is_valid_variable_assignment(char *str)
 	int		i;
 	char	*equal_sign;
 	char	*variable_name;
-	int n;
+	int		n;
 
 	if (!str)
 		return (0);

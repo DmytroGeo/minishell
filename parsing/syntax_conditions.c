@@ -6,29 +6,29 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 14:17:53 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/15 16:51:32 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 12:11:24 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int     syntax_check_1(t_token *curr)
+int	syntax_check_1(t_token *curr)
 {
-    return (is_redirect(curr) && !is_word(curr->next));
+	return (is_redirect(curr) && !is_word(curr->next));
 }
 
-int     syntax_check_2(t_token *curr)
+int	syntax_check_2(t_token *curr)
 {
-    return (is_pipe(curr) && !(curr->previous));
+	return (is_pipe(curr) && !(curr->previous));
 }
 
-int     syntax_check_3(t_token *curr)
+int	syntax_check_3(t_token *curr)
 {
-    return (is_pipe(curr)
-        && !(is_word(curr->next) || is_redirect(curr->next)));
+	return (is_pipe(curr)
+		&& !(is_word(curr->next) || is_redirect(curr->next)));
 }
 
-int     syntax_check_4(t_token *curr)
+int	syntax_check_4(t_token *curr)
 {
-    return (is_pipe(curr) && is_eof(curr));
+	return (is_pipe(curr) && is_eof(curr));
 }
