@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:54:09 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/25 15:03:41 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 16:52:17 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define EXECUTION_H
 
 # include "libft.h"
+# include "../parsing/parsing.h"
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/types.h>
@@ -27,36 +28,26 @@
 # include <limits.h>
 # include <stdio.h>
 # include <stdarg.h>
+# include <linux/limits.h>
 
-typedef struct s_execution_content
-{
-	int				number_of_commands;
-	int				index;
-	char			*path;
-	char			**flags;
-	char			**envp;	
-} t_execution_content;
+int		execute_built_ins(t_cshell *cshell, int i, int outfile_fd);
+int		ft_chdir(char **new_directory, char **prompt, char ***envp);
+int		execution(t_cshell *cshell);
+int		wait_for_processes(int *pid, int ac);
+int		export_all_vars(char **arguments, char ***envp);
+int		unset_all_vars(char **arguments, char ***envp);
+int		ft_echo(int fd, char **arguments);
+int		print_envp(int fd, char **envp);
+int		ft_exit(char **cmd_and_args, t_cshell *cshell);
+int		execute_in_main(t_cshell *cshell);
 
 void	close_fds(int **fd, int len);
-int		proc_call(int i, char c);
-char	*get_path(char *str, char **envp);
-char	**get_flags(char **arr);
-void	init_list(int number_of_commands, char **commands, char **envp, t_list **head);
-void	init_setup(int **pid, int ***fd, t_simple_command *simple_command, t_list **head);
-int		proc_call(int i, char c);
-int		execution(int number_of_commands, t_simple_command *simple_command, char **envp);
-void	execute(int i, int **fd, int *pid, t_list **head);
-int		wait_for_processes(int *pid, int ac);
-void	dup_infile(int **fd, int *pid, t_list **head, t_simple_command *simple_command);
-void	dup_outfile(int **fd, int *pid, t_list **head, t_simple_command *simple_command);
-void	free_and_exit(int *pid, int **fd, t_list **head);
-void	ft_free_paths_and_flags(void *content);
 void	ft_perror(char *str, char c);
-void	ft_intarr_free(int **fd, int len);
-int	heredoc(char *limiter);
-void	process_loop(t_list **head, int *pid, int **fd, t_simple_command *simple_command);
-
-t_list	*ft_find_node(int i, t_list **head);
-t_execution_content *ft_init_content(char *pa, char **fl, int ac, char **envp);
-
+void	process_loop(t_cshell *cshell);
+void	execute(int i, t_cshell *cshell);
+void	free_and_exit(int *pid, int **fd, t_cshell *cshell);
+void	dup_infile(int i, t_cshell *cshell);
+void	dup_outfile(int i, t_cshell *cshell);
+void	init_setup(t_cshell *cshell);
+void	evaluate_and_execute(t_cshell *cshell, int *exit_code);
 #endif

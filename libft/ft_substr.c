@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 18:37:13 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2024/11/26 15:30:27 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/18 10:38:11 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,17 @@ size_t	ft_msize(size_t c, int d)
 	return (c);
 }
 
+/**
+ * @brief Extracts a substring from the given string 's'.
+ * @param s The source string to extract the substring from.
+ * @param start The starting index in 's' where the substring begins.
+ * @param len The maximum length of the substring.
+ * @return Returns a new string containing the substring,
+ *  or NULL if memory allocation fails.
+ * If 'start' exceeds the length of 's', returns an empty string.
+ */
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-// ft_substr - Extracts a substring from the given string 's'.
-// Parameters:
-//   - s: The source string to extract the substring from.
-//   - start: The starting index in 's' where the substring begins.
-//   - len: The maximum length of the substring.
-// Return value:
-//   - Returns a new string containing the substring, or NULL if memory allocation fails.
-//   - If 'start' exceeds the length of 's', returns an empty string.
 	char	*str;
 	size_t	n;
 	size_t	min;

@@ -6,11 +6,11 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 11:09:15 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/16 13:11:02 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:52:52 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../execution.h"
+#include "lexing.h"
 
 void	ft_perror(char *str, char c)
 {
@@ -23,18 +23,15 @@ void	ft_perror(char *str, char c)
 	if (c == 'p')
 		error_message = "PATH not found";
 	else if (c == 'o')
-		error_message = "my zsh: no such file or directory: ";
+		error_message = "minishell: no such file or directory: ";
 	else
-		error_message = "my zsh: command not found: ";
+		error_message = "minishell: command not found: ";
 	temp1 = ft_strjoin(error_message, str);
 	if (!temp1)
 		return ;
 	temp2 = ft_strjoin(temp1, "\n");
 	if (!temp2)
-	{
-		free(temp1);
-		return ;
-	}
+		return(free(temp1));
 	ft_putstr(temp2, p, &p);
 	free(temp1);
 	free(temp2);

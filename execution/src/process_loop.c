@@ -3,42 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   process_loop.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:12:37 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/25 18:19:53 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 16:16:05 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-void	process_loop(t_list **head, int *pid, int **fd, t_simple_command *simple_command)
+void	process_loop(t_cshell *cshell)
 {
 	int		i;
-	int		number_of_commands;
+	int		num_of_proc;
 
 	i = 0;
-	number_of_commands = ft_array_len(simple_command->commands);
-	while (i < number_of_commands)
+	num_of_proc = cshell->num_of_proc;
+	while (i < num_of_proc)
 	{
-		pid[i] = fork();
-		if (pid[i] < 0)
+		(cshell->pid)[i] = fork();
+		if ((cshell->pid)[i] < 0)
+			(free_cshell(cshell), exit(EXIT_FAILURE));
+		if ((cshell->pid)[i] == 0)
 		{
-			free_and_exit(pid, fd, head);
-			exit(EXIT_FAILURE);
-		}
-		if (pid[i] == 0)
-		{
-			if (i == 0)
-				dup_infile(fd, pid, head, simple_command);
-			else
-				proc_call(dup2(fd[i - 1][0], STDIN_FILENO), 'i');
-			if (i == number_of_commands - 1)
-				dup_outfile(fd, pid, head, simple_command);
-			else
-				proc_call(dup2(fd[i][1], STDOUT_FILENO), 'o');
-			close_fds(fd, number_of_commands - 1);
-			execute(i, fd, pid, head);
+			dup_infile(i, cshell);
+			dup_outfile(i, cshell);
+			close_fds(cshell->fd, num_of_proc - 1);
+			execute(i, cshell);
 			exit(EXIT_FAILURE);
 		}
 		i++;

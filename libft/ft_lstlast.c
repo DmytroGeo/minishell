@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:15:34 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2024/11/26 15:04:50 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/18 11:29:51 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
-	// Arguments: t_list *lst – the linked list to search through.
-	// Returns: The last element of the list, or NULL if the list is empty.
-	// This function iterates through the linked list until it finds the last element (the one whose 'next' pointer is NULL) and returns it.
 	t_list	*current;
 
 	current = lst;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
+#    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/04 16:44:12 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/06/27 15:16:50 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/17 18:06:05 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,25 +15,25 @@ AR = ar rcs
 CC = cc
 LIBFT = ../libft/libft.a
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
-SRC = ft_toknew \
-		ft_tokadd_front \
-		ft_toksize \
-		ft_toklast \
-		ft_tokadd_back \
-		ft_tokdelone \
-		ft_tokclear \
-		ft_tokindex \
-		ft_tokfind \
+SRC = ft_dlstadd_back \
+		del_tok_content \
+		free_token_chain \
+		ft_dlstadd_front \
+		ft_dlstnew \
+		free_main \
+		ft_dlstsize \
+		ft_perror \
 		ft_splitter \
+		init_token_content \
+		lexing_utils \
 		lexing \
-		quote_utils \
-		lexing_utils
+		quote_utils
 
 SRCS = $(addsuffix .c, $(SRC))
 OBJS = $(addsuffix .o, $(SRC))
 
 %.o : %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ -I../libft -I../execution
+	@$(CC) $(CFLAGS) -c $< -o $@ -I../libft 
 
 # “Hey compiler, also search in ../libft and ft (your local headers folder) for any #include "..." directives.”
 # Keeps path handling in the build system, not the code.

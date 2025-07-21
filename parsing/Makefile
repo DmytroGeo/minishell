@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
+#    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/09 17:20:58 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/06/25 17:33:48 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/17 18:07:00 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,18 @@ NAME = libparsing.a
 AR = ar rcs
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
-SRC = parsing
+SRC = ft_init_main \
+		export_and_unset_variables \
+		find_commands_and_arguments \
+		find_infiles \
+		find_outfiles \
+		ft_infile_error \
+		ft_outfile_error \
+		heredoc \
+		is_some_token \
+		is_some_token2 \
+		parsing \
+		syntax_conditions
 
 SRCS = $(addsuffix .c, $(SRC))
 OBJS = $(addsuffix .o, $(SRC))

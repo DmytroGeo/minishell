@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
+#    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/09 17:18:32 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/06/27 11:13:44 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/21 16:27:58 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,10 +21,7 @@ LEXING = ./lexing/liblexing.a
 PARSING = ./parsing/libparsing.a
 EXECUTION = ./execution/libexecution.a
 
-SRC = main \
-		built_ins \
-		change_directory \
-		get_prompt
+SRC = main
 
 SRCS = $(addsuffix .c, $(SRC))
 OBJS = $(addsuffix .o, $(SRC))

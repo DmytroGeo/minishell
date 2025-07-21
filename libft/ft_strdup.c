@@ -6,17 +6,22 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:19:22 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/04/02 15:00:36 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/18 11:09:01 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief This function allocates memory for a new string
+ * and copies the content of the string 's' into the newly allocated memory,
+ *  including the null terminator.
+ * @param s He string to duplicate.
+ * @return A new string that is a copy of 's',
+ *  or NULL if memory allocation fails.
+ */
 char	*ft_strdup(const char *s)
 {
-	// Arguments: const char *s – the string to duplicate.
-	// Returns: A new string that is a copy of 's', or NULL if memory allocation fails.
-	// This function allocates memory for a new string and copies the content of the string 's' into the newly allocated memory, including the null terminator.
 	char	*str;
 
 	str = (char *)malloc((ft_strlen(s) + 1) * sizeof(char));

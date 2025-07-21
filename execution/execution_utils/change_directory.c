@@ -1,0 +1,95 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   change_directory.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/27 10:57:10 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/21 12:59:36 by dgeorgiy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../execution.h"
+
+void	change_prompt_and_envp(char **prompt, char ***envp, char *old_pwd)
+{
+	char	*old_directory;
+	char	*new_directory;
+
+	free(*prompt);
+	*prompt = get_prompt();
+	old_directory = ft_strjoin("OLDPWD=", old_pwd);
+	new_directory = ft_strjoin("PWD=", ft_get_cwd());
+	export_variable(envp, old_directory);
+	export_variable(envp, new_directory);
+	free(old_directory);
+	free(new_directory);
+	return ;
+}
+
+int	go_to_home(char **prompt, char ***envp)
+{
+	char	*home;
+	char	*current_pwd;
+
+	current_pwd = ft_get_cwd();
+	home = find_variable_in_envp(*envp, "HOME");
+	if (!home || chdir(home) != 0)
+	{
+		ft_printf(2, "Can't access HOME directory \n");
+		free(home);
+		return (-1);
+	}
+	free(home);
+	change_prompt_and_envp(prompt, envp, current_pwd);
+	return (0);
+}
+
+int	go_back(char **prompt, char ***envp)
+{
+	char	*old_pwd;
+	char	*current_pwd;
+
+	current_pwd = ft_get_cwd();
+	old_pwd = find_variable_in_envp(*envp, "OLDPWD");
+	if (!old_pwd || chdir(old_pwd) != 0)
+	{
+		ft_printf(2, "Can't access OLDPWD\n");
+		free(old_pwd);
+		return (-1);
+	}
+	free(old_pwd);
+	change_prompt_and_envp(prompt, envp, current_pwd);
+	return (0);
+}
+
+int	go_to_new_directory(char **prompt, char ***envp, char *new_directory)
+{
+	char	*current_pwd;
+
+	current_pwd = ft_get_cwd();
+	if (chdir(new_directory) != 0)
+	{
+		ft_printf(2, "Directory doesn't exist\n");
+		return (-1);
+	}
+	change_prompt_and_envp(prompt, envp, current_pwd);
+	return (0);
+}
+
+int	ft_chdir(char **arguments, char **prompt, char ***envp)
+{
+	int	num_of_args;
+
+	num_of_args = ft_array_len(arguments);
+	if (num_of_args == 0)
+		return (go_to_home(prompt, envp));
+	else if (num_of_args == 1 && ft_strncmp(*arguments, "-", 2) == 0)
+		return (go_back(prompt, envp));
+	else if (num_of_args == 1)
+		return (go_to_new_directory(prompt, envp, *arguments));
+	else
+		return (ft_printf(2, "Too many arguments!\n"), -1);
+	return (0);
+}

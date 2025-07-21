@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tokadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_dlstadd_back.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:16:30 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/04/04 18:14:45 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/14 13:46:19 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexing.h"
 
-void	ft_tokadd_back(t_token **tok, t_token *new)
+void	ft_dlstadd_back(t_token **address_of_head, t_token *new)
 {
-	// add token *new to back of list *tok
 	t_token	*current;
 
-	if (tok == NULL || new == NULL)
+	if (address_of_head == NULL || new == NULL)
 		return ;
-	if (*tok == NULL)
+	if (*address_of_head == NULL)
 	{
-		*tok = new;
+		*address_of_head = new;
 		return ;
 	}
-	current = *tok;
+	current = *address_of_head;
 	while (current->next != NULL)
 		current = current->next;
 	current->next = new;
+	new->previous = current;
 }

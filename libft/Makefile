@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
+#    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/04 16:44:12 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/06/25 20:28:30 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/17 11:31:46 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,12 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 AR = ar rcs
 SRC = ft_array_free \
+		ft_array_free2 \
 		ft_array_len \
 		ft_atoi \
 		ft_bzero \
 		ft_calloc \
-		ft_int_array_len \
+		ft_array_free \
 		ft_isalnum \
 		ft_isalpha \
 		ft_isdigit \
@@ -72,7 +73,9 @@ SRC = ft_array_free \
 		ft_lstclear \
 		ft_lstiter \
 		ft_lstmap \
-		get_next_line
+		is_built_in \
+		get_next_line \
+		get_prompt
 
 SRCS = $(addsuffix .c, $(SRC))
 OBJS = $(addsuffix .o, $(SRC))

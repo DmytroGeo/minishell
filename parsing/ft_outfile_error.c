@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_outfile_error.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/08 16:18:22 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/04/04 16:18:47 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/07/15 15:03:04 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/21 12:39:16 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexing.h"
+#include "parsing.h"
 
-void	ft_tokclear(t_token **tok)
+void	outfile_err(char *file_name)
 {
-	t_token	*current;
-
-	current = *tok;
-	if (current == NULL)
-		return ;
-	while (current != NULL)
-	{
-		*tok = current->next;
-		ft_tokdelone(current);
-		current = *tok;
-	}
+	ft_printf(2, "minishell: %s: Permission denied\n", file_name);
 }

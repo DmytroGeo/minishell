@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_intarr_free.c                                   :+:      :+:    :+:   */
+/*   syntax_conditions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/04 14:45:54 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/16 13:08:17 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/07/11 14:17:53 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/21 14:08:20 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../execution.h"
+#include "parsing.h"
 
-void	ft_intarr_free(int **fd, int len)
+int	syntax_check_1(t_token *curr)
 {
-	int	i;
+	return (is_redirect(curr) && !is_word(curr->next));
+}
 
-	i = 0;
-	if (!fd)
-		return ;
-	while (i < len)
-	{
-		free(fd[i]);
-		i++;
-	}
-	free(fd);
+int	syntax_check_2(t_token *curr)
+{
+	return (is_pipe(curr) && !(curr->previous));
+}
+
+int	syntax_check_3(t_token *curr)
+{
+	return (is_pipe(curr)
+		&& !(is_word(curr->next) || is_redirect(curr->next)));
+}
+
+int	syntax_check_4(t_token *curr)
+{
+	return (is_pipe(curr) && !(curr->next));
 }

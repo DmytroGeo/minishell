@@ -3,34 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 13:19:06 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/06/26 14:48:18 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:36:57 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "execution.h"
+#include "execution.h"
 
-int	execution(int number_of_commands, t_simple_command *simple_command, char **envp)
+void	evaluate_and_execute(t_cshell *cshell, int *exit_code)
 {
-	int		*pid;
-	int		**fd;
-	t_list	*head;
-	int		exit_status;
-
-	head = NULL;
-	pid = NULL;
-	fd = NULL;
-	init_list(number_of_commands, simple_command->commands, envp, &head);
-	init_setup(&pid, &fd, simple_command, &head);
-	process_loop(&head, pid, fd, simple_command);
-	close_fds(fd, number_of_commands - 1);
-	ft_lstclear(&head, ft_free_paths_and_flags);
-	ft_intarr_free(fd, number_of_commands - 1);
-	exit_status = wait_for_processes(pid, number_of_commands);
-	free(pid);
-	return (exit_status); 
-	
+	if (*exit_code == 0)
+	{
+		*exit_code = execution(cshell);
+		return ;
+	}
+	return (free_cshell(cshell));
 }
- 
+
+int	execution(t_cshell *cshell)
+{
+	int		exit_code;
+	char	*first_command;
+
+	exit_code = 0;
+	first_command = ((cshell->proc_array)[0]).cmd_and_args[0];
+	if (cshell->num_of_proc == 1 && is_builtin(first_command))
+		return (execute_in_main(cshell));
+	init_setup(cshell);
+	process_loop(cshell);
+	close_fds(cshell->fd, cshell->num_of_proc - 1);
+	exit_code = wait_for_processes(cshell->pid, cshell->num_of_proc);
+	free_cshell(cshell);
+	return (exit_code);
+}

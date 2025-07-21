@@ -3,40 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 11:48:53 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/31 17:06:09 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 17:21:13 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-void	execute(int i, int **fd, int *pid, t_list **head)
+void	execute(int i, t_cshell *cshell)
 {
-	char	**array;
-	t_list	*node;
-	int		n;
+	int		exit_code;
+	char	**args;
+	t_proc	proc;
 
-	node = ft_find_node(i, head);
-	array = malloc((2 + ft_array_len(((t_execution_content *)(node->content))->flags)) * sizeof(char *));
-	if (!array)
-		return ;
-	array[0] = ((t_execution_content *)(node->content))->path;
-	if (!array[0])
+	exit_code = 0;
+	proc = (cshell->proc_array)[i];
+	if (is_builtin(proc.cmd_and_args[0]))
 	{
-		ft_array_free(array, ft_array_len(array));
-		free_and_exit(pid, fd, head);
-		exit (127);
+		exit_code = execute_built_ins(cshell, i, STDOUT_FILENO);
+		(free_cshell(cshell), exit(exit_code));
 	}
-	n = 0;
-	while (++n <= ft_array_len(((t_execution_content *)(node->content))->flags))
-		array[n] = (((t_execution_content *)(node->content))->flags)[n - 1];
-	array[n] = NULL;
-	if (execve(((t_execution_content *)(node->content))->path, array, ((t_execution_content *)((*head)->content))->envp) < 0)
+	else
 	{
-		ft_array_free(array, ft_array_len(array));
-		free_and_exit(pid, fd, head);
-		return ;
+		if (access((proc.cmd_and_args)[0], F_OK | X_OK) != 0)
+			(free_cshell(cshell), exit(127));
+		else
+		{
+			args = (proc.cmd_and_args);
+			if ((execve((proc.cmd_and_args)[0], args, cshell->envp)) < 0)
+				(free_cshell(cshell), exit(1));
+		}
 	}
 }

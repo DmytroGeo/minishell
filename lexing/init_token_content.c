@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   proc_call.c                                        :+:      :+:    :+:   */
+/*   init_token_content.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/27 18:44:18 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/05/16 13:14:01 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/07/11 11:50:48 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/15 15:43:32 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../execution.h"
+#include "lexing.h"
 
-int	proc_call(int i, char c)
+t_token_content	*init_token_content(char *raw_token, t_op *operators)
 {
-	int	p;
-
-	p = 2;
-	if (c == 'r' && i < 4)
-	{
-		ft_putstr("Too few arguments\n", p, &p);
-		exit(EXIT_FAILURE);
-	}
-	else if ((c == 'o' || c == 'i') && i < 0)
-		perror(NULL);
-	else if (c == 'a' && i < 0)
-		perror("Can't access file");
-	return (0);
+	t_token_content *content;
+	
+	content = malloc(sizeof(t_token_content));
+	if (!content)
+		return (NULL);
+	content->value = ft_strdup(raw_token);
+    content->type = identify_type(raw_token, operators);
+	return (content);
 }
