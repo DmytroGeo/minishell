@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:48:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/18 10:30:52 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:37:03 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		ft_atoi(const char *nptr);
 int		ft_lstsize(t_list *lst);
 int		ft_printf(int fd, const char *str, ...);
 int		ft_array_len(char **array);
-int		is_built_in(char *str);
+int		is_builtin(char *str);
 
 void	ft_convert(int fd, char c, va_list args, int *count);
 void	*ft_memmove(void *dest, const void *src, size_t n);

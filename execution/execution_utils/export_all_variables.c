@@ -6,13 +6,13 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 12:27:45 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 11:21:18 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:59:25 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution.h"
 
-int	export_all_variables(char **arguments, char ***envp)
+int	export_all_vars(char **arguments, char ***envp)
 {
 	while (*arguments)
 	{

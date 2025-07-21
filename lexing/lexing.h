@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:48:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/18 13:03:28 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 14:46:51 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,9 +136,9 @@ typedef struct s_proc
 
 typedef struct s_cshell
 {
+	int	num_of_proc;
 	char *prompt;
 	char **envp;
-	int	num_of_proc;
 	int *pid;
 	int **fd;
 	t_token *token_chain;

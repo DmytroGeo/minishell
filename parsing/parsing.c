@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 12:23:23 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:01:39 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	check_syntax(t_token *tok_chain)
 	char	*opr;
 
 	err_msg_2 = "minishell: syntax error near unexpected token `|'";
-	while (!is_eof(tok_chain))
+	while (tok_chain)
 	{
 		if (syntax_check_1(tok_chain))
 		{
@@ -56,7 +56,7 @@ t_token	*find_next_pipe(t_token *start)
 	t_token	*pipe_ptr;
 
 	pipe_ptr = NULL;
-	while (!is_eof(start))
+	while (start)
 	{
 		if (is_pipe(start))
 		{
@@ -74,7 +74,7 @@ int	find_num_of_proc(t_token *tok_chain)
 	int	number_of_pipes;
 
 	number_of_pipes = 0;
-	while (!is_eof(tok_chain))
+	while (tok_chain)
 	{
 		if (is_pipe(tok_chain))
 			number_of_pipes += 1;
@@ -83,27 +83,53 @@ int	find_num_of_proc(t_token *tok_chain)
 	return (number_of_pipes + 1);
 }
 
+// int	init_process(t_cshell *cshell, int counter, t_token **address_of_start)
+// {
+// 	t_proc	proc;
+// 	t_token	*pipe_ptr;
+// 	int		exit_code;
+
+// 	proc = (cshell->proc_array)[counter];
+// 	proc.cmd_and_args = NULL;
+// 	proc.infiles = NULL;
+// 	proc.outfiles = NULL;
+// 	pipe_ptr = find_next_pipe(*address_of_start);
+// 	exit_code = find_infiles(&proc, *address_of_start);
+// 	if (exit_code == -42)
+// 		return (exit_code);
+// 	exit_code = find_outfiles(&proc, *address_of_start);
+// 	if (exit_code == -42)
+// 		return (exit_code);
+// 	exit_code = find_cmd_and_args(&proc, *address_of_start, cshell->envp);
+// 	if (exit_code == -42)
+// 		return (exit_code);
+// 	if (pipe_ptr)
+// 		(*address_of_start) = pipe_ptr->next;
+// 	return (0);
+// }
+
 int	init_process(t_cshell *cshell, int counter, t_token **address_of_start)
 {
-	t_proc	proc;
+	t_proc	*proc;
 	t_token	*pipe_ptr;
 	int		exit_code;
 
-	proc = (cshell->proc_array)[counter];
-	proc.cmd_and_args = NULL;
-	proc.infiles = NULL;
-	proc.outfiles = NULL;
+	proc = &(cshell->proc_array)[counter];
+	proc->cmd_and_args = NULL;
+	proc->infiles = NULL;
+	proc->outfiles = NULL;
 	pipe_ptr = find_next_pipe(*address_of_start);
-	exit_code = find_infiles(&proc, *address_of_start);
+	exit_code = find_infiles(proc, *address_of_start);
 	if (exit_code == -42)
 		return (exit_code);
-	exit_code = find_outfiles(&proc, *address_of_start);
+	exit_code = find_outfiles(proc, *address_of_start);
 	if (exit_code == -42)
 		return (exit_code);
-	exit_code = find_cmd_and_args(&proc, *address_of_start, cshell->envp);
+	exit_code = find_cmd_and_args(proc, *address_of_start, cshell->envp);
 	if (exit_code == -42)
 		return (exit_code);
-	(*address_of_start) = pipe_ptr->next;
+	if (pipe_ptr)
+		(*address_of_start) = pipe_ptr->next;
 	return (0);
 }
 

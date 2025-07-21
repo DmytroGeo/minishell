@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 14:17:53 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 12:11:24 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 14:08:20 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ int	syntax_check_3(t_token *curr)
 
 int	syntax_check_4(t_token *curr)
 {
-	return (is_pipe(curr) && is_eof(curr));
+	return (is_pipe(curr) && !(curr->next));
 }

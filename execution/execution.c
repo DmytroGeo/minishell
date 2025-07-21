@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 13:19:06 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 10:51:06 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:36:57 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	execution(t_cshell *cshell)
 
 	exit_code = 0;
 	first_command = ((cshell->proc_array)[0]).cmd_and_args[0];
-	if (cshell->num_of_proc == 1 && is_built_in(first_command))
+	if (cshell->num_of_proc == 1 && is_builtin(first_command))
 		return (execute_in_main(cshell));
 	init_setup(cshell);
 	process_loop(cshell);

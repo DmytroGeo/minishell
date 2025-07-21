@@ -6,11 +6,16 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/18 13:56:22 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:50:55 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+// #include <signal.h>
+
+// SIGINT
+// SIGSTOP
+// SIGQUIT
 
 //  use CTRL + D to exit the shell
 /*
@@ -139,12 +144,11 @@ int	main(int argc, char **argv, char **envp)
 			lexing(&cshell, line);
 			// expansions(&cshell, exit_code);
 			exit_code = init_processes(&cshell);
-			print_cshell_stuff2(&cshell, exit_code);
-			// evaluate_and_execute(&cshell, &exit_code);
+			evaluate_and_execute(&cshell, &exit_code);
 		}
 		free(line);
-		free_cshell(&cshell);
 		init_cshell(&cshell, envp);
 		line = readline(cshell.prompt);
 	}
 }
+

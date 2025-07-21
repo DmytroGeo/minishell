@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:15:04 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 12:42:16 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:26:45 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	find_number_of_outfiles(t_token *start)
 	char	*file_name;
 
 	number_of_outfiles = 0;
-	while (!is_eof(start) && !is_pipe(start))
+	while (start && !is_pipe(start))
 	{
 		if (is_redir_out(start) || is_append(start))
 		{
@@ -33,7 +33,7 @@ int	find_number_of_outfiles(t_token *start)
 	return (number_of_outfiles);
 }
 
-int	init_outfile(int i, t_token *start, t_proc *proc_struct)
+int	init_outfile(int i, t_token *start, t_proc *proc)
 {
 	char	*file_name;
 	int		fd;
@@ -44,7 +44,7 @@ int	init_outfile(int i, t_token *start, t_proc *proc_struct)
 		fd = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	else if (is_append(start->previous))
 		fd = open(file_name, O_CREAT | O_APPEND | O_WRONLY, 0644);
-	(proc_struct->outfiles)[i] = fd;
+	(proc->outfiles)[i] = fd;
 	return (0);
 }
 
@@ -56,7 +56,7 @@ int	find_outfiles(t_proc *proc, t_token *start)
 	proc->num_outf = find_number_of_outfiles(start);
 	if (proc->num_outf == 0)
 		return (0);
-	proc->outfiles = malloc(proc->num_outf * sizeof(int));
+	proc->outfiles = ft_calloc(proc->num_outf, sizeof(int));
 	if (!(proc->outfiles))
 		return (-42);
 	while (i < proc->num_outf)

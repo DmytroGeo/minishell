@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:12:29 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 12:49:19 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 16:10:00 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ int	find_number_of_infiles(t_token *start)
 	char	*file_name;
 
 	number_of_infiles = 0;
-	while (!is_eof(start) && !is_pipe(start))
+	while (start && !is_pipe(start))
 	{
 		if (is_heredoc(start) || is_redir_in(start))
 		{
 			start = start->next;
 			file_name = ((t_token_content *)(start->content))->value;
-			if (is_redir_in(start->previous) && access(file_name, F_OK) != 0)
+			if (is_redir_in(start->previous) && access(file_name, F_OK))
 				infile_err2(file_name);
 			else if (is_redir_in(start->previous) && access(file_name, R_OK))
 				infile_err3(file_name);
@@ -65,7 +65,7 @@ int	find_infiles(t_proc *proc, t_token *start)
 	proc->num_inf = find_number_of_infiles(start);
 	if (proc->num_inf == 0)
 		return (0);
-	proc->infiles = malloc((proc->num_inf) * sizeof(int));
+	proc->infiles = ft_calloc((proc->num_inf), sizeof(int));
 	if (!(proc->infiles))
 		return (-42);
 	while (i < proc->num_inf)
