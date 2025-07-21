@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 10:41:31 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 16:58:44 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 17:30:46 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	execute_in_main(t_cshell *cshell)
 	int		outfile_fd;
 	t_proc	proc;
 
+	outfile_fd = STDOUT_FILENO;
 	proc = (cshell->proc_array)[0];
 	if (proc.num_outf != 0)
 		outfile_fd = (proc.outfiles)[proc.num_outf - 1];

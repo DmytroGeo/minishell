@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 11:48:53 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 17:01:48 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/21 17:21:13 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	execute(int i, t_cshell *cshell)
 		if (access((proc.cmd_and_args)[0], F_OK | X_OK) != 0)
 			(free_cshell(cshell), exit(127));
 		else
-		{			
+		{
 			args = (proc.cmd_and_args);
 			if ((execve((proc.cmd_and_args)[0], args, cshell->envp)) < 0)
 				(free_cshell(cshell), exit(1));
