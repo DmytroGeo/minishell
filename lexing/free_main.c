@@ -16,12 +16,9 @@ void	free_proc_contents(t_proc *proc)
 {
 	if (!proc)
 		return ;
-	if (proc->infiles)
-		free(proc->infiles);
-	if (proc->outfiles)
-		free(proc->outfiles);
-	if (proc->cmd_and_args)
-		ft_array_free((void **)proc->cmd_and_args);
+	free(proc->infiles);
+	free(proc->outfiles);
+	ft_array_free((void **)proc->cmd_and_args);
 	return ;
 }
 
@@ -30,6 +27,8 @@ void free_proc_array(t_proc *proc_array, int len)
 	int i;
 
 	i = 0;
+	if (!proc_array)
+		return ;
 	while (i < len)
 	{
 		free_proc_contents(&(proc_array[i]));
@@ -38,21 +37,27 @@ void free_proc_array(t_proc *proc_array, int len)
 	free(proc_array);
 	return ;
 }
-
+/**
+ * @param cshell The address of 'cshell' structure.
+ * @return Nothing (void function).
+ * @brief This function frees all of the allocated space,
+ * in the 'cshell' structure. Frees attributes using the helper functions
+ * ft_array_free, ft_array_free2, free_proc_array and free_tok_chain.
+ */
 void	free_cshell(t_cshell *cshell)
 {
-	if (cshell->prompt)
-		free(cshell->prompt);
-	if (cshell->envp)
-		ft_array_free((void **)cshell->envp);
-	if (cshell->pid)
-		free(cshell->pid);
-	if (cshell->fd)
-		ft_array_free2((void **)cshell->fd, cshell->num_of_proc - 1);
-	if (cshell->proc_array)
-		free_proc_array(cshell->proc_array, cshell->num_of_proc);
-	if (cshell->token_chain)
-		free_tok_chain(&(cshell->token_chain), del_tok_cont);
+	free(cshell->prompt);
+	cshell->prompt = NULL;		
+	ft_array_free((void **)cshell->envp);
+	cshell->envp = NULL;	
+	free(cshell->pid);
+	cshell->pid = NULL;
+	ft_array_free2((void **)cshell->fd, cshell->num_of_proc - 1);
+	cshell->fd = NULL;
+	free_proc_array(cshell->proc_array, cshell->num_of_proc);
+	cshell->proc_array = NULL;
+	free_tok_chain(&(cshell->token_chain), del_tok_cont);
+	cshell->token_chain = NULL;
 	return ;
 }
 

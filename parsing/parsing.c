@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 15:01:39 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/22 08:34:28 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,31 +83,6 @@ int	find_num_of_proc(t_token *tok_chain)
 	return (number_of_pipes + 1);
 }
 
-// int	init_process(t_cshell *cshell, int counter, t_token **address_of_start)
-// {
-// 	t_proc	proc;
-// 	t_token	*pipe_ptr;
-// 	int		exit_code;
-
-// 	proc = (cshell->proc_array)[counter];
-// 	proc.cmd_and_args = NULL;
-// 	proc.infiles = NULL;
-// 	proc.outfiles = NULL;
-// 	pipe_ptr = find_next_pipe(*address_of_start);
-// 	exit_code = find_infiles(&proc, *address_of_start);
-// 	if (exit_code == -42)
-// 		return (exit_code);
-// 	exit_code = find_outfiles(&proc, *address_of_start);
-// 	if (exit_code == -42)
-// 		return (exit_code);
-// 	exit_code = find_cmd_and_args(&proc, *address_of_start, cshell->envp);
-// 	if (exit_code == -42)
-// 		return (exit_code);
-// 	if (pipe_ptr)
-// 		(*address_of_start) = pipe_ptr->next;
-// 	return (0);
-// }
-
 int	init_process(t_cshell *cshell, int counter, t_token **address_of_start)
 {
 	t_proc	*proc;
@@ -115,9 +90,6 @@ int	init_process(t_cshell *cshell, int counter, t_token **address_of_start)
 	int		exit_code;
 
 	proc = &(cshell->proc_array)[counter];
-	proc->cmd_and_args = NULL;
-	proc->infiles = NULL;
-	proc->outfiles = NULL;
 	pipe_ptr = find_next_pipe(*address_of_start);
 	exit_code = find_infiles(proc, *address_of_start);
 	if (exit_code == -42)
