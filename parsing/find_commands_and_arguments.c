@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:42:54 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 15:37:23 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 11:30:09 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	init_command(t_proc *proc, t_token *start, char **envp)
 			ft_printf(2, "%s: command not found", content->value);
 		}
 		else
-			(proc->cmd_and_args)[0] = path;		
+			(proc->cmd_and_args)[0] = path;
 	}
 	if (!((proc->cmd_and_args)[0]))
 		return (-42);

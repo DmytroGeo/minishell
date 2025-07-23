@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 09:49:08 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 10:56:56 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 12:47:24 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ int	print_envp(int fd, char **envp)
 
 	i = 0;
 	while (envp[i])
-		ft_printf(fd, "%s\n", envp[i++]);
+	{
+		if (ft_strchr(envp[i], '='))
+			ft_printf(fd, "%s\n", envp[i]);
+		i++;
+	}
 	return (0);
 }

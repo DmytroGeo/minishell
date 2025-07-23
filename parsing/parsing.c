@@ -3,29 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/22 08:34:28 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/22 11:19:16 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-///////////////////////
-
-///// pre-parse to make sure everything is being followed by the correct thing
-
-// 1. < (REDIR_IN) and << (HEREDOC) and 
-// > (REDIR_OUT) and >> (APPEND) should be followed by some word.
-
+/**
+ * @param tok_chain a pointer to the head of the token chain.
+ * @return 0 if no syntax errors and 1 if syntax errors detected
+ * @brief Goes through the token chain and sees if
+ *  any of the follwoing rules are broken:
+ * 1. < (REDIR_IN) and << (HEREDOC) and 
+ * > (REDIR_OUT) and >> (APPEND) should be followed by some word.
 // 2. | (PIPE) cannot start a line.
-
 // 3. pipe should be followed by a word or redirect operator
 // (< or > or << or >>).
-
 // 4. pipe cannot end a line.
-
+ */
 int	check_syntax(t_token *tok_chain)
 {
 	char	*err_msg_2;

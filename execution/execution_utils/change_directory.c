@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 10:57:10 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 12:59:36 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 11:57:12 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void	change_prompt_and_envp(char **prompt, char ***envp, char *old_pwd)
 	char	*old_directory;
 	char	*new_directory;
 
-	free(*prompt);
-	*prompt = get_prompt();
+	get_prompt(prompt);
 	old_directory = ft_strjoin("OLDPWD=", old_pwd);
 	new_directory = ft_strjoin("PWD=", ft_get_cwd());
 	export_variable(envp, old_directory);

@@ -6,7 +6,7 @@
 #    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/09 17:20:58 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/07/17 18:07:00 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/23 11:58:31 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ AR = ar rcs
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 SRC = ft_init_main \
-		export_and_unset_variables \
 		find_commands_and_arguments \
 		find_infiles \
 		find_outfiles \
