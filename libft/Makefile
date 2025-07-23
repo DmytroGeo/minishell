@@ -6,7 +6,7 @@
 #    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/04 16:44:12 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/07/17 11:31:46 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/23 11:59:25 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,8 +74,7 @@ SRC = ft_array_free \
 		ft_lstiter \
 		ft_lstmap \
 		is_built_in \
-		get_next_line \
-		get_prompt
+		get_next_line
 
 SRCS = $(addsuffix .c, $(SRC))
 OBJS = $(addsuffix .o, $(SRC))

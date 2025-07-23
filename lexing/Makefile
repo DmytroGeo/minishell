@@ -6,7 +6,7 @@
 #    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/04 16:44:12 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/07/17 18:06:05 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/23 16:22:49 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,11 @@ SRC = ft_dlstadd_back \
 		free_token_chain \
 		ft_dlstadd_front \
 		ft_dlstnew \
-		free_main \
+		free_cshell \
 		ft_dlstsize \
 		ft_perror \
 		ft_splitter \
-		init_token_content \
+		init_tok_cont \
 		lexing_utils \
 		lexing \
 		quote_utils

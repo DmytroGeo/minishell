@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:12:29 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 16:10:00 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 16:22:55 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	find_number_of_infiles(t_token *start)
 		if (is_heredoc(start) || is_redir_in(start))
 		{
 			start = start->next;
-			file_name = ((t_token_content *)(start->content))->value;
+			file_name = ((t_tok_cont *)(start->content))->value;
 			if (is_redir_in(start->previous) && access(file_name, F_OK))
 				infile_err2(file_name);
 			else if (is_redir_in(start->previous) && access(file_name, R_OK))
@@ -40,7 +40,7 @@ int	init_infile(int i, t_token *start, t_proc *proc)
 	char	*file_name;
 	int		fd;
 
-	file_name = ((t_token_content *)(start->content))->value;
+	file_name = ((t_tok_cont *)(start->content))->value;
 	if (is_redir_in(start->previous))
 	{
 		fd = open(file_name, O_RDONLY);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_token_content.c                               :+:      :+:    :+:   */
+/*   init_tok_cont.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,14 +12,14 @@
 
 #include "lexing.h"
 
-t_token_content	*init_token_content(char *raw_token, t_op *operators)
+t_tok_cont	*init_tok_cont(char *raw_token, t_op *operators)
 {
-	t_token_content *content;
-	
-	content = malloc(sizeof(t_token_content));
+	t_tok_cont	*content;
+
+	content = malloc(sizeof(t_tok_cont));
 	if (!content)
 		return (NULL);
 	content->value = ft_strdup(raw_token);
-    content->type = identify_type(raw_token, operators);
+	content->type = identify_type(raw_token, operators);
 	return (content);
 }

@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 10:41:31 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 17:30:46 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:05:20 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ int	execute_in_main(t_cshell *cshell)
 	if (proc.num_outf != 0)
 		outfile_fd = (proc.outfiles)[proc.num_outf - 1];
 	exit_status = execute_built_ins(cshell, 0, outfile_fd);
-	free_cshell(cshell);
+	free_proc_array(cshell->proc_array, cshell->num_of_proc);
+	cshell->proc_array = NULL;
+	free_tok_chain(&(cshell->token_chain), del_tok_cont);
+	cshell->token_chain = NULL;
 	return (exit_status);
 }

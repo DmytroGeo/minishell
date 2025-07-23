@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:48:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 15:37:03 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 11:59:00 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*get_next_line(int fd);
 char	*ft_get_cwd(void);
-char	*get_prompt(void);
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);

@@ -10,8 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "lexing.h"
+#include "lexing.h"
 
+/**
+ * @param start The address of the pointer to the first element of the list.
+ * @param del A function to delete the content of each element.
+ * @return Nothing (void function).
+ * @brief This function frees the entire doubly-linked list,
+ * applying the 'del' (content freeing) function to each element's content
+ * before freeing the memory for the element itself,
+ * and sets 'lst' to NULL after clearing.
+ */
 void	free_tok_chain(t_token **start, void (*del)(void*))
 {
 	t_token	*current;
@@ -25,5 +34,5 @@ void	free_tok_chain(t_token **start, void (*del)(void*))
 		(del)(current->content);
 		free(current);
 		current = *start;
-	}   
+	}
 }

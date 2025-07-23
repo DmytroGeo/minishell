@@ -6,7 +6,7 @@
 #    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/12 11:38:45 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/07/18 13:40:35 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/23 11:58:08 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS = execution_utils/change_directory.c \
 		execution_utils/print_env.c \
 		execution_utils/proc_call.c \
 		execution_utils/unset_all_variables.c \
+		execution_utils/is_valid_variable.c \
 		src/close_pipes.c \
 		src/dup_infiles_and_outfiles.c \
 		src/execute_in_main.c \

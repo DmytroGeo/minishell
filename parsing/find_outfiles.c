@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:15:04 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 15:26:45 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 16:22:57 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	find_number_of_outfiles(t_token *start)
 		if (is_redir_out(start) || is_append(start))
 		{
 			start = start->next;
-			file_name = ((t_token_content *)(start->content))->value;
+			file_name = ((t_tok_cont *)(start->content))->value;
 			if (access(file_name, F_OK) == 0 && access(file_name, W_OK) != 0)
 				return (outfile_err(file_name), number_of_outfiles + 1);
 			number_of_outfiles++;
@@ -39,7 +39,7 @@ int	init_outfile(int i, t_token *start, t_proc *proc)
 	int		fd;
 
 	fd = 0;
-	file_name = ((t_token_content *)(start->content))->value;
+	file_name = ((t_tok_cont *)(start->content))->value;
 	if (is_redir_out(start->previous))
 		fd = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	else if (is_append(start->previous))

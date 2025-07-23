@@ -6,26 +6,24 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 15:01:39 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 16:23:07 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-///////////////////////
-
-///// pre-parse to make sure everything is being followed by the correct thing
-
-// 1. < (REDIR_IN) and << (HEREDOC) and 
-// > (REDIR_OUT) and >> (APPEND) should be followed by some word.
-
+/**
+ * @param tok_chain a pointer to the head of the token chain.
+ * @return 0 if no syntax errors and 1 if syntax errors detected
+ * @brief Goes through the token chain and sees if
+ *  any of the follwoing rules are broken:
+ * 1. < (REDIR_IN) and << (HEREDOC) and 
+ * > (REDIR_OUT) and >> (APPEND) should be followed by some word.
 // 2. | (PIPE) cannot start a line.
-
 // 3. pipe should be followed by a word or redirect operator
 // (< or > or << or >>).
-
 // 4. pipe cannot end a line.
-
+ */
 int	check_syntax(t_token *tok_chain)
 {
 	char	*err_msg_2;
@@ -36,7 +34,7 @@ int	check_syntax(t_token *tok_chain)
 	{
 		if (syntax_check_1(tok_chain))
 		{
-			opr = ((t_token_content *)(tok_chain->content))->value;
+			opr = ((t_tok_cont *)(tok_chain->content))->value;
 			ft_printf(2, "minishell: %s should be followed by a word\n", opr);
 			return (1);
 		}
@@ -83,31 +81,6 @@ int	find_num_of_proc(t_token *tok_chain)
 	return (number_of_pipes + 1);
 }
 
-// int	init_process(t_cshell *cshell, int counter, t_token **address_of_start)
-// {
-// 	t_proc	proc;
-// 	t_token	*pipe_ptr;
-// 	int		exit_code;
-
-// 	proc = (cshell->proc_array)[counter];
-// 	proc.cmd_and_args = NULL;
-// 	proc.infiles = NULL;
-// 	proc.outfiles = NULL;
-// 	pipe_ptr = find_next_pipe(*address_of_start);
-// 	exit_code = find_infiles(&proc, *address_of_start);
-// 	if (exit_code == -42)
-// 		return (exit_code);
-// 	exit_code = find_outfiles(&proc, *address_of_start);
-// 	if (exit_code == -42)
-// 		return (exit_code);
-// 	exit_code = find_cmd_and_args(&proc, *address_of_start, cshell->envp);
-// 	if (exit_code == -42)
-// 		return (exit_code);
-// 	if (pipe_ptr)
-// 		(*address_of_start) = pipe_ptr->next;
-// 	return (0);
-// }
-
 int	init_process(t_cshell *cshell, int counter, t_token **address_of_start)
 {
 	t_proc	*proc;
@@ -115,9 +88,6 @@ int	init_process(t_cshell *cshell, int counter, t_token **address_of_start)
 	int		exit_code;
 
 	proc = &(cshell->proc_array)[counter];
-	proc->cmd_and_args = NULL;
-	proc->infiles = NULL;
-	proc->outfiles = NULL;
 	pipe_ptr = find_next_pipe(*address_of_start);
 	exit_code = find_infiles(proc, *address_of_start);
 	if (exit_code == -42)

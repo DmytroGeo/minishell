@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 13:42:50 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 14:08:51 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 16:23:00 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 int	is_word(t_token *current_token)
 {
-	t_token_content	*content;
+	t_tok_cont	*content;
 
 	if (!current_token)
 		return (false);
-	content = (t_token_content *)(current_token->content);
+	content = (t_tok_cont *)(current_token->content);
 	return (content->type == word);
 }
 
 int	is_pipe(t_token *current_token)
 {
-	t_token_content	*content;
+	t_tok_cont	*content;
 
 	if (!current_token)
 		return (false);
-	content = (t_token_content *)(current_token->content);
+	content = (t_tok_cont *)(current_token->content);
 	return (content->type == _pipe);
 }
 
