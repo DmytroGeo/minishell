@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 10:57:10 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/23 11:57:12 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:50:09 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,8 @@ int	go_to_home(char **prompt, char ***envp)
 	if (!home || chdir(home) != 0)
 	{
 		ft_printf(2, "Can't access HOME directory \n");
-		free(home);
 		return (-1);
 	}
-	free(home);
 	change_prompt_and_envp(prompt, envp, current_pwd);
 	return (0);
 }
@@ -55,10 +53,8 @@ int	go_back(char **prompt, char ***envp)
 	if (!old_pwd || chdir(old_pwd) != 0)
 	{
 		ft_printf(2, "Can't access OLDPWD\n");
-		free(old_pwd);
 		return (-1);
 	}
-	free(old_pwd);
 	change_prompt_and_envp(prompt, envp, current_pwd);
 	return (0);
 }

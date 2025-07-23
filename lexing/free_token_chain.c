@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "lexing.h"
+#include "lexing.h"
 
 /**
  * @param start The address of the pointer to the first element of the list.
@@ -34,5 +34,5 @@ void	free_tok_chain(t_token **start, void (*del)(void*))
 		(del)(current->content);
 		free(current);
 		current = *start;
-	}   
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 11:09:15 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/15 14:52:52 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:55:14 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_perror(char *str, char c)
 		return ;
 	temp2 = ft_strjoin(temp1, "\n");
 	if (!temp2)
-		return(free(temp1));
+		return (free(temp1));
 	ft_putstr(temp2, p, &p);
 	free(temp1);
 	free(temp2);

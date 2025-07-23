@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:38:36 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/22 09:14:29 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:17:53 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_exit(char **cmd_and_args, t_cshell *cshell)
 			exit_code = 2;
 		}
 	}
-	free_cshell(cshell);
+	free_whole_cshell(cshell);
 	ft_printf(1, "exit\n");
 	exit(exit_code);
 }

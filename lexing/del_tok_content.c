@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   del_tok_content.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 12:13:36 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/22 08:58:10 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 16:22:27 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
  * to the function 'free_tok_chain', which actually frees the 
  * content (in this case the char *value).
  */
-void  	del_tok_cont(void *content)
+void	del_tok_cont(void *content)
 {
-    t_token_content *token_content;
+	t_tok_cont	*token_content;
 
-    token_content = (t_token_content *)content;
-    free(token_content->value);
-    free(token_content);
+	token_content = (t_tok_cont *)content;
+	free(token_content->value);
+	free(token_content);
 }

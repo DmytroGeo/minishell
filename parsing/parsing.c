@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/22 11:19:16 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 16:23:07 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	check_syntax(t_token *tok_chain)
 	{
 		if (syntax_check_1(tok_chain))
 		{
-			opr = ((t_token_content *)(tok_chain->content))->value;
+			opr = ((t_tok_cont *)(tok_chain->content))->value;
 			ft_printf(2, "minishell: %s should be followed by a word\n", opr);
 			return (1);
 		}

@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:42:54 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/23 11:30:09 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 16:24:29 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ int	find_number_of_commands_and_args(t_token *start)
 
 int	init_command(t_proc *proc, t_token *start, char **envp)
 {
-	t_token_content	*content;
-	char			*path;
+	t_tok_cont	*content;
+	char		*path;
 
-	content = (t_token_content *)(start->content);
+	content = (t_tok_cont *)(start->content);
 	if (access(content->value, F_OK | X_OK) == 0 || is_builtin(content->value))
 		(proc->cmd_and_args)[0] = ft_strdup(content->value);
 	else
@@ -56,9 +56,9 @@ int	init_command(t_proc *proc, t_token *start, char **envp)
 
 int	init_arg(t_proc *proc, t_token *start, int counter)
 {
-	t_token_content	*content;
+	t_tok_cont	*content;
 
-	content = (t_token_content *)(start->content);
+	content = (t_tok_cont *)(start->content);
 	(proc->cmd_and_args)[counter] = ft_strdup(content->value);
 	if (!((proc->cmd_and_args)[counter]))
 		return (-42);

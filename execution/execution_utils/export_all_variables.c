@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 12:27:45 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/23 13:23:46 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:38:30 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,27 +83,19 @@ int	export_variable(char ***envp, char *assignment)
 
 	equals_sign = ft_strchr(assignment, '=');
 	if (equals_sign)
+	{
 		key = ft_substr(assignment, 0, equals_sign - assignment);
+		index = find_envp_index(*envp, key);
+		free(key);		
+	}
 	else
-		key = assignment;
-	index = find_envp_index(*envp, key);
-	free(key);
+		index = find_envp_index(*envp, assignment);
 	if (index >= 0 && equals_sign)
 		new_envp = replace_existing_var(*envp, index, assignment);
 	else if (index < 0)
 		new_envp = export_new_var(*envp, assignment);
 	else
-		return (0);
-	int n = ft_array_len(*envp);
-	int k = ft_array_len(new_envp);
-	ft_printf(2, "Number of vars before: %d\n", n);
-	ft_printf(2, "Number of vars after: %d\n", k);
-	char **temp = new_envp;
-	while (*temp)
-	{
-		ft_printf(2, "%s\n", *temp);
-		temp++;
-	}
+		return (0);	
 	ft_array_free((void **)*envp);
 	if (!new_envp)
 		return (-2);
@@ -125,7 +117,17 @@ int	export_all_vars(char **arguments, char ***envp, int fd)
 	{
 		if (is_valid_variable_assignment(*arguments))
 		{
+			// int n = ft_array_len(*envp);
 			exit_code = export_variable(envp, *arguments);
+			// int k = ft_array_len(*envp);
+			// ft_printf(2, "Number of vars before export variable: %d\n", n);
+			// ft_printf(2, "Number of vars after export variable: %d\n", k);
+			// char **temp = *envp;
+			// while (*temp)
+			// {
+			// 	ft_printf(2, "%s\n", *temp);
+			// 	temp++;
+			// }
 			if (exit_code == -2)
 				return (exit_code);
 		}
