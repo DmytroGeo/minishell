@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/05/09 17:18:32 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/07/21 16:27:58 by dgeorgiy         ###   ########.fr        #
+#    Created: 2025/07/24 11:20:28 by dgeorgiy          #+#    #+#              #
+#    Updated: 2025/07/24 16:39:20 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,51 +14,76 @@ NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
-# helper libraries:
+LIBFT = /libft/libft.a
+OBJ_FOLDER = ./obj
+SRC_FOLDER = ./src
 
-LIBFT = ./libft/libft.a
-LEXING = ./lexing/liblexing.a
-PARSING = ./parsing/libparsing.a
-EXECUTION = ./execution/libexecution.a
-
-SRC = main
-
-SRCS = $(addsuffix .c, $(SRC))
-OBJS = $(addsuffix .o, $(SRC))
-
-%.o : %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ -I./libft -I./lexing -I./parsing -I./execution 
+SRCS = $(SRC_FOLDER)/lexing/ft_dlstadd_back.c \
+		$(SRC_FOLDER)/lexing/del_tok_content.c \
+		$(SRC_FOLDER)/lexing/free_token_chain.c \
+		$(SRC_FOLDER)/lexing/ft_dlstadd_front.c \
+		$(SRC_FOLDER)/lexing/ft_dlstnew.c \
+		$(SRC_FOLDER)/lexing/free_cshell.c \
+		$(SRC_FOLDER)/lexing/ft_dlstsize.c \
+		$(SRC_FOLDER)/lexing/ft_perror.c \
+		$(SRC_FOLDER)/lexing/ft_splitter.c \
+		$(SRC_FOLDER)/lexing/init_tok_cont.c \
+		$(SRC_FOLDER)/lexing/lexing_utils.c \
+		$(SRC_FOLDER)/lexing/lexing.c \
+		$(SRC_FOLDER)/lexing/quote_utils.c \
+		$(SRC_FOLDER)/parsing/ft_init_main.c \
+		$(SRC_FOLDER)/parsing/find_commands_and_arguments.c \
+		$(SRC_FOLDER)/parsing/find_infiles.c \
+		$(SRC_FOLDER)/parsing/find_outfiles.c \
+		$(SRC_FOLDER)/parsing/ft_infile_error.c \
+		$(SRC_FOLDER)/parsing/ft_outfile_error.c \
+		$(SRC_FOLDER)/parsing/heredoc.c \
+		$(SRC_FOLDER)/parsing/is_some_token.c \
+		$(SRC_FOLDER)/parsing/is_some_token2.c \
+		$(SRC_FOLDER)/parsing/parsing.c \
+		$(SRC_FOLDER)/parsing/syntax_conditions.c \
+		$(SRC_FOLDER)/built-ins/change_directory.c \
+		$(SRC_FOLDER)/built-ins/execute_built_ins.c \
+		$(SRC_FOLDER)/built-ins/export_all_variables.c \
+		$(SRC_FOLDER)/built-ins/ft_echo.c \
+		$(SRC_FOLDER)/built-ins/ft_exit.c \
+		$(SRC_FOLDER)/built-ins/is_valid_variable.c \
+		$(SRC_FOLDER)/built-ins/print_envp.c \
+		$(SRC_FOLDER)/built-ins/unset_all_variables.c \
+		$(SRC_FOLDER)/execution/close_pipes.c \		
+		$(SRC_FOLDER)/execution/proc_call.c \
+		$(SRC_FOLDER)/execution/dup_infiles_and_outfiles.c \
+		$(SRC_FOLDER)/execution/execute_in_main.c \
+		$(SRC_FOLDER)/execution/execute.c \
+		$(SRC_FOLDER)/execution/initialise.c \
+		$(SRC_FOLDER)/execution/process_loop.c \
+		$(SRC_FOLDER)/execution/wait_for_processes.c \
+		$(SRC_FOLDER)/execution/execution.c
 
 all: $(NAME)
 
+$(NAME): $(OBJS) $(OBJ_FOLDER) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) -L./libft -lft -lreadline -o $(NAME) 
+
+OBJS = $(SRCS:$(SRC_FOLDER)/%.c = $(OBJ_FOLDER)/%.o)
+
 $(LIBFT):
-	@$(MAKE) -C ./libft
+		$(MAKE) -C libft
 
-$(LEXING):
-	@$(MAKE) -C ./lexing
+$(OBJ_FOLDER):
+	@mkdir -p $(OBJ_FOLDER)
 
-$(PARSING):
-	@$(MAKE) -C ./parsing
-
-$(EXECUTION): 
-	@$(MAKE) -C ./execution
-
-$(NAME): $(OBJS) $(LIBFT) $(LEXING) $(PARSING) $(EXECUTION)
-	$(CC) $(CFLAGS) $(OBJS) -L./lexing -llexing -L./parsing -lparsing -L./execution -lexecution -L./libft -lft -lreadline -o $(NAME)
+$(OBJ_FOLDER)/%.o: $(SRC_FOLDER)/%.c
+	@mkdir -p $(@D)
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ 
 
 clean:
-	@rm -f $(OBJS)
-	@$(MAKE) -C ./execution clean
-	@$(MAKE) -C ./parsing clean
-	@$(MAKE) -C ./lexing clean
-	@$(MAKE) -C ./libft clean
+	$(MAKE) -C libft clean
+	rm -rf $(OBJ_FOLDER)
 
 fclean: clean
-	@rm -f $(NAME)
-	@$(MAKE) -C ./execution fclean
-	@$(MAKE) -C ./parsing fclean
-	@$(MAKE) -C ./lexing fclean
-	@$(MAKE) -C ./libft fclean
+		rm -f $(NAME)
+
 
 re: fclean all
 

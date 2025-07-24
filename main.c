@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/23 16:48:19 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/24 11:28:40 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 	but that may be because im using mbp, the school computers probaly
 	have the libraries installed and you dont neet to include the lib.
 */
-
 int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
