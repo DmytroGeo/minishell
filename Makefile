@@ -6,19 +6,21 @@
 #    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 11:20:28 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/07/24 16:39:20 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/24 19:48:13 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3
+INCLUDES = -I. -I./libft
 
-LIBFT = /libft/libft.a
+LIBFT = ./libft/libft.a
 OBJ_FOLDER = ./obj
 SRC_FOLDER = ./src
 
-SRCS = $(SRC_FOLDER)/lexing/ft_dlstadd_back.c \
+SRCS = $(SRC_FOLDER)/main.c \
+		$(SRC_FOLDER)/lexing/ft_dlstadd_back.c \
 		$(SRC_FOLDER)/lexing/del_tok_content.c \
 		$(SRC_FOLDER)/lexing/free_token_chain.c \
 		$(SRC_FOLDER)/lexing/ft_dlstadd_front.c \
@@ -47,43 +49,44 @@ SRCS = $(SRC_FOLDER)/lexing/ft_dlstadd_back.c \
 		$(SRC_FOLDER)/built-ins/export_all_variables.c \
 		$(SRC_FOLDER)/built-ins/ft_echo.c \
 		$(SRC_FOLDER)/built-ins/ft_exit.c \
+		$(SRC_FOLDER)/built-ins/ft_pwd.c \
 		$(SRC_FOLDER)/built-ins/is_valid_variable.c \
 		$(SRC_FOLDER)/built-ins/print_envp.c \
 		$(SRC_FOLDER)/built-ins/unset_all_variables.c \
-		$(SRC_FOLDER)/execution/close_pipes.c \		
+		$(SRC_FOLDER)/execution/close_pipes.c \
 		$(SRC_FOLDER)/execution/proc_call.c \
 		$(SRC_FOLDER)/execution/dup_infiles_and_outfiles.c \
 		$(SRC_FOLDER)/execution/execute_in_main.c \
-		$(SRC_FOLDER)/execution/execute.c \
+		$(SRC_FOLDER)/execution/execute_in_child.c \
 		$(SRC_FOLDER)/execution/initialise.c \
 		$(SRC_FOLDER)/execution/process_loop.c \
 		$(SRC_FOLDER)/execution/wait_for_processes.c \
 		$(SRC_FOLDER)/execution/execution.c
 
-all: $(NAME)
+OBJS = $(patsubst $(SRC_FOLDER)/%.c, $(OBJ_FOLDER)/%.o, $(SRCS))
 
-$(NAME): $(OBJS) $(OBJ_FOLDER) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -L./libft -lft -lreadline -o $(NAME) 
-
-OBJS = $(SRCS:$(SRC_FOLDER)/%.c = $(OBJ_FOLDER)/%.o)
-
-$(LIBFT):
-		$(MAKE) -C libft
+all: $(OBJ_FOLDER) $(NAME)
 
 $(OBJ_FOLDER):
 	@mkdir -p $(OBJ_FOLDER)
 
 $(OBJ_FOLDER)/%.o: $(SRC_FOLDER)/%.c
 	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ 
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(LIBFT):
+	$(MAKE) -C ./libft
+
+$(NAME): $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) -L./libft -lft -lreadline -o $(NAME)
 
 clean:
 	$(MAKE) -C libft clean
 	rm -rf $(OBJ_FOLDER)
 
 fclean: clean
-		rm -f $(NAME)
-
+	$(MAKE) -C libft fclean
+	rm -f $(NAME)
 
 re: fclean all
 

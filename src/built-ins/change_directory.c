@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 10:57:10 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 12:46:45 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/24 19:14:46 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,17 @@ void	change_prompt_and_envp(char **prompt, char ***envp, char *old_pwd)
 {
 	char	*old_directory;
 	char	*new_directory;
+	char	*cwd;
 
 	get_prompt(prompt);
+	cwd = getcwd(NULL, 0);
 	old_directory = ft_strjoin("OLDPWD=", old_pwd);
-	new_directory = ft_strjoin("PWD=", ft_get_cwd());
+	new_directory = ft_strjoin("PWD=", cwd);
 	export_variable(envp, old_directory);
 	export_variable(envp, new_directory);
 	free(old_directory);
 	free(new_directory);
+	free(cwd);
 	return ;
 }
 
@@ -32,7 +35,7 @@ int	go_to_home(char **prompt, char ***envp)
 	char	*home;
 	char	*current_pwd;
 
-	current_pwd = ft_get_cwd();
+	current_pwd = getcwd(NULL, 0);
 	home = find_variable_in_envp(*envp, "HOME");
 	if (!home || chdir(home) != 0)
 	{
@@ -40,6 +43,7 @@ int	go_to_home(char **prompt, char ***envp)
 		return (-1);
 	}
 	change_prompt_and_envp(prompt, envp, current_pwd);
+	free(current_pwd);
 	return (0);
 }
 
@@ -48,7 +52,7 @@ int	go_back(char **prompt, char ***envp)
 	char	*old_pwd;
 	char	*current_pwd;
 
-	current_pwd = ft_get_cwd();
+	current_pwd = getcwd(NULL, 0);
 	old_pwd = find_variable_in_envp(*envp, "OLDPWD");
 	if (!old_pwd || chdir(old_pwd) != 0)
 	{
@@ -56,6 +60,7 @@ int	go_back(char **prompt, char ***envp)
 		return (-1);
 	}
 	change_prompt_and_envp(prompt, envp, current_pwd);
+	free(current_pwd);
 	return (0);
 }
 
@@ -63,13 +68,14 @@ int	go_to_new_directory(char **prompt, char ***envp, char *new_directory)
 {
 	char	*current_pwd;
 
-	current_pwd = ft_get_cwd();
+	current_pwd = getcwd(NULL, 0);
 	if (chdir(new_directory) != 0)
 	{
 		ft_printf(2, "Directory doesn't exist\n");
 		return (-1);
 	}
 	change_prompt_and_envp(prompt, envp, current_pwd);
+	free(current_pwd);
 	return (0);
 }
 

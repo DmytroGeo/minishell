@@ -6,7 +6,8 @@
 		"parsing.h": "c",
 		"readline.h": "c",
 		"stdlib.h": "c",
-		"array": "c"
+		"array": "c",
+		"minishell.h": "c"
 	},
 	"makefile.configureOnOpen": false
 }

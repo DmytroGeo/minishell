@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 17:26:48 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 12:47:09 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/24 19:50:24 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ int	execute_built_ins(t_cshell *cshell, int i, int outfile_fd)
 	else if (ft_strncmp(proc.cmd_and_args[0], "env", 4) == 0)
 		exit_code = print_envp(outfile_fd, cshell->envp);
 	else if (ft_strncmp(proc.cmd_and_args[0], "pwd", 4) == 0)
-		ft_printf(outfile_fd, "%s\n", ft_get_cwd());
+		ft_pwd(outfile_fd);
 	return (exit_code);
 }

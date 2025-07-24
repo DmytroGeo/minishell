@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:30:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 13:50:54 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/24 19:49:40 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,64 +116,64 @@ char		*get_path(char *str, char **envp);
 
 // PARSING:
 
-int		is_word(t_token *current_token);
-int		is_pipe(t_token *current_token);
-int		is_append(t_token *current_token);
-int		is_heredoc(t_token *current_token);
-int		is_redir_in(t_token *current_token);
-int		is_redir_out(t_token *current_token);
-int		is_redirect(t_token *current_token);
-int		heredoc_fd(char *limiter);
-int		is_valid_variable_assignment(char *str);
-int		is_valid_variable_name(char *str);
-int		find_envp_index(char **envp, const char *key);
-int		find_number_of_outfiles(t_token *tok_chain);
-int		find_number_of_infiles(t_token *tok_chain);
-int		find_infiles(t_proc *proc, t_token *start);
-int		find_outfiles(t_proc *proc, t_token *tok_chain);
-int		find_cmd_and_args(t_proc *proc, t_token *tok_chain, char **envp);
-int		return_heredoc_fd(char *limiter);
-int		syntax_check_1(t_token *curr);
-int		syntax_check_2(t_token *curr);
-int		syntax_check_3(t_token *curr);
-int		syntax_check_4(t_token *curr);
-int		check_syntax(t_token *tok_chain);
-int		init_processes(t_cshell *cshell);
-int		export_variable(char ***envp, char *assignment);
-int		unset_variable(char ***envp, char *key);
-int		get_prompt(char **address_of_prompt);
-int		copy_envp(char ***address_of_copy, char **envp);
+int			is_word(t_token *current_token);
+int			is_pipe(t_token *current_token);
+int			is_append(t_token *current_token);
+int			is_heredoc(t_token *current_token);
+int			is_redir_in(t_token *current_token);
+int			is_redir_out(t_token *current_token);
+int			is_redirect(t_token *current_token);
+int			heredoc_fd(char *limiter);
+int			is_valid_variable_assignment(char *str);
+int			is_valid_variable_name(char *str);
+int			find_envp_index(char **envp, const char *key);
+int			find_number_of_outfiles(t_token *tok_chain);
+int			find_number_of_infiles(t_token *tok_chain);
+int			find_infiles(t_proc *proc, t_token *start);
+int			find_outfiles(t_proc *proc, t_token *tok_chain);
+int			find_cmd_and_args(t_proc *proc, t_token *tok_chain, char **envp);
+int			return_heredoc_fd(char *limiter);
+int			syntax_check_1(t_token *curr);
+int			syntax_check_2(t_token *curr);
+int			syntax_check_3(t_token *curr);
+int			syntax_check_4(t_token *curr);
+int			check_syntax(t_token *tok_chain);
+int			init_processes(t_cshell *cshell);
+int			export_variable(char ***envp, char *assignment);
+int			unset_variable(char ***envp, char *key);
+int			get_prompt(char **address_of_prompt);
+int			copy_envp(char ***address_of_copy, char **envp);
 
-void	proc_call(int i, char c);
-void	init_cshell(t_cshell *cshell, char **envp);
-void	do_all_expansions(t_token **tok_chain, int exit_status, char **envp);
-void	infile_err2(char *file_name);
-void	infile_err3(char *file_name);
-void	outfile_err(char *file_name);
-void	free_proc_contents(t_proc *proc);
+void		proc_call(int i, char c);
+void		init_cshell(t_cshell *cshell, char **envp);
+void		expand_all(t_token **tok_chain, int exit_status, char **envp);
+void		infile_err2(char *file_name);
+void		infile_err3(char *file_name);
+void		outfile_err(char *file_name);
+void		free_proc_contents(t_proc *proc);
 
 // EXECUTION:
 
-int		execute_built_ins(t_cshell *cshell, int i, int outfile_fd);
-int		ft_chdir(char **new_directory, char **prompt, char ***envp);
-int		execution(t_cshell *cshell);
-int		wait_for_processes(int *pid, int ac);
-int		unset_all_vars(char **arguments, char ***envp);
-int		ft_echo(int fd, char **arguments);
-int		print_envp(int fd, char **envp);
-int		ft_exit(char **cmd_and_args, t_cshell *cshell);
-int		execute_in_main(t_cshell *cshell);
-int		export_all_vars(char **arguments, char ***envp, int fd);
-int		is_valid_var_unset(char *str);
+int			execute_built_ins(t_cshell *cshell, int i, int outfile_fd);
+int			ft_chdir(char **new_directory, char **prompt, char ***envp);
+int			execution(t_cshell *cshell);
+int			wait_for_processes(int *pid, int ac);
+int			unset_all_vars(char **arguments, char ***envp);
+int			ft_echo(int fd, char **arguments);
+int			print_envp(int fd, char **envp);
+int			ft_exit(char **cmd_and_args, t_cshell *cshell);
+int			execute_in_main(t_cshell *cshell);
+int			export_all_vars(char **arguments, char ***envp, int fd);
+int			is_valid_var_unset(char *str);
 
-void	close_fds(int **fd, int len);
-void	ft_perror(char *str, char c);
-void	process_loop(t_cshell *cshell);
-void	execute_in_child(int i, t_cshell *cshell);
-void	free_and_exit(int *pid, int **fd, t_cshell *cshell);
-void	dup_infile(int i, t_cshell *cshell);
-void	dup_outfile(int i, t_cshell *cshell);
-void	init_setup(t_cshell *cshell);
-void	evaluate_and_execute(t_cshell *cshell, int *exit_code);
-
+void		close_fds(int **fd, int len);
+void		ft_perror(char *str, char c);
+void		process_loop(t_cshell *cshell);
+void		execute_in_child(int i, t_cshell *cshell);
+void		free_and_exit(int *pid, int **fd, t_cshell *cshell);
+void		dup_infile(int i, t_cshell *cshell);
+void		dup_outfile(int i, t_cshell *cshell);
+void		init_setup(t_cshell *cshell);
+void		evaluate_and_execute(t_cshell *cshell, int *exit_code);
+void		ft_pwd(int outfile_fd);
 #endif

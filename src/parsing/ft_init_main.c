@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 12:10:27 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 12:52:13 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/24 19:22:06 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,17 @@ int	copy_envp(char ***address_of_copy, char **envp)
 	return (0);
 }
 
-char	*ft_get_cwd(void)
-{
-	char	buffer[PATH_MAX];
-	char	*str;
-
-	str = getcwd(buffer, PATH_MAX);
-	return (str);
-}
-
 int	get_prompt(char **address_of_prompt)
 {
 	char	*cwd;
 	char	*temp;
 	char	*prompt;
 
-	cwd = ft_get_cwd();
+	cwd = getcwd(NULL, 0);
 	temp = ft_strjoin("minishell:", cwd);
 	if (!temp)
 		return (-2);
+	free(cwd);
 	prompt = ft_strjoin(temp, "$ ");
 	if (!prompt)
 		return (free(temp), -2);
