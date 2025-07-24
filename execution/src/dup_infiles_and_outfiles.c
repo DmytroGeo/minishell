@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dup_infiles_and_outfiles.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 23:42:24 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 17:02:04 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 21:06:39 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	dup_infile(int i, t_cshell *cshell)
 		if (infiles[counter] < 0)
 		{
 			close_fds(cshell->fd, cshell->num_of_proc - 1);
-			free_cshell(cshell);
+			free_whole_cshell(cshell);
 			exit(EXIT_FAILURE);
 		}
 		proc_call(dup2(infiles[counter], STDIN_FILENO), 'i');
@@ -54,7 +54,7 @@ void	dup_outfile(int i, t_cshell *cshell)
 		if (outfiles[counter] < 0)
 		{
 			close_fds(cshell->fd, cshell->num_of_proc - 1);
-			free_cshell(cshell);
+			free_whole_cshell(cshell);
 			exit(EXIT_FAILURE);
 		}
 		proc_call(dup2(outfiles[counter], STDOUT_FILENO), 'o');

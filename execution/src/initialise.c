@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialise.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:41:49 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 10:51:55 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 21:05:51 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@ void	init_setup(t_cshell *cshell)
 	i = -1;
 	cshell->pid = ft_calloc(cshell->num_of_proc, sizeof(int));
 	if (!cshell->pid)
-		return (free_cshell(cshell), exit(1));
+		return (free_whole_cshell(cshell), exit(1));
 	cshell->fd = ft_calloc(cshell->num_of_proc - 1, sizeof(int *));
 	if (!cshell->fd)
-		return (free_cshell(cshell), exit(1));
+		return (free_whole_cshell(cshell), exit(1));
 	while (++i < cshell->num_of_proc - 1)
 	{
 		(cshell->fd)[i] = ft_calloc(2, sizeof(int));
 		if (!(cshell->fd)[i])
-			(free_cshell(cshell), exit(1));
+			(free_whole_cshell(cshell), exit(1));
 		if (pipe((cshell->fd)[i]) < 0)
 		{
 			(perror(NULL), close_fds(cshell->fd, i + 1));
-			(free_cshell(cshell), exit(1));
+			(free_whole_cshell(cshell), exit(1));
 		}
 	}
 }

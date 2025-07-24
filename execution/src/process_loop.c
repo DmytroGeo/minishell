@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_loop.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:12:37 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 16:16:05 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 21:06:56 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	process_loop(t_cshell *cshell)
 	{
 		(cshell->pid)[i] = fork();
 		if ((cshell->pid)[i] < 0)
-			(free_cshell(cshell), exit(EXIT_FAILURE));
+			(free_whole_cshell(cshell), exit(EXIT_FAILURE));
 		if ((cshell->pid)[i] == 0)
 		{
 			dup_infile(i, cshell);

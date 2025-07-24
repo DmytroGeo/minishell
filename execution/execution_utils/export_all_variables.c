@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_all_variables.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 12:27:45 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/23 15:38:30 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 21:09:21 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	export_variable(char ***envp, char *assignment)
 	{
 		key = ft_substr(assignment, 0, equals_sign - assignment);
 		index = find_envp_index(*envp, key);
-		free(key);		
+		free(key);
 	}
 	else
 		index = find_envp_index(*envp, assignment);
@@ -95,7 +95,7 @@ int	export_variable(char ***envp, char *assignment)
 	else if (index < 0)
 		new_envp = export_new_var(*envp, assignment);
 	else
-		return (0);	
+		return (0);
 	ft_array_free((void **)*envp);
 	if (!new_envp)
 		return (-2);
@@ -117,17 +117,7 @@ int	export_all_vars(char **arguments, char ***envp, int fd)
 	{
 		if (is_valid_variable_assignment(*arguments))
 		{
-			// int n = ft_array_len(*envp);
 			exit_code = export_variable(envp, *arguments);
-			// int k = ft_array_len(*envp);
-			// ft_printf(2, "Number of vars before export variable: %d\n", n);
-			// ft_printf(2, "Number of vars after export variable: %d\n", k);
-			// char **temp = *envp;
-			// while (*temp)
-			// {
-			// 	ft_printf(2, "%s\n", *temp);
-			// 	temp++;
-			// }
 			if (exit_code == -2)
 				return (exit_code);
 		}

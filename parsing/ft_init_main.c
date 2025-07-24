@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 12:10:27 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/23 12:09:06 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 21:04:19 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,6 @@ void	init_cshell(t_cshell *cshell, char **envp)
 		exit(-42);
 	exit_code = get_prompt(&(cshell->prompt));
 	if (exit_code == -2)
-		return (free_cshell(cshell), exit(-42));
+		return (free_whole_cshell(cshell), exit(-42));
 	return ;
 }

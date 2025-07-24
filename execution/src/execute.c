@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 11:48:53 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/21 17:21:13 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/23 21:01:03 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ void	execute(int i, t_cshell *cshell)
 	if (is_builtin(proc.cmd_and_args[0]))
 	{
 		exit_code = execute_built_ins(cshell, i, STDOUT_FILENO);
-		(free_cshell(cshell), exit(exit_code));
+		(free_whole_cshell(cshell), exit(exit_code));
 	}
 	else
 	{
 		if (access((proc.cmd_and_args)[0], F_OK | X_OK) != 0)
-			(free_cshell(cshell), exit(127));
+			(free_whole_cshell(cshell), exit(127));
 		else
 		{
 			args = (proc.cmd_and_args);
 			if ((execve((proc.cmd_and_args)[0], args, cshell->envp)) < 0)
-				(free_cshell(cshell), exit(1));
+				(free_whole_cshell(cshell), exit(1));
 		}
 	}
 }
