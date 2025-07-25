@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:37:13 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 18:11:28 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 18:48:58 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,26 +85,26 @@ t_tok_type	identify_type(char *token, t_op *operators)
 	return (word);
 }
 
-// void	print_token_list(t_token *head)
-// {
-// 	int					i;
-// 	const char	*token_type_names[] =
-// 	{
-// 	"word",
-// 	"_pipe",
-// 	"redir_in",
-// 	"redir_out",
-// 	"append",
-// 	"heredoc",
-// 	};
-// 	i = 1;
-// 	printf("\n< < < < Token List > > > >\n\n");
-// 	while (head)
-// 	{
-// 		printf("Node : %d\n", i);
-// 		printf("Type : %s\nValue : %s\n\n", token_type_names[((t_token_content *)(head->content))->type], ((t_token_content *)(head->content))->value);
-// 		head = (head->next);
-// 		i++;
-// 	}
-// 	printf("\n");
-// }
+void	print_token_list(t_token *head)
+{
+	int					i;
+	const char	*token_type_names[] =
+	{
+	"word",
+	"_pipe",
+	"redir_in",
+	"redir_out",
+	"append",
+	"heredoc",
+	};
+	i = 1;
+	printf("\n< < < < Token List > > > >\n\n");
+	while (head)
+	{
+		printf("Node : %d\n", i);
+		printf("Type : %s\nValue : %s\n\n", token_type_names[((t_tok_cont *)(head->content))->type], ((t_tok_cont *)(head->content))->value);
+		head = (head->next);
+		i++;
+	}
+	printf("\n");
+}
