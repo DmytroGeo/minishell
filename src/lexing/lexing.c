@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:59:28 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 19:43:57 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 20:13:21 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	lexing(t_cshell *cshell, char *line)
 		if (!new_token)
 			(del_tok_cont((void *)new_cont), free_cshell(cshell));
 		ft_dlstadd_back(&(cshell->token_chain), new_token);
+		if (lex.i == (int)(ft_strlen(line)))
+			return ;
 		curr_raw_tok = find_next_raw_tok(line, &lex);
 	}
-	return ;
 }

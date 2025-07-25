@@ -6,7 +6,7 @@
 #    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 11:20:28 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/07/25 17:35:52 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/25 20:29:44 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS = $(SRC_FOLDER)/main.c \
 		$(SRC_FOLDER)/lexing/ft_dlstsize.c \
 		$(SRC_FOLDER)/lexing/ft_perror.c \
 		$(SRC_FOLDER)/lexing/find_next_tok.c \
+		$(SRC_FOLDER)/lexing/find_next_tok2.c \
 		$(SRC_FOLDER)/lexing/init_tok_cont.c \
 		$(SRC_FOLDER)/lexing/lexing_utils.c \
 		$(SRC_FOLDER)/lexing/lexing.c \
