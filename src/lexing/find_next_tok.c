@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_next_tok.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 17:08:32 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 15:59:12 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 17:18:36 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,44 +41,49 @@ char	*find_next_raw_tok(char *line, t_lex *lex)
 	op_len = 0;
 	while (line[lex->i])
 	{
-		if ((line[*i] == '\'' || line[*i] == '"') && !in_quotes)
+		// Handle entering a quote block
+		if ((line[lex->i] == '\'' || line[lex->i] == '"') && !(lex->in_quotes))
 		{
-			in_quotes = 1;
-			current_quote = line[*i];
-			if (start == -1)
-				start = *i;
-			(*i)++;
+			lex->in_quotes = 1;
+			lex->current_quote = line[lex->i];
+			if (lex->start == -1)
+				lex->start = lex->i;
+			(lex->i)++;
 			continue ;
 		}
-		else if (in_quotes && line[*i] == current_quote)
+		// Handle closing a quote block
+		else if (lex->in_quotes && line[lex->i] == lex->current_quote)
 		{
-			(*i)++;
-			in_quotes = 0;
+			lex->i++;
+			lex->in_quotes = 0;
 			continue ;
 		}
-		else if (!in_quotes && (line[*i] == ' ' || is_operator_start(line, *i)))
+		// Token end (space outside quotes or operator)
+		else if (!(lex->in_quotes) && (line[lex->i] == ' ' || is_operator_start(line, lex->i)))
 		{
-			if (start != -1)
+			if (lex->start != -1)
 			{
-				next_raw_tok = ft_substr(line, start, *i - start);
-				start = -1;
-				// move i along;
+				next_raw_tok = ft_substr(line, lex->start, lex->i - lex->start);
+				lex->start = -1;
 				return (next_raw_tok);
 			}
-			if (is_operator_start(line, *i))
+			if (is_operator_start(line, lex->i))
 			{
-				op_len = operator_length(line + *i);
-				next_raw_tok = ft_substr(line, *i, op_len);
-				*i += op_len;
+				op_len = operator_length(line + lex->i);
+				next_raw_tok = ft_substr(line, lex->i, op_len);
+				lex->i += op_len;
 				return (next_raw_tok);
 			}
 		}
-		else if (start == -1)
-			start = *i;
-		(*i)++;
+		else if (lex->start == -1)
+			lex->start = lex->i;
+		(lex->i)++;
 	}
-	if (start != -1)
-		next_raw_tok = ft_substr(line, start, *i - start);
+	if (lex->start != -1)
+	{
+		next_raw_tok = ft_substr(line, lex->start, lex->i - lex->start);
+		return (next_raw_tok);	
+	}
 	return (next_raw_tok);
 }
 

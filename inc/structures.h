@@ -3,34 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:00:09 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 15:53:24 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 17:25:55 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <linux/limits.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include <sys/stat.h>
-# include <sys/types.h>
-# include <string.h>
+# include "libft.h"
 # include <errno.h>
 # include <fcntl.h>
-# include <unistd.h>
+# include <limits.h>
+# include <linux/limits.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <string.h>
 # include <stdlib.h>
 # include <stdint.h>
-# include <limits.h>
 # include <stdio.h>
 # include <stdarg.h>
 # include <stdbool.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
+# include <sys/types.h>
+# include <unistd.h>
 
 typedef struct s_lex
 {
