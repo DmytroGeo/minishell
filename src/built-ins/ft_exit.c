@@ -6,11 +6,12 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:38:36 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 15:09:48 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 17:55:43 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+#include "minishell.h"
 
 int	ft_contains_only_digit(char *str)
 {

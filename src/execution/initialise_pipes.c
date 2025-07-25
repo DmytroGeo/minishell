@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialise.c                                       :+:      :+:    :+:   */
+/*   initialise_pipes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:41:49 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 15:10:18 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 18:01:26 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+#include "minishell.h"
 
 void	init_setup(t_cshell *cshell)
 {

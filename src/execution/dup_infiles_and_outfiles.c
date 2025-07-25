@@ -6,11 +6,12 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 23:42:24 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 15:10:01 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 17:56:44 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+#include "minishell.h"
 
 void	dup_infile(int i, t_cshell *cshell)
 {

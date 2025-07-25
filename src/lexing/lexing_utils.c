@@ -6,11 +6,12 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:37:13 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 15:13:08 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 18:11:28 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexing.h"
+#include "minishell.h"
 
 char	*find_variable_in_envp(char **envp, char *variable)
 {
@@ -105,16 +106,5 @@ t_tok_type	identify_type(char *token, t_op *operators)
 // 		head = (head->next);
 // 		i++;
 // 	}
-// 	printf("\n");
-// }
-
-// void	print_raw_tokens(char **raw_tokens)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	printf("\n\n< < < < Raw Tokens > > > >\n\n");
-// 	while (raw_tokens[i])
-// 			printf("%s\n", raw_tokens[i++]);
 // 	printf("\n");
 // }

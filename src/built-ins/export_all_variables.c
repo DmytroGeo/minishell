@@ -6,11 +6,12 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 12:27:45 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 15:09:45 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 17:54:16 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+#include "minishell.h"
 
 void	print_export(char **envp, int fd)
 {

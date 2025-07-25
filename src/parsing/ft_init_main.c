@@ -6,11 +6,12 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 12:10:27 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 15:11:56 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 17:47:05 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include "minishell.h"
 
 int	copy_envp(char ***address_of_copy, char **envp)
 {

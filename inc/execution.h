@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:06:27 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 17:21:29 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 18:07:15 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ int			ft_exit(char **cmd_and_args, t_cshell *cshell);
 int			execute_in_main(t_cshell *cshell);
 int			export_all_vars(char **arguments, char ***envp, int fd);
 int			is_valid_var_unset(char *str);
+int			export_variable(char ***envp, char *assignment);
+int			is_valid_variable_assignment(char *str);
+int			find_envp_index(char **envp, const char *key);
 
+void		proc_call(int i, char c);
 void		close_fds(int **fd, int len);
 void		ft_perror(char *str, char c);
 void		process_loop(t_cshell *cshell);

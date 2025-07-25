@@ -6,11 +6,12 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 10:57:10 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 15:09:41 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 17:49:50 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+#include "minishell.h"
 
 void	change_prompt_and_envp(char **prompt, char ***envp, char *old_pwd)
 {

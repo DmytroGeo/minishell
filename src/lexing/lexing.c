@@ -6,11 +6,12 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:59:28 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 15:58:50 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 18:03:09 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexing.h"
+#include "minishell.h"
 
 void	populate_operators(t_op *operators)
 {

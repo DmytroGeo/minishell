@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:02:40 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 17:21:20 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 17:56:16 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ int			is_redir_in(t_token *current_token);
 int			is_redir_out(t_token *current_token);
 int			is_redirect(t_token *current_token);
 int			heredoc_fd(char *limiter);
-int			is_valid_variable_assignment(char *str);
 int			is_valid_variable_name(char *str);
-int			find_envp_index(char **envp, const char *key);
 int			find_number_of_outfiles(t_token *tok_chain);
 int			find_number_of_infiles(t_token *tok_chain);
 int			find_infiles(t_proc *proc, t_token *start);
@@ -38,12 +36,9 @@ int			syntax_check_3(t_token *curr);
 int			syntax_check_4(t_token *curr);
 int			check_syntax(t_token *tok_chain);
 int			init_processes(t_cshell *cshell);
-int			export_variable(char ***envp, char *assignment);
 int			unset_variable(char ***envp, char *key);
-int			get_prompt(char **address_of_prompt);
 int			copy_envp(char ***address_of_copy, char **envp);
 
-void		proc_call(int i, char c);
 void		init_cshell(t_cshell *cshell, char **envp);
 void		expand_all(t_token **tok_chain, int exit_status, char **envp);
 void		infile_err2(char *file_name);

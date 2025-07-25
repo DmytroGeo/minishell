@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
+#    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 11:20:28 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/07/25 17:22:45 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/25 17:35:52 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,8 @@ CFLAGS = -Wall -Wextra -Werror -g3
 LIBFT = ./libft/libft.a
 OBJ_FOLDER = ./obj
 SRC_FOLDER = ./src
-INC_FOLDER = ./inc
 
-INCLUDES = -I./libft -I$(INC_FOLDER)
+INCLUDES = -I./libft -I./inc
 
 SRCS = $(SRC_FOLDER)/main.c \
 		$(SRC_FOLDER)/lexing/ft_dlstadd_back.c \
