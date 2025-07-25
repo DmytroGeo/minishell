@@ -6,11 +6,11 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 19:46:28 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 19:50:44 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:09:50 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "execution.h"
 
 void	ft_pwd(int outfile_fd)
 {

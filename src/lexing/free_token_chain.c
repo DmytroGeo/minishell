@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "lexing.h"
 
 /**
  * @param start The address of the pointer to the first element of the list.

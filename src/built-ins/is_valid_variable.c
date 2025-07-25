@@ -6,11 +6,11 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 15:42:03 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 12:48:10 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:09:52 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "execution.h"
 
 int	is_valid_without_equals(char *str)
 {

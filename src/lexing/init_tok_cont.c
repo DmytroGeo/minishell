@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "lexing.h"
 
 t_tok_cont	*init_tok_cont(char *raw_token, t_op *operators)
 {

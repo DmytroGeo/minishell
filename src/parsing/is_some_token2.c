@@ -6,11 +6,11 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 13:41:03 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 12:52:48 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:11:59 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parsing.h"
 
 int	is_heredoc(t_token *current_token)
 {

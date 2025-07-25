@@ -6,11 +6,11 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:03:04 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 12:52:20 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:11:57 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parsing.h"
 
 void	outfile_err(char *file_name)
 {

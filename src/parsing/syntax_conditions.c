@@ -6,11 +6,11 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 14:17:53 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 12:53:15 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:12:01 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parsing.h"
 
 int	syntax_check_1(t_token *curr)
 {

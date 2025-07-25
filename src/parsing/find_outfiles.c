@@ -6,11 +6,11 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:15:04 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 12:51:49 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:11:55 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parsing.h"
 
 int	find_number_of_outfiles(t_token *start)
 {

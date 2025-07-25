@@ -6,11 +6,11 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 11:09:15 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 12:50:30 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:13:08 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "lexing.h"
 
 void	ft_perror(char *str, char c)
 {

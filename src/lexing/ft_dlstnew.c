@@ -6,11 +6,11 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 11:38:28 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 12:50:10 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:13:08 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "lexing.h"
 
 /**
  * @brief This function creates a new doubly-linked list element,

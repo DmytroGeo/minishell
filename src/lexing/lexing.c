@@ -6,11 +6,11 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:59:28 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 18:12:04 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:58:50 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "lexing.h"
 
 void	populate_operators(t_op *operators)
 {
@@ -22,35 +22,37 @@ void	populate_operators(t_op *operators)
 	operators[5] = (t_op){NULL, word};
 }
 
-void	free_stuff(t_cshell *cshell, char **raw_tokens)
+void	init_lex(t_lex	*lex)
 {
-	ft_array_free((void **)raw_tokens);
-	free_whole_cshell(cshell);
-	exit(-42);
+	lex->i = 0;
+	lex->start = -1;
+	lex->in_quotes = 0;
+	lex->current_quote = 0;
+	return ;
 }
 
 void	lexing(t_cshell *cshell, char *line)
 {
-	char		**raw_tokens;
-	char		**curr_tok;
+	char		*curr_raw_tok;
+	t_lex		lex;
 	t_op		operators[6];
 	t_token		*new_token;
 	t_tok_cont	*new_cont;
 
 	populate_operators(operators);
-	raw_tokens = split_line(line);
-	curr_tok = raw_tokens;
-	while (*curr_tok)
+	init_lex(&lex);
+	curr_raw_tok = find_next_raw_tok(line, &lex);
+	while (curr_raw_tok)
 	{
-		new_cont = init_tok_cont(*curr_tok, operators);
+		new_cont = init_tok_cont(curr_raw_tok, operators);
+		free(curr_raw_tok);
 		if (!new_cont)
-			free_stuff(cshell, raw_tokens);
+			free_cshell(cshell);
 		new_token = ft_dlstnew(new_cont);
 		if (!new_token)
-			(del_tok_cont((void *)new_cont), free_stuff(cshell, raw_tokens));
+			(del_tok_cont((void *)new_cont), free_cshell(cshell));
 		ft_dlstadd_back(&(cshell->token_chain), new_token);
-		curr_tok++;
+		curr_raw_tok = find_next_raw_tok(line, &lex);
 	}
-	ft_array_free((void **)raw_tokens);
 	return ;
 }

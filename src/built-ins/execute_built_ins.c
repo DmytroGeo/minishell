@@ -6,11 +6,11 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 17:26:48 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 19:50:24 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:09:43 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "execution.h"
 
 int	execute_built_ins(t_cshell *cshell, int i, int outfile_fd)
 {

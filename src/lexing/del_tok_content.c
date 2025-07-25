@@ -6,11 +6,11 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 12:13:36 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 12:49:28 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:13:08 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "lexing.h"
 /**
  * @param content The address of the pointer to the first element of the list.
  * @return Nothing (void function).

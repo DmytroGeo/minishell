@@ -6,11 +6,11 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 12:32:48 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 12:48:49 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:09:55 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "execution.h"
 
 int	find_envp_index(char **envp, const char *key)
 {

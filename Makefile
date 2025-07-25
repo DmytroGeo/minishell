@@ -6,18 +6,20 @@
 #    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 11:20:28 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/07/24 19:48:13 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/25 15:14:51 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3
-INCLUDES = -I. -I./libft
 
 LIBFT = ./libft/libft.a
 OBJ_FOLDER = ./obj
 SRC_FOLDER = ./src
+INC_FOLDER = ./inc
+
+INCLUDES = -I./libft -I$(INC_FOLDER)
 
 SRCS = $(SRC_FOLDER)/main.c \
 		$(SRC_FOLDER)/lexing/ft_dlstadd_back.c \
@@ -58,7 +60,7 @@ SRCS = $(SRC_FOLDER)/main.c \
 		$(SRC_FOLDER)/execution/dup_infiles_and_outfiles.c \
 		$(SRC_FOLDER)/execution/execute_in_main.c \
 		$(SRC_FOLDER)/execution/execute_in_child.c \
-		$(SRC_FOLDER)/execution/initialise.c \
+		$(SRC_FOLDER)/execution/initialise_pipes.c \
 		$(SRC_FOLDER)/execution/process_loop.c \
 		$(SRC_FOLDER)/execution/wait_for_processes.c \
 		$(SRC_FOLDER)/execution/execution.c

@@ -6,11 +6,11 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:13:36 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 12:50:19 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:13:08 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "lexing.h"
 
 int	ft_dlstsize(t_token *tok)
 {

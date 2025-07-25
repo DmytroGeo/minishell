@@ -6,11 +6,11 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:12:37 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 13:55:41 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:10:23 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "execution.h"
 
 void	process_loop(t_cshell *cshell)
 {

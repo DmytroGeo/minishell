@@ -6,11 +6,11 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:16:30 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 12:49:53 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:13:08 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "lexing.h"
 /**
  * @brief This function adds the new element 'new'
  *  to the end of the doubly-linked list pointed to by 'lst'.

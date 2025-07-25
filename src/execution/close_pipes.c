@@ -6,11 +6,11 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 22:39:29 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 12:46:52 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:09:58 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "execution.h"
 
 void	close_fds(int **fd, int len)
 {

@@ -6,11 +6,11 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 12:52:54 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:12:00 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parsing.h"
 /**
  * @param tok_chain a pointer to the head of the token chain.
  * @return 0 if no syntax errors and 1 if syntax errors detected
