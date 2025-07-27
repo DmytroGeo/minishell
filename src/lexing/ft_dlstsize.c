@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_array_len.c                                     :+:      :+:    :+:   */
+/*   ft_dlstsize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/31 16:23:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/23 22:02:01 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2024/07/08 16:13:36 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/25 15:13:08 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lexing.h"
 
-int	ft_array_len(char **array)
+int	ft_dlstsize(t_token *tok)
 {
-	int	n;
+	int		count;
+	t_token	*current;
 
-	n = 0;
-	if (!array)
-		return (n);
-	while (array[n] != NULL)
-		n++;
-	return (n);
+	count = 0;
+	current = tok;
+	while (current != NULL)
+	{
+		count++;
+		current = current->next;
+	}
+	return (count);
 }

@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_array_len.c                                     :+:      :+:    :+:   */
+/*   ft_infile_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/31 16:23:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/23 22:02:01 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/07/15 14:57:55 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/25 15:11:56 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "parsing.h"
 
-int	ft_array_len(char **array)
+void	infile_err2(char *file_name)
 {
-	int	n;
+	ft_printf(2, "minishell: %s: No such file or directory\n", file_name);
+}
 
-	n = 0;
-	if (!array)
-		return (n);
-	while (array[n] != NULL)
-		n++;
-	return (n);
+void	infile_err3(char *file_name)
+{
+	ft_printf(2, "minishell: %s: Permission denied\n", file_name);
 }

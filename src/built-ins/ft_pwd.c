@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_array_len.c                                     :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/31 16:23:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/23 22:02:01 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/07/24 19:46:28 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/25 15:09:50 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "execution.h"
 
-int	ft_array_len(char **array)
+void	ft_pwd(int outfile_fd)
 {
-	int	n;
+	char	*cwd;
 
-	n = 0;
-	if (!array)
-		return (n);
-	while (array[n] != NULL)
-		n++;
-	return (n);
+	cwd = getcwd(NULL, 0);
+	ft_printf(outfile_fd, "%s\n", cwd);
+	free(cwd);
+	return ;
 }

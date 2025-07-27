@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_array_len.c                                     :+:      :+:    :+:   */
+/*   print_envp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/31 16:23:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/23 22:02:01 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/07/04 09:49:08 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/25 15:09:54 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "execution.h"
 
-int	ft_array_len(char **array)
+int	print_envp(int fd, char **envp)
 {
-	int	n;
+	int	i;
 
-	n = 0;
-	if (!array)
-		return (n);
-	while (array[n] != NULL)
-		n++;
-	return (n);
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strchr(envp[i], '='))
+			ft_printf(fd, "%s\n", envp[i]);
+		i++;
+	}
+	return (0);
 }
