@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
+#    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 11:20:28 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/07/25 20:29:44 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/27 19:45:40 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,6 @@ SRCS = $(SRC_FOLDER)/main.c \
 		$(SRC_FOLDER)/lexing/ft_dlstnew.c \
 		$(SRC_FOLDER)/lexing/free_cshell.c \
 		$(SRC_FOLDER)/lexing/ft_dlstsize.c \
-		$(SRC_FOLDER)/lexing/ft_perror.c \
 		$(SRC_FOLDER)/lexing/find_next_tok.c \
 		$(SRC_FOLDER)/lexing/find_next_tok2.c \
 		$(SRC_FOLDER)/lexing/init_tok_cont.c \

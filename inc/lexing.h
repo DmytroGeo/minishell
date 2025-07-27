@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:04:22 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/27 17:35:15 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/27 19:45:59 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void		ft_dlstadd_front(t_token **head, t_token *tok);
 void		print_raw_tokens(char **raw_tokens);
 void		print_token_list(t_token *head);
 void		populate_operators(t_op *operators);
-void		ft_perror(char *str, char c);
 void		function_1(t_lex *lex, char *line);
 void		function_2(t_lex *lex);
 

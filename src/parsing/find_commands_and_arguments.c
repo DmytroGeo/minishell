@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_commands_and_arguments.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:42:54 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 17:48:10 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/27 19:43:21 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	init_command(t_proc *proc, t_token *start, char **envp)
 		if (!path)
 		{
 			(proc->cmd_and_args)[0] = ft_strdup(content->value);
-			ft_printf(2, "%s: command not found", content->value);
+			ft_printf(2, "%s: command not found\n", content->value);
 		}
 		else
 			(proc->cmd_and_args)[0] = path;

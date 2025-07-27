@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:59:28 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/27 16:15:04 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/27 19:37:23 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,24 @@ void	init_lex(t_lex	*lex)
 	return ;
 }
 
-void	init_raw_tok(t_lex *lex)
+void	init_node(t_lex *lex, t_op operators[], t_cshell *cshell)
 {
-	free(lex->next_raw_tok);
-	lex->next_raw_tok = NULL;
-	return ;
+	t_tok_cont	*new_cont;
+	t_token		*new_token;
+
+	new_cont = init_tok_cont(lex->next_raw_tok, operators);
+	if (!new_cont)
+		(free_whole_cshell(cshell), exit(-42));
+	new_token = ft_dlstnew(new_cont);
+	if (!new_token)
+		(del_tok_cont((void *)new_cont), free_whole_cshell(cshell), exit(-42));
+	ft_dlstadd_back(&(cshell->token_chain), new_token);
 }
 
 void	lexing(t_cshell *cshell, char *line)
 {
 	t_lex		lex;
 	t_op		operators[6];
-	t_token		*new_token;
-	t_tok_cont	*new_cont;
 
 	populate_operators(operators);
 	init_lex(&lex);
@@ -53,15 +58,9 @@ void	lexing(t_cshell *cshell, char *line)
 		(free_whole_cshell(cshell), exit(-42));
 	while (lex.next_raw_tok)
 	{
-		new_cont = init_tok_cont(lex.next_raw_tok, operators);
-		init_raw_tok(&lex);
-		if (!new_cont)
-			free_whole_cshell(cshell);
-		new_token = ft_dlstnew(new_cont);
-		if (!new_token)
-			(del_tok_cont((void *)new_cont),
-				free_whole_cshell(cshell), exit(-42));
-		ft_dlstadd_back(&(cshell->token_chain), new_token);
+		init_node(&lex, operators, cshell);
+		free(lex.next_raw_tok);
+		lex.next_raw_tok = NULL;
 		if (lex.i == (int)(ft_strlen(line)))
 			return ;
 		if (find_next_raw_tok(line, &lex) == -42)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:06:27 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 18:07:15 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/27 19:45:55 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int			find_envp_index(char **envp, const char *key);
 
 void		proc_call(int i, char c);
 void		close_fds(int **fd, int len);
-void		ft_perror(char *str, char c);
 void		process_loop(t_cshell *cshell);
 void		execute_in_child(int i, t_cshell *cshell);
 void		free_and_exit(int *pid, int **fd, t_cshell *cshell);
