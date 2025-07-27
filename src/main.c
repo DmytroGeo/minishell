@@ -6,13 +6,14 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 19:37:10 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/27 17:43:04 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexing.h"
 #include "parsing.h"
 #include "execution.h"
+#include "minishell.h"
 
 //  use CTRL + D to exit the shell
 /*

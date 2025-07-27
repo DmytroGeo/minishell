@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:00:09 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 17:25:55 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/27 17:09:46 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 
 typedef struct s_lex
 {
+	char	*next_raw_tok;
 	int		i;
 	int		start;
 	int		in_quotes;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:59:28 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 20:13:21 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/27 16:15:04 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,19 @@ void	init_lex(t_lex	*lex)
 	lex->start = -1;
 	lex->in_quotes = 0;
 	lex->current_quote = 0;
+	lex->next_raw_tok = NULL;
+	return ;
+}
+
+void	init_raw_tok(t_lex *lex)
+{
+	free(lex->next_raw_tok);
+	lex->next_raw_tok = NULL;
 	return ;
 }
 
 void	lexing(t_cshell *cshell, char *line)
 {
-	char		*curr_raw_tok;
 	t_lex		lex;
 	t_op		operators[6];
 	t_token		*new_token;
@@ -42,19 +49,22 @@ void	lexing(t_cshell *cshell, char *line)
 
 	populate_operators(operators);
 	init_lex(&lex);
-	curr_raw_tok = find_next_raw_tok(line, &lex);
-	while (curr_raw_tok)
+	if (find_next_raw_tok(line, &lex) == -42)
+		(free_whole_cshell(cshell), exit(-42));
+	while (lex.next_raw_tok)
 	{
-		new_cont = init_tok_cont(curr_raw_tok, operators);
-		free(curr_raw_tok);
+		new_cont = init_tok_cont(lex.next_raw_tok, operators);
+		init_raw_tok(&lex);
 		if (!new_cont)
-			free_cshell(cshell);
+			free_whole_cshell(cshell);
 		new_token = ft_dlstnew(new_cont);
 		if (!new_token)
-			(del_tok_cont((void *)new_cont), free_cshell(cshell));
+			(del_tok_cont((void *)new_cont),
+				free_whole_cshell(cshell), exit(-42));
 		ft_dlstadd_back(&(cshell->token_chain), new_token);
 		if (lex.i == (int)(ft_strlen(line)))
 			return ;
-		curr_raw_tok = find_next_raw_tok(line, &lex);
+		if (find_next_raw_tok(line, &lex) == -42)
+			(free_whole_cshell(cshell), exit(-42));
 	}
 }
