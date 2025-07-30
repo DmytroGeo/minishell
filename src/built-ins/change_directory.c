@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 10:57:10 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 17:49:50 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/30 11:50:46 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ int	go_to_home(char **prompt, char ***envp)
 	char	*current_pwd;
 
 	current_pwd = getcwd(NULL, 0);
-	home = find_variable_in_envp(*envp, "HOME");
+	home = find_var_in_envp(*envp, "HOME");
 	if (!home || chdir(home) != 0)
 	{
 		ft_printf(2, "Can't access HOME directory \n");
+		free(current_pwd);
 		return (-1);
 	}
 	change_prompt_and_envp(prompt, envp, current_pwd);
@@ -54,10 +55,11 @@ int	go_back(char **prompt, char ***envp)
 	char	*current_pwd;
 
 	current_pwd = getcwd(NULL, 0);
-	old_pwd = find_variable_in_envp(*envp, "OLDPWD");
+	old_pwd = find_var_in_envp(*envp, "OLDPWD");
 	if (!old_pwd || chdir(old_pwd) != 0)
 	{
 		ft_printf(2, "Can't access OLDPWD\n");
+		free(current_pwd);
 		return (-1);
 	}
 	change_prompt_and_envp(prompt, envp, current_pwd);
@@ -65,7 +67,7 @@ int	go_back(char **prompt, char ***envp)
 	return (0);
 }
 
-int	go_to_new_directory(char **prompt, char ***envp, char *new_directory)
+int	new_dir(char **prompt, char ***envp, char *new_directory)
 {
 	char	*current_pwd;
 
@@ -73,6 +75,7 @@ int	go_to_new_directory(char **prompt, char ***envp, char *new_directory)
 	if (chdir(new_directory) != 0)
 	{
 		ft_printf(2, "Directory doesn't exist\n");
+		free(current_pwd);
 		return (-1);
 	}
 	change_prompt_and_envp(prompt, envp, current_pwd);
@@ -80,18 +83,26 @@ int	go_to_new_directory(char **prompt, char ***envp, char *new_directory)
 	return (0);
 }
 
-int	ft_chdir(char **arguments, char **prompt, char ***envp)
+void	ft_chdir(char **args, t_cshell *cshell)
 {
 	int	num_of_args;
 
-	num_of_args = ft_array_len(arguments);
+	num_of_args = ft_array_len(args);
 	if (num_of_args == 0)
-		return (go_to_home(prompt, envp));
-	else if (num_of_args == 1 && ft_strncmp(*arguments, "-", 2) == 0)
-		return (go_back(prompt, envp));
+	{
+		cshell->exit_code = go_to_home(&(cshell->prompt), &(cshell->envp));
+		return ;
+	}
+	else if (num_of_args == 1 && ft_strncmp(*args, "-", 2) == 0)
+	{
+		cshell->exit_code = go_back(&(cshell->prompt), &(cshell->envp));
+		return ;
+	}
 	else if (num_of_args == 1)
-		return (go_to_new_directory(prompt, envp, *arguments));
-	else
-		return (ft_printf(2, "Too many arguments!\n"), -1);
-	return (0);
+	{
+		cshell->exit_code = new_dir(&(cshell->prompt), &(cshell->envp), *args);
+		return ;
+	}
+	ft_printf(2, "minishell: cd: too many arguments\n");
+	cshell->exit_code = 1;
 }

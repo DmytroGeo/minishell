@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 12:10:27 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 17:47:05 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/30 13:13:29 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	copy_envp(char ***address_of_copy, char **envp)
 	i = 0;
 	copy = ft_calloc(sizeof(char *), (ft_array_len(envp) + 1));
 	if (!copy)
-		return (-2);
+		return (-42);
 	i = 0;
 	while (envp[i])
 	{
@@ -45,11 +45,11 @@ int	get_prompt(char **address_of_prompt)
 	cwd = getcwd(NULL, 0);
 	temp = ft_strjoin("minishell:", cwd);
 	if (!temp)
-		return (-2);
+		return (-42);
 	free(cwd);
 	prompt = ft_strjoin(temp, "$ ");
 	if (!prompt)
-		return (free(temp), -2);
+		return (free(temp), -42);
 	free(temp);
 	free(*address_of_prompt);
 	*address_of_prompt = prompt;
@@ -58,20 +58,19 @@ int	get_prompt(char **address_of_prompt)
 
 void	init_cshell(t_cshell *cshell, char **envp)
 {
-	int	exit_code;
-
-	exit_code = 0;
+	cshell->exit_code = 0;
 	cshell->pid = NULL;
 	cshell->fd = NULL;
 	cshell->proc_array = NULL;
 	cshell->token_chain = NULL;
 	cshell->prompt = NULL;
 	cshell->envp = NULL;
-	exit_code = copy_envp(&(cshell->envp), envp);
-	if (exit_code == -2)
+	cshell->shell_id = 0;
+	cshell->exit_code = copy_envp(&(cshell->envp), envp);
+	if (cshell->exit_code == -42)
 		exit(-42);
-	exit_code = get_prompt(&(cshell->prompt));
-	if (exit_code == -2)
+	cshell->exit_code = get_prompt(&(cshell->prompt));
+	if (cshell->exit_code == -42)
 		return (free_whole_cshell(cshell), exit(-42));
 	return ;
 }

@@ -6,13 +6,13 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 09:49:08 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 15:09:54 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/30 12:53:42 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-int	print_envp(int fd, char **envp)
+void	print_envp(int fd, char **envp)
 {
 	int	i;
 
@@ -23,5 +23,5 @@ int	print_envp(int fd, char **envp)
 			ft_printf(fd, "%s\n", envp[i]);
 		i++;
 	}
-	return (0);
+	return ;
 }

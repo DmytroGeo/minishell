@@ -6,36 +6,36 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 13:19:06 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 18:02:05 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/30 13:08:51 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include "minishell.h"
 
-void	evaluate_and_execute(t_cshell *cshell, int *exit_code)
+void	evaluate_and_execute(t_cshell *cshell)
 {
-	if (*exit_code == 0)
+	if (cshell->exit_code == 0)
 	{
-		*exit_code = execution(cshell);
+		execution(cshell);
 		return ;
 	}
 	return (free_cshell(cshell));
 }
 
-int	execution(t_cshell *cshell)
+void	execution(t_cshell *cshell)
 {
-	int		exit_code;
 	char	*first_command;
 
-	exit_code = 0;
 	first_command = ((cshell->proc_array)[0]).cmd_and_args[0];
 	if (cshell->num_of_proc == 1 && is_builtin(first_command))
-		return (execute_in_main(cshell));
+	{
+		execute_in_main(cshell);
+		return ;		
+	}
 	init_setup(cshell);
 	process_loop(cshell);
 	close_fds(cshell->fd, cshell->num_of_proc - 1);
-	exit_code = wait_for_processes(cshell->pid, cshell->num_of_proc);
+	wait_for_processes(cshell);
 	free_cshell(cshell);
-	return (exit_code);
 }

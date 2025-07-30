@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   signal_handlers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/12 16:15:19 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/29 18:53:31 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/07/30 14:22:08 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/30 14:25:37 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+# include "signals.h"
 
-size_t	ft_strlen(const char *s)
+void	handle_sigint(int sig)
 {
-	size_t	n;
-
-	n = 0;
-	if (!s)
-		return (n);
-	while (s[n])
-		n++;
-	return (n);
+	(void)sig;
+	write(1, "\n", 1);
+	rl_replace_line("", 0);	// clear current input
+	rl_on_new_line();	// move internal cursor to new line
+	rl_redisplay();
 }

@@ -6,11 +6,12 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 12:32:48 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 15:09:55 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/30 13:24:15 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+#include "minishell.h"
 
 int	find_envp_index(char **envp, const char *key)
 {
@@ -39,18 +40,18 @@ int	unset_variable(char ***envp, char *key)
 	i = -1;
 	new_envp = ft_calloc(sizeof(char *), ft_array_len(*envp));
 	if (!new_envp)
-		return (-2);
+		return (-42);
 	while (++i < index)
 	{
 		new_envp[i] = ft_strdup((*envp)[i]);
 		if (!(new_envp[i]))
-			return (ft_array_free((void **)new_envp), -2);
+			return (ft_array_free((void **)new_envp), -42);
 	}
 	while (i < ft_array_len(*envp) - 1)
 	{
 		new_envp[i] = ft_strdup((*envp)[i + 1]);
 		if (!(new_envp[i]))
-			return (ft_array_free((void **)new_envp), -2);
+			return (ft_array_free((void **)new_envp), -42);
 		i++;
 	}
 	ft_array_free((void **)*envp);
@@ -58,23 +59,20 @@ int	unset_variable(char ***envp, char *key)
 	return (0);
 }
 
-int	unset_all_vars(char **arguments, char ***envp)
+void	unset_all_vars(char **arguments, t_cshell *cshell)
 {
-	int	exit_code;
 
-	exit_code = 0;
 	if (ft_array_len(arguments) == 0)
-		return (exit_code);
+		return ;
 	while (*arguments)
 	{
 		if (is_valid_var_unset(*arguments)
-			&& find_envp_index(*envp, *arguments) >= 0)
+			&& find_envp_index(cshell->envp, *arguments) >= 0)
 		{
-			exit_code = unset_variable(envp, *arguments);
-			if (exit_code == -2)
-				return (exit_code);
+			cshell->exit_code = unset_variable(&(cshell->envp), *arguments);
+			if (cshell->exit_code == -42)
+				(free_whole_cshell(cshell), exit(-42));
 		}
 		arguments++;
 	}
-	return (exit_code);
 }

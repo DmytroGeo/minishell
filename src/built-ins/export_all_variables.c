@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 12:27:45 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 17:54:16 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/30 11:55:38 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,32 +99,28 @@ int	export_variable(char ***envp, char *assignment)
 		return (0);
 	ft_array_free((void **)*envp);
 	if (!new_envp)
-		return (-2);
+		return (-42);
 	*envp = new_envp;
 	return (0);
 }
 
-int	export_all_vars(char **arguments, char ***envp, int fd)
+void	export_all_vars(char **arguments, t_cshell *cshell, int fd)
 {
-	int	exit_code;
-
-	exit_code = 0;
 	if (ft_array_len(arguments) == 0)
 	{
-		print_export(*envp, fd);
-		return (exit_code);
+		cshell->exit_code = 0;
+		return (print_export(cshell->envp, fd));
 	}
 	while (*arguments)
 	{
 		if (is_valid_variable_assignment(*arguments))
 		{
-			exit_code = export_variable(envp, *arguments);
-			if (exit_code == -2)
-				return (exit_code);
+			cshell->exit_code = export_variable(&(cshell->envp), *arguments);
+			if (cshell->exit_code == -42)
+				(free_whole_cshell(cshell), exit(-42));
 		}
 		else
-			ft_printf(2, "Invalid export format: %s\n", *arguments);
+			return ;
 		arguments++;
 	}
-	return (exit_code);
 }

@@ -8,7 +8,10 @@
 		"stdlib.h": "c",
 		"array": "c",
 		"minishell.h": "c",
-		"lexing.h": "c"
+		"lexing.h": "c",
+		"expansions.h": "c",
+		"structures.h": "c",
+		"signals.h": "c"
 	},
 	"makefile.configureOnOpen": false
 }

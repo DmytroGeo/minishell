@@ -6,27 +6,31 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 09:22:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 15:10:23 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/30 13:08:06 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-int	wait_for_processes(int *pid, int number_of_commands)
+void	wait_for_processes(t_cshell *cshell)
 {
 	int	k;
 	int	status;
 	int	wpid;
 
 	k = 0;
-	while (k < number_of_commands)
+	while (k < cshell->num_of_proc)
 	{
-		wpid = waitpid(pid[k], &status, 0);
+		wpid = waitpid((cshell->pid)[k], &status, 0);
 		if (wpid == -1)
-			free(pid);
+			free(cshell->pid);
 		k++;
 	}
 	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	return (status);
+	{
+		cshell->exit_code = WEXITSTATUS(status);
+		return ;
+	}
+	cshell->exit_code = status;
+	return ;
 }

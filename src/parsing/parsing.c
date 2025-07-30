@@ -6,11 +6,12 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 15:12:00 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/30 11:15:25 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include "minishell.h"
 /**
  * @param tok_chain a pointer to the head of the token chain.
  * @return 0 if no syntax errors and 1 if syntax errors detected
@@ -102,23 +103,25 @@ int	init_process(t_cshell *cshell, int counter, t_token **address_of_start)
 	return (0);
 }
 
-int	init_processes(t_cshell *cshell)
+void	init_processes(t_cshell *cshell)
 {
 	int		counter;
 	t_token	*copy_of_start;
 
 	if (check_syntax(cshell->token_chain) == EXIT_FAILURE)
-		return (2);
+	{
+		cshell->exit_code = 2;
+		return ;
+	}
 	cshell->num_of_proc = find_num_of_proc(cshell->token_chain);
 	cshell->proc_array = ft_calloc(cshell->num_of_proc, sizeof(t_proc));
 	if (!(cshell->proc_array))
-		return (-42);
+		(free_whole_cshell(cshell), exit(-42));
 	counter = -1;
 	copy_of_start = cshell->token_chain;
 	while (++counter < cshell->num_of_proc)
 	{
 		if (init_process(cshell, counter, &copy_of_start) == -42)
-			return (-42);
+			(free_whole_cshell(cshell), exit(-42));
 	}
-	return (0);
 }

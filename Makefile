@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
+#    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 11:20:28 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/07/27 19:45:40 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/07/30 14:25:09 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC_FOLDER = ./src
 INCLUDES = -I./libft -I./inc
 
 SRCS = $(SRC_FOLDER)/main.c \
+		$(SRC_FOLDER)/signals/signal_handlers.c \
 		$(SRC_FOLDER)/lexing/ft_dlstadd_back.c \
 		$(SRC_FOLDER)/lexing/del_tok_content.c \
 		$(SRC_FOLDER)/lexing/free_token_chain.c \
@@ -67,6 +68,9 @@ SRCS = $(SRC_FOLDER)/main.c \
 OBJS = $(patsubst $(SRC_FOLDER)/%.c, $(OBJ_FOLDER)/%.o, $(SRCS))
 
 all: $(OBJ_FOLDER) $(NAME)
+
+v valgrind: $(BINARY)
+	valgrind --suppressions=rl.supp --leak-check=full --show-leak-kinds=all --track-fds=yes ./minishell
 
 $(OBJ_FOLDER):
 	@mkdir -p $(OBJ_FOLDER)

@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/27 17:43:04 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/30 14:37:26 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "signals.h"
 #include "lexing.h"
 #include "parsing.h"
+#include "expansions.h"
 #include "execution.h"
 #include "minishell.h"
 
@@ -27,12 +29,12 @@
 int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
-	int			exit_code;
 	t_cshell	cshell;
 
 	((void)argc, (void)argv);
-	exit_code = 0;
 	init_cshell(&cshell, envp);
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, SIG_IGN);
 	line = readline(cshell.prompt);
 	while (line != NULL)
 	{
@@ -40,10 +42,13 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(line);
 			lexing(&cshell, line);
-			exit_code = init_processes(&cshell);
-			evaluate_and_execute(&cshell, &exit_code);
+			// do_all_expansions(&cshell);
+			init_processes(&cshell);
+			evaluate_and_execute(&cshell);
 		}
 		free(line);
 		line = readline(cshell.prompt);
 	}
+	(free_whole_cshell(&cshell), ft_printf(1, "exit\n"));
+	return (0);
 }

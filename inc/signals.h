@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/12 16:15:19 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/29 18:53:31 by dgeorgiy         ###   ########.fr       */
+/*   Created: 2025/07/30 14:22:42 by dgeorgiy          #+#    #+#             */
+/*   Updated: 2025/07/30 14:24:21 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef SIGNALS_H
+# define SIGNALS_H
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	n;
+# include "structures.h"
 
-	n = 0;
-	if (!s)
-		return (n);
-	while (s[n])
-		n++;
-	return (n);
-}
+void	handle_sigint(int sig);
+
+#endif

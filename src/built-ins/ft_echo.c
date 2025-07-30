@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:15:59 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 15:09:46 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/30 12:48:56 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	is_echo_flag(char *str)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_echo(int fd, char **arguments)
+void	ft_echo(int fd, char **arguments, t_cshell *cshell)
 {
 	int	has_flag;
 	int	number_of_arguments;
@@ -52,5 +52,5 @@ int	ft_echo(int fd, char **arguments)
 	ft_printf(fd, "%s", arguments[i]);
 	if (has_flag == 0)
 		ft_printf(fd, "\n");
-	return (0);
+	cshell->exit_code = 0;
 }

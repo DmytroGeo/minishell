@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:00:09 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/27 17:09:46 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/30 14:21:06 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <linux/limits.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
 # include <string.h>
 # include <stdlib.h>
 # include <stdint.h>
@@ -31,6 +32,7 @@
 # include <sys/types.h>
 # include <unistd.h>
 
+
 typedef struct s_lex
 {
 	char	*next_raw_tok;
@@ -38,8 +40,18 @@ typedef struct s_lex
 	int		start;
 	int		in_quotes;
 	char	current_quote;
-
 }	t_lex;
+
+typedef struct s_exp
+{
+	int		i;
+	int		expanded_strlen;
+	int		varlen;
+	char	*expanded_string;
+	char	*expanded_var;
+	char	*temp;
+	char	*cur;
+}	t_exp;
 
 typedef enum e_tok_type
 {
@@ -82,12 +94,14 @@ typedef struct s_proc
 typedef struct s_cshell
 {
 	int		num_of_proc;
+	int		shell_id;
+	int		exit_code;
 	char	*prompt;
 	char	**envp;
 	int		*pid;
 	int		**fd;
 	t_token	*token_chain;
-	t_proc	*proc_array;	
+	t_proc	*proc_array;
 }	t_cshell;
 
 #endif

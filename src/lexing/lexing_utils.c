@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   lexing_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:37:13 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/27 19:38:29 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/29 18:56:54 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexing.h"
 #include "minishell.h"
 
-char	*find_variable_in_envp(char **envp, char *variable)
+char	*find_var_in_envp(char **envp, char *variable)
 {
 	char	**ptr;
 	char	*found_variable;
@@ -30,7 +30,7 @@ char	*find_variable_in_envp(char **envp, char *variable)
 		ptr++;
 	}
 	if (!*ptr)
-		return (ft_printf(2, "%s not found in PATH\n", variable), NULL);
+		return (NULL);
 	found_variable = *ptr;
 	found_variable += ft_strlen(var_and_eqls);
 	free(var_and_eqls);
@@ -46,7 +46,7 @@ char	*get_path(char *str, char **envp)
 	int		i;
 
 	i = -1;
-	path_variable = find_variable_in_envp(envp, "PATH");
+	path_variable = find_var_in_envp(envp, "PATH");
 	if (!path_variable)
 		return (NULL);
 	arr = ft_split(path_variable, ':');

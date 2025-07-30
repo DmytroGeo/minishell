@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:02:40 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 17:56:16 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/30 11:12:41 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,14 @@ int			syntax_check_2(t_token *curr);
 int			syntax_check_3(t_token *curr);
 int			syntax_check_4(t_token *curr);
 int			check_syntax(t_token *tok_chain);
-int			init_processes(t_cshell *cshell);
 int			unset_variable(char ***envp, char *key);
 int			copy_envp(char ***address_of_copy, char **envp);
 
 void		init_cshell(t_cshell *cshell, char **envp);
-void		expand_all(t_token **tok_chain, int exit_status, char **envp);
 void		infile_err2(char *file_name);
 void		infile_err3(char *file_name);
 void		outfile_err(char *file_name);
 void		free_proc_contents(t_proc *proc);
+void		init_processes(t_cshell *cshell);
 
 #endif
