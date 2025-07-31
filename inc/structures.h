@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:00:09 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/30 14:21:06 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/30 18:23:55 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,11 @@ typedef struct s_cshell
 	int		num_of_proc;
 	int		shell_id;
 	int		exit_code;
-	char	*prompt;
-	char	**envp;
+	// int		old_exit_code;
 	int		*pid;
 	int		**fd;
+	char	*prompt;
+	char	**envp;
 	t_token	*token_chain;
 	t_proc	*proc_array;
 }	t_cshell;
