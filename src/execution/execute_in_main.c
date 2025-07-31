@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_in_main.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 10:41:31 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/30 11:51:22 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:58:25 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	execute_in_main(t_cshell *cshell)
 	if (proc.num_inf != 0)
 		infile_fd = (proc.infiles)[proc.num_inf - 1];
 	if (outfile_fd < 0 || infile_fd < 0)
-		cshell->exit_code = 1;
+		cshell->exec_code = 1;
 	else
 		execute_built_ins(cshell, 0, outfile_fd);
 	free_proc_array(cshell->proc_array, cshell->num_of_proc);

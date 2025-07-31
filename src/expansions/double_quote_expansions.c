@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   double_quote_expansions.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:05:00 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/30 10:10:09 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:54:43 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ char	*find_var(const char *var, int varlen)
 	return (key);
 }
 
-void	strjoin_expanded_var(t_exp *exp, t_cshell *cshell, int exit_code)
+void	strjoin_expanded_var(t_exp *exp, t_cshell *cshell)
 {
 	char	*var;
 
 	exp->varlen = find_varlen(exp->cur + 1);
 	if (exp->varlen == 1 && *(exp->cur + 1) == '?')
-		exp->expanded_var = ft_itoa(exit_code);
+		exp->expanded_var = ft_itoa(cshell->exec_code);
 	else if (exp->varlen == 1 && *(exp->cur + 1) == '$')
 		exp->expanded_var = ft_itoa(cshell->shell_id);
 	else
@@ -81,7 +81,7 @@ void	strjoin_expanded_var(t_exp *exp, t_cshell *cshell, int exit_code)
 	exp->cur += exp->varlen;
 }
 
-char	*double_quotes_expansion(char *line, t_cshell *cshell, int exit_code)
+char	*double_quotes_expansion(char *line, t_cshell *cshell)
 {
 	t_exp	exp;
 
@@ -92,7 +92,7 @@ char	*double_quotes_expansion(char *line, t_cshell *cshell, int exit_code)
 	while (*(exp.cur) != '"')
 	{
 		if (is_valid_exp(exp.cur))
-			strjoin_expanded_var(&exp, cshell, exit_code);
+			strjoin_expanded_var(&exp, cshell);
 		else
 			add_one_char_to_string(&exp, cshell);
 	}

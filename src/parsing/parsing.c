@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/30 11:15:25 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:55:17 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	init_processes(t_cshell *cshell)
 
 	if (check_syntax(cshell->token_chain) == EXIT_FAILURE)
 	{
-		cshell->exit_code = 2;
+		cshell->parse_code = 2;
 		return ;
 	}
 	cshell->num_of_proc = find_num_of_proc(cshell->token_chain);

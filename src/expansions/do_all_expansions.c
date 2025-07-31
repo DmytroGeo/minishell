@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_all_expansions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 10:18:04 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/30 13:12:32 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/31 12:03:20 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 // 		{
 // 			exp->varlen = find_varlen(exp->cur + 1);
 // 			if (exp->varlen == 1 && *(exp->cur + 1) == '?')
-// 				exp->expanded_var = ft_itoa(exit_code);
+// 				exp->expanded_var = ft_itoa(exec_code);
 // 			else if (exp->varlen == 1 && *(exp->cur + 1) == '$')
 // 				exp->expanded_var = ft_itoa(cshell->shell_id);
 // 			else

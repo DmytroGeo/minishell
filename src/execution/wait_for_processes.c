@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait_for_processes.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 09:22:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/30 13:08:06 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/31 12:03:16 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	wait_for_processes(t_cshell *cshell)
 	}
 	if (WIFEXITED(status))
 	{
-		cshell->exit_code = WEXITSTATUS(status);
+		cshell->exec_code = WEXITSTATUS(status);
 		return ;
 	}
-	cshell->exit_code = status;
+	cshell->exec_code = status;
 	return ;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_all_variables.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 12:27:45 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/30 11:55:38 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/31 12:03:00 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,15 +108,15 @@ void	export_all_vars(char **arguments, t_cshell *cshell, int fd)
 {
 	if (ft_array_len(arguments) == 0)
 	{
-		cshell->exit_code = 0;
+		cshell->exec_code = 0;
 		return (print_export(cshell->envp, fd));
 	}
 	while (*arguments)
 	{
 		if (is_valid_variable_assignment(*arguments))
 		{
-			cshell->exit_code = export_variable(&(cshell->envp), *arguments);
-			if (cshell->exit_code == -42)
+			cshell->exec_code = export_variable(&(cshell->envp), *arguments);
+			if (cshell->exec_code == -42)
 				(free_whole_cshell(cshell), exit(-42));
 		}
 		else

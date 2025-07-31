@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 12:10:27 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/30 13:13:29 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:53:03 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int	get_prompt(char **address_of_prompt)
 
 void	init_cshell(t_cshell *cshell, char **envp)
 {
-	cshell->exit_code = 0;
+	cshell->parse_code = 0;
+	cshell->exec_code = 0;
 	cshell->pid = NULL;
 	cshell->fd = NULL;
 	cshell->proc_array = NULL;
@@ -66,11 +67,11 @@ void	init_cshell(t_cshell *cshell, char **envp)
 	cshell->prompt = NULL;
 	cshell->envp = NULL;
 	cshell->shell_id = 0;
-	cshell->exit_code = copy_envp(&(cshell->envp), envp);
-	if (cshell->exit_code == -42)
+	cshell->parse_code = copy_envp(&(cshell->envp), envp);
+	if (cshell->parse_code == -42)
 		exit(-42);
-	cshell->exit_code = get_prompt(&(cshell->prompt));
-	if (cshell->exit_code == -42)
+	cshell->parse_code = get_prompt(&(cshell->prompt));
+	if (cshell->parse_code == -42)
 		return (free_whole_cshell(cshell), exit(-42));
 	return ;
 }

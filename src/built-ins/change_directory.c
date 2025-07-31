@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   change_directory.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 10:57:10 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/30 11:50:46 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/31 12:02:32 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,19 +90,19 @@ void	ft_chdir(char **args, t_cshell *cshell)
 	num_of_args = ft_array_len(args);
 	if (num_of_args == 0)
 	{
-		cshell->exit_code = go_to_home(&(cshell->prompt), &(cshell->envp));
+		cshell->exec_code = go_to_home(&(cshell->prompt), &(cshell->envp));
 		return ;
 	}
 	else if (num_of_args == 1 && ft_strncmp(*args, "-", 2) == 0)
 	{
-		cshell->exit_code = go_back(&(cshell->prompt), &(cshell->envp));
+		cshell->exec_code = go_back(&(cshell->prompt), &(cshell->envp));
 		return ;
 	}
 	else if (num_of_args == 1)
 	{
-		cshell->exit_code = new_dir(&(cshell->prompt), &(cshell->envp), *args);
+		cshell->exec_code = new_dir(&(cshell->prompt), &(cshell->envp), *args);
 		return ;
 	}
 	ft_printf(2, "minishell: cd: too many arguments\n");
-	cshell->exit_code = 1;
+	cshell->exec_code = 1;
 }

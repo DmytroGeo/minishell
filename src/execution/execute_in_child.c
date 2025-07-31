@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_in_child.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 11:48:53 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/30 12:58:27 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/31 12:03:13 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	execute_in_child(int i, t_cshell *cshell)
 	if (is_builtin(proc.cmd_and_args[0]))
 	{
 		execute_built_ins(cshell, i, STDOUT_FILENO);
-		(free_whole_cshell(cshell), exit(cshell->exit_code));
+		(free_whole_cshell(cshell), exit(cshell->exec_code));
 	}
 	else
 	{

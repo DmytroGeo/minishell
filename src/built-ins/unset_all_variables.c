@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset_all_variables.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 12:32:48 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/30 13:24:15 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/31 12:03:11 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	unset_all_vars(char **arguments, t_cshell *cshell)
 		if (is_valid_var_unset(*arguments)
 			&& find_envp_index(cshell->envp, *arguments) >= 0)
 		{
-			cshell->exit_code = unset_variable(&(cshell->envp), *arguments);
-			if (cshell->exit_code == -42)
+			cshell->exec_code = unset_variable(&(cshell->envp), *arguments);
+			if (cshell->exec_code == -42)
 				(free_whole_cshell(cshell), exit(-42));
 		}
 		arguments++;

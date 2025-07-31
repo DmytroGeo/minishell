@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 13:19:06 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/30 18:19:04 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:57:59 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 
 void	evaluate_and_execute(t_cshell *cshell)
 {
-	if (cshell->exit_code == 0)
+	if (cshell->parse_code == 0)
 	{
 		execution(cshell);
 		return ;
 	}
+	cshell->exec_code = cshell->parse_code;
+	cshell->parse_code = 0;
 	return (free_cshell(cshell));
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:38:36 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/30 13:15:49 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/31 12:03:09 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ void	ft_exit(char **cmd_and_args, t_cshell *cshell)
 	if (ft_array_len(cmd_and_args) == 2)
 	{
 		if (ft_contains_only_digit(cmd_and_args[1]))
-			cshell->exit_code = correct_integer(ft_atoi(cmd_and_args[1]));
+			cshell->exec_code = correct_integer(ft_atoi(cmd_and_args[1]));
 		else
 		{
 			exit_err1(cmd_and_args[1]);
-			cshell->exit_code = 2;
+			cshell->exec_code = 2;
 		}
 	}
 	free_whole_cshell(cshell);
 	ft_printf(1, "exit\n");
-	exit(cshell->exit_code);
+	exit(cshell->exec_code);
 }
