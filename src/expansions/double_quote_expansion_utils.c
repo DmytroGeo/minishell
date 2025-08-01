@@ -3,52 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   double_quote_expansion_utils.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 15:51:00 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/01 13:18:29 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/01 20:16:51 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansions.h"
 
-
-
-int	is_empty_line(const char *str)
+char	*ft_dquote_strchr(const char *s)
 {
-	char	*next_double_quote;
+	size_t	n;
+	char	*str;
 
-	next_double_quote = ft_strchr(str, '"');
-	if (next_double_quote - str == 1)
-		return (true);
-	return (false);
-}
-
-int	is_valid_var_exp(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '$' || !ft_isspace(str[i]) || str[i] != '"')
+	str = (char *)s;
+	n = 0;
+	while (str[n] != '\0' && str[n] != '"')
 	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
-			return (false);
-		i++;
+		if (str[n] == '$')
+			return (str + n);
+		n++;
 	}
-	return (true);
-}
-
-int	is_valid_exp(const char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] != '$')
-		return (false);
-	i++;
-	if (str[i] == '?' || str[i] == '$')
-		return (true);
-	if (ft_isalpha(str[i]) || str[i] != '_')
-		return (is_valid_var_exp(&str[i]));
-	return (false);
+	return (NULL);
 }

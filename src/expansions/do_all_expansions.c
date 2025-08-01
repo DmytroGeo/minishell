@@ -6,163 +6,13 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 10:18:04 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/01 16:10:02 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/01 20:05:56 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansions.h"
 #include "minishell.h"
 #include "lexing.h"
-
-// to get the pid
-// look into proc/self/stat
-
-
-// idea:
-// let's say we have $a" my" where $a="hello there"
-// if coming across an unquoted var ($a in our case)
-// we expand it so now we have ""
-
-// typedef struct s_exp
-// {
-// 	int		i;
-// 	int		expanded_strlen;
-// 	char	*expanded_str;
-// 	char	*temp;
-// }	t_exp;
-
-// the free exp and init exp will go in expansion utils.
-
-void	free_exp(t_exp *exp)
-{
-	free(exp->str);
-	exp->exp_str = NULL;
-	free(exp->temp);
-	exp->temp = NULL;
-	free(exp->exp_str);
-	exp->exp_str = NULL;
-}
-
-int	init_exp(t_exp *exp, char *value)
-{
-	exp->strlen = 1;
-	exp->i = 0;
-	exp->temp = NULL;
-	exp->exp_str = NULL;
-	exp->exp_start = NULL;
-	exp->exp_end = NULL;
-	exp->str = ft_calloc(exp->strlen, sizeof(char));
-	if (!(exp->str))
-		return (-42);
-	return (0);
-}
-
-//////
-
-int	add_one_char_to_string(t_exp *exp, char c, t_token **head)
-{
-	exp->temp = exp->str;
-	exp->str = ft_calloc(exp->strlen + 2, sizeof(char));
-	if (!(exp->str))
-		return (free_exp(&exp), free_tok_chain(head, del_tok_cont), -42);
-	exp->str = ft_memcpy(exp->str, exp->temp, exp->strlen);
-	(exp->str)[exp->strlen] = c;
-	free(exp->temp);
-	exp->temp = NULL;
-	(exp->strlen)++;
-	(exp->i)++;
-	return (0);
-}
-
-int	expand_single_quotes(t_exp *exp, char *quotes_start, t_token **head)
-{
-	exp->exp_start = quotes_start;
-	exp->exp_end = ft_strchr(exp->exp_start, '\'');
-	exp->exp_strlen = exp->exp_end - exp->exp_start;
-	exp->exp_str = ft_calloc(exp->exp_strlen + 1, sizeof(char));
-	if (!(exp->exp_str))
-		return (free_exp(&exp), free_tok_chain(head, del_tok_cont), -42);
-	exp->exp_str = ft_memcpy(exp->exp_str, exp->exp_start, exp->exp_strlen);
-	exp->temp = exp->str;
-	exp->str = ft_strjoin(exp->temp, exp->exp_str);
-	if (!(exp->exp_str))
-		return (free_exp(&exp), free_tok_chain(head, del_tok_cont), -42);
-	free(exp->temp);
-	free(exp->exp_str);
-	exp->temp = NULL;
-	exp->exp_str = NULL;
-	exp->strlen += exp->exp_strlen;
-	(exp->i) += exp->exp_strlen + 2;
-	return (0);
-}
-
-int	find_exp_var(t_exp *exp, char **envp)
-{
-	char	*var;
-	char	*exp_var;
-
-	if (exp->varlen == 0)
-	{
-		exp->exp_str = ft_calloc()
-		return (0);
-	}
-	var = ft_calloc(exp->varlen + 1, sizeof(char));
-	if (!var)
-		return (-42);
-	var = ft_memcpy(var, exp->exp_start, exp->varlen);
-	exp_var = find_var_in_envp(envp, var);
-	free(var);
-	if (!exp_var)
-		exp->exp_str = NULL;
-	else
-	{
-		exp->exp_str = ft_strdup(exp_var);
-		if (!exp->exp_str)
-			return (-42);	
-	}
-	return (0);
-}
-
-int	find_varlen(const char *str)
-{
-	int	varlen;
-
-	varlen = 0;
-	if (str[varlen] == '?' || str[varlen] == '$')
-		return (varlen + 1);
-	else
-	{
-		while (ft_isalnum(str[varlen]) || str[varlen] != '_')
-			varlen++;
-	}
-	return (varlen);
-}
-
-int	expand_variable(t_exp *exp, char **envp, t_token **head)
-{
-
-	exp->exp_end = 
-	if (find_exp_var(exp, envp) < 0)
-		return (free_exp(&exp), free_tok_chain(head, del_tok_cont), -42);
-	if (!exp->exp_str)
-	{
-		exp->exp_str = ft_calloc("", 1);
-		if (!exp->exp_str)
-			return (free_exp(&exp), free_tok_chain(head, del_tok_cont), -42);
-	}
-	exp->exp_strlen = ft_strlen(exp->exp_str);
-	exp->temp = exp->str;
-	exp->str = ft_strjoin(exp->temp, exp->exp_str);
-	if (!(exp->str))
-		return (free_exp(&exp), free_tok_chain(head, del_tok_cont), -42);
-	free(exp->temp);
-	free(exp->exp_str);
-	exp->temp = NULL;
-	exp->exp_str = NULL;
-	exp->strlen += exp->exp_strlen;
-	(exp->i) += exp->varlen + 1;
-	return (0);
-}
 
 t_token	*expand_word(char *value, t_cshell *cshell)
 {
@@ -175,25 +25,21 @@ t_token	*expand_word(char *value, t_cshell *cshell)
 	{
 		if (value[exp.i] == '$')
 		{
-			if (!value[exp.i + 1])
-			{
-				if (add_one_char_to_string(&exp, value[exp.i], &head) < 0)
-					return (NULL);
-			}
-			else
-			{
-				exp.exp_start = &(value[exp.i + 1]);
-				if (expand_variable(&exp, cshell->envp, &head) < 0)
-					return (NULL);				
-			}
+			exp.exp_start = &(value[exp.i + 1]);
+			if (check_and_expand_var(&exp, cshell, &head) < 0)
+				return (NULL);
+			//split_word()
 		}
 		else if (value[exp.i] == '"')
 		{
-			// enter double quotes expansion
+			exp.exp_start = &(value[exp.i + 1]);
+			if (expand_double_quotes(&exp, cshell, &head) < 0)
+				return (NULL);			
 		}
 		else if (value[exp.i] == '\'')
 		{
-			if (expand_single_quotes(&exp, &(value[exp.i + 1]), &head) < 0)
+			exp.exp_start = &(value[exp.i + 1]);
+			if (expand_single_quotes(&exp, &head) < 0)
 				return (NULL);
 		}
 		else
@@ -226,7 +72,7 @@ t_token	*split_node(t_token	*cur_tok, t_cshell *cshell)
 	char		*value;
 	t_tok_type	type;
 	t_token		*new_tok_chain;
-	
+
 	new_tok_chain = NULL;
 	type = ((t_tok_cont *)(cur_tok->content))->type;
 	if (type != word)
@@ -255,7 +101,7 @@ void	do_all_expansions(t_cshell *cshell)
 			(free_whole_cshell(cshell), exit(-42));
 		}
 		ft_dlstadd_back(&new_head, split_token);
-		cur_tok = cur_tok->next;	
+		cur_tok = cur_tok->next;
 	}
 	free_tok_chain(&(cshell->token_chain), del_tok_cont);
 	cshell->token_chain = new_head;

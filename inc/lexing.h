@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:04:22 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/31 15:34:15 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/01 16:14:31 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void		print_token_list(t_token *head);
 void		populate_operators(t_op *operators);
 void		function_1(t_lex *lex, char *line);
 void		function_2(t_lex *lex);
+void	    wrong_number_of_quotes(t_cshell *cshell);
 
 int			is_surrounded_by(char *str, char quote);
 int			is_operator_start(char *line, int i);
