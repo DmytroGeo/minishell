@@ -6,12 +6,18 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 11:48:53 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/31 12:03:13 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/31 14:30:53 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include "minishell.h"
+
+void	exit_with_code(t_cshell *cshell, int i)
+{
+	cshell->exec_code = i;
+	(free_whole_cshell(cshell), exit(cshell->exec_code));
+}
 
 void	execute_in_child(int i, t_cshell *cshell)
 {
@@ -27,12 +33,12 @@ void	execute_in_child(int i, t_cshell *cshell)
 	else
 	{
 		if (access((proc.cmd_and_args)[0], F_OK | X_OK) != 0)
-			(free_whole_cshell(cshell), exit(127));
+			exit_with_code(cshell, 127);
 		else
 		{
 			args = (proc.cmd_and_args);
 			if ((execve((proc.cmd_and_args)[0], args, cshell->envp)) < 0)
-				(free_whole_cshell(cshell), exit(1));
+				exit_with_code(cshell, 1);
 		}
 	}
 }

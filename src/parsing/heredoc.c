@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:18:15 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/30 17:41:09 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/31 21:38:24 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,33 @@ int	line_matches_limiter(char *limiter, char *line_read)
 
 int	heredoc_fd(char *limiter)
 {
-	int		*fd;
-	int		read_end;
-	char	*line_read;
+	(void)limiter;
+	// int		*fd;
+	// int		read_end;
+	// char	*line_read;
 
-	read_end = -42;
-	fd = malloc(2 * sizeof(int));
-	if (!fd)
-		return (read_end);
-	pipe(fd);
-	while (1)
-	{
-		line_read = readline("> ");
-		if (line_read)
-		{
-			if (line_matches_limiter(limiter, line_read))
-			{
-				read_end = fd[0];
-				close(fd[1]);
-				break ;
-			}
-			else
-				write(fd[1], line_read, ft_strlen(line_read));			
-		}
-		else
-			break ;
-	}
-	return (read_end);
+	// read_end = -42;
+	// fd = malloc(2 * sizeof(int));
+	// if (!fd)
+	// 	return (read_end);
+	// pipe(fd);
+	// while (1)
+	// {
+	// 	line_read = readline("> ");
+	// 	if (line_read)
+	// 	{
+	// 		if (line_matches_limiter(limiter, line_read))
+	// 		{
+	// 			read_end = fd[0];
+	// 			close(fd[1]);
+	// 			break ;
+	// 		}
+	// 		else
+	// 			write(fd[1], line_read, ft_strlen(line_read));
+	// 	}
+	// 	else
+	// 		break ;
+	// }
+	// return (read_end);
+	return (0);
 }

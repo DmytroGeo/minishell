@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:04:22 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/28 15:12:29 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/31 15:34:15 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "structures.h"
 
-void		lexing(t_cshell *cshell, char *line);
+void		lexing(t_cshell *cshell);
 void		ft_dlstadd_back(t_token **head, t_token *tok);
 void		ft_dlstadd_front(t_token **head, t_token *tok);
 void		print_raw_tokens(char **raw_tokens);

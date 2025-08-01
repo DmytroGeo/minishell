@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:59:28 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/27 19:37:23 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/31 15:35:12 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,23 @@ void	init_node(t_lex *lex, t_op operators[], t_cshell *cshell)
 	ft_dlstadd_back(&(cshell->token_chain), new_token);
 }
 
-void	lexing(t_cshell *cshell, char *line)
+void	lexing(t_cshell *cshell)
 {
 	t_lex		lex;
 	t_op		operators[6];
 
 	populate_operators(operators);
 	init_lex(&lex);
-	if (find_next_raw_tok(line, &lex) == -42)
+	if (find_next_raw_tok(cshell->line_read, &lex) == -42)
 		(free_whole_cshell(cshell), exit(-42));
 	while (lex.next_raw_tok)
 	{
 		init_node(&lex, operators, cshell);
 		free(lex.next_raw_tok);
 		lex.next_raw_tok = NULL;
-		if (lex.i == (int)(ft_strlen(line)))
+		if (lex.i == (int)(ft_strlen(cshell->line_read)))
 			return ;
-		if (find_next_raw_tok(line, &lex) == -42)
+		if (find_next_raw_tok(cshell->line_read, &lex) == -42)
 			(free_whole_cshell(cshell), exit(-42));
 	}
 }

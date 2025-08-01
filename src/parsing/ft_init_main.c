@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 12:10:27 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/31 11:53:03 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/07/31 21:25:39 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,37 @@ int	get_prompt(char **address_of_prompt)
 	return (0);
 }
 
+int	get_shell_id(void)
+{
+	int		shell_id;
+	char	*line_read;
+	char	**pid_array;
+	int		fd;
+
+	if (access("/proc/self/stat", O_RDONLY) < 0)
+		return (0);
+	fd = open("/proc/self/stat", O_RDONLY);
+	line_read = get_next_line(fd);
+	pid_array = ft_split(line_read, ' ');
+	shell_id = ft_atoi(pid_array[0]);
+	free(line_read);
+	ft_array_free((void **)pid_array);
+	close(fd);
+	return (shell_id);
+}
+
 void	init_cshell(t_cshell *cshell, char **envp)
 {
 	cshell->parse_code = 0;
 	cshell->exec_code = 0;
+	cshell->line_read = NULL;
 	cshell->pid = NULL;
 	cshell->fd = NULL;
 	cshell->proc_array = NULL;
 	cshell->token_chain = NULL;
 	cshell->prompt = NULL;
 	cshell->envp = NULL;
-	cshell->shell_id = 0;
+	cshell->shell_id = get_shell_id();
 	cshell->parse_code = copy_envp(&(cshell->envp), envp);
 	if (cshell->parse_code == -42)
 		exit(-42);

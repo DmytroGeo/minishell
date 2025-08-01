@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:00:09 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/31 11:51:36 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/01 11:40:48 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 # include <sys/types.h>
 # include <unistd.h>
 
-
 typedef struct s_lex
 {
 	char	*next_raw_tok;
@@ -45,12 +44,15 @@ typedef struct s_lex
 typedef struct s_exp
 {
 	int		i;
-	int		expanded_strlen;
+	int		strlen;
+	int		exp_strlen;
 	int		varlen;
-	char	*expanded_string;
-	char	*expanded_var;
+	int		exp_varlen;
+	char	*exp_str;
+	char	*exp_start;
+	char	*exp_end;
+	char	*str;
 	char	*temp;
-	char	*cur;
 }	t_exp;
 
 typedef enum e_tok_type
@@ -100,6 +102,7 @@ typedef struct s_cshell
 	int		*pid;
 	int		**fd;
 	char	*prompt;
+	char	*line_read;
 	char	**envp;
 	t_token	*token_chain;
 	t_proc	*proc_array;

@@ -6,40 +6,12 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:05:00 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/31 11:54:43 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/01 09:53:50 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansions.h"
 #include "minishell.h"
-
-int	init_exp(t_exp *exp, char *line)
-{
-	exp->expanded_strlen = 1;
-	exp->cur = line + 1;
-	exp->i = 0;
-	exp->temp = NULL;
-	exp->expanded_var = NULL;
-	exp->expanded_string = ft_calloc(exp->expanded_strlen + 1, sizeof(char));
-	if (!(exp->expanded_string))
-		return (-42);
-	return (0);
-}
-
-void	add_one_char_to_string(t_exp *exp, t_cshell *cshell)
-{
-	exp->expanded_strlen++;
-	exp->temp = exp->expanded_string;
-	exp->expanded_string = ft_calloc(exp->expanded_strlen + 1, sizeof(char));
-	if (!(exp->expanded_string))
-		(free_exp(exp), free_whole_cshell(cshell), exit(-42));
-	exp->expanded_string = ft_memcpy(exp->expanded_string,
-			exp->temp, exp->expanded_strlen - 1);
-	free(exp->temp);
-	exp->temp = NULL;
-	exp->expanded_string[exp->expanded_strlen - 1] = *(exp->cur);
-	exp->cur++;
-}
 
 char	*find_var(const char *var, int varlen)
 {

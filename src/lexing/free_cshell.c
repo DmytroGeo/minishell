@@ -46,6 +46,8 @@ void	free_proc_array(t_proc *proc_array, int len)
  */
 void	free_cshell(t_cshell *cshell)
 {
+	free(cshell->line_read);
+	cshell->line_read = NULL;
 	free(cshell->pid);
 	cshell->pid = NULL;
 	ft_array_free2((void **)(cshell->fd), cshell->num_of_proc - 1);
