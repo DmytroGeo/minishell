@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_all_expansions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 10:18:04 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/01 13:19:28 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/01 16:10:02 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	find_exp_var(t_exp *exp, char **envp)
 
 	if (exp->varlen == 0)
 	{
-		exp->exp_str = NULL;
+		exp->exp_str = ft_calloc()
 		return (0);
 	}
 	var = ft_calloc(exp->varlen + 1, sizeof(char));
@@ -140,7 +140,8 @@ int	find_varlen(const char *str)
 
 int	expand_variable(t_exp *exp, char **envp, t_token **head)
 {
-	exp->varlen = find_varlen(exp->exp_start);
+
+	exp->exp_end = 
 	if (find_exp_var(exp, envp) < 0)
 		return (free_exp(&exp), free_tok_chain(head, del_tok_cont), -42);
 	if (!exp->exp_str)
@@ -174,9 +175,17 @@ t_token	*expand_word(char *value, t_cshell *cshell)
 	{
 		if (value[exp.i] == '$')
 		{
-			exp.exp_start = &(value[exp.i + 1]);
-			if (expand_variable(&exp, cshell->envp, &head) < 0)
-				return (NULL);
+			if (!value[exp.i + 1])
+			{
+				if (add_one_char_to_string(&exp, value[exp.i], &head) < 0)
+					return (NULL);
+			}
+			else
+			{
+				exp.exp_start = &(value[exp.i + 1]);
+				if (expand_variable(&exp, cshell->envp, &head) < 0)
+					return (NULL);				
+			}
 		}
 		else if (value[exp.i] == '"')
 		{
