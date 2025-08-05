@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_all_expansions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 10:18:04 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/01 20:05:56 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:05:48 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,27 @@ t_token	*expand_word(char *value, t_cshell *cshell)
 		if (value[exp.i] == '$')
 		{
 			exp.exp_start = &(value[exp.i + 1]);
-			if (check_and_expand_var(&exp, cshell, &head) < 0)
-				return (NULL);
-			//split_word()
+			if (check_and_expand_var(&exp, cshell) < 0)
+				return (free_tok_chain(head, del_tok_cont), NULL);
+			if (split_word(&head, &exp) < 0)
+				return (free_tok_chain(head, del_tok_cont), NULL);
 		}
 		else if (value[exp.i] == '"')
 		{
 			exp.exp_start = &(value[exp.i + 1]);
-			if (expand_double_quotes(&exp, cshell, &head) < 0)
-				return (NULL);			
+			if (expand_double_quotes(&exp, cshell) < 0)
+				return (free_tok_chain(head, del_tok_cont), NULL);			
 		}
 		else if (value[exp.i] == '\'')
 		{
 			exp.exp_start = &(value[exp.i + 1]);
-			if (expand_single_quotes(&exp, &head) < 0)
-				return (NULL);
+			if (expand_single_quotes(&exp) < 0)
+				return (free_tok_chain(head, del_tok_cont), NULL);
 		}
 		else
 		{
-			if (add_one_char_to_string(&exp, value[exp.i], &head) < 0)
-				return (NULL);			
+			if (add_one_char_to_string(&exp, value[exp.i]) < 0)
+				return (free_tok_chain(head, del_tok_cont), NULL);			
 		}
 	}
 	return (head);
