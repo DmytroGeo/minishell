@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_all_expansions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 10:18:04 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/04 17:05:48 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/06 11:26:29 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,58 +14,57 @@
 #include "minishell.h"
 #include "lexing.h"
 
+int	do_expansion(t_cshell *cshell, t_exp *exp, t_token **head)
+{
+	if ((exp->og_str)[exp->i] == '$')
+	{
+		if (check_and_expand_var(exp, cshell) < 0)
+			return (-42);
+		return (split_word(head, exp));
+	}
+	else if ((exp->og_str)[exp->i] == '"')
+		return (expand_double_quotes(exp, cshell));
+	else if ((exp->og_str)[exp->i] == '\'')
+		return (expand_single_quotes(exp));
+	return (0);
+}
+
+int	identify_expand(t_cshell *cshell, t_exp *exp, t_token **head)
+{
+	int c;
+
+	c = (exp->og_str)[exp->i];
+	if (c == '"' || c == '\'' || c == '$')
+	{
+		exp->exp_start = &((exp->og_str)[exp->i + 1]);
+		if (do_expansion(cshell, exp, head) < 0)
+			return (free_tok_chain(head, del_tok_cont), -42);
+	}
+	else
+	{
+		if (add_one_char_to_string(exp, (exp->og_str)[exp->i]) < 0)
+			return (free_tok_chain(head, del_tok_cont), -42);	
+	}
+	return (0);
+}
+
 t_token	*expand_word(char *value, t_cshell *cshell)
 {
 	t_token	*head;
 	t_exp	exp;
 
-	if (init_exp(&exp, value) == -42);
+	head = NULL;
+	if (init_exp(&exp, value) == -42)
 		return (NULL);
-	while (value[exp.i])
+	while ((exp.og_str)[exp.i])
 	{
-		if (value[exp.i] == '$')
-		{
-			exp.exp_start = &(value[exp.i + 1]);
-			if (check_and_expand_var(&exp, cshell) < 0)
-				return (free_tok_chain(head, del_tok_cont), NULL);
-			if (split_word(&head, &exp) < 0)
-				return (free_tok_chain(head, del_tok_cont), NULL);
-		}
-		else if (value[exp.i] == '"')
-		{
-			exp.exp_start = &(value[exp.i + 1]);
-			if (expand_double_quotes(&exp, cshell) < 0)
-				return (free_tok_chain(head, del_tok_cont), NULL);			
-		}
-		else if (value[exp.i] == '\'')
-		{
-			exp.exp_start = &(value[exp.i + 1]);
-			if (expand_single_quotes(&exp) < 0)
-				return (free_tok_chain(head, del_tok_cont), NULL);
-		}
-		else
-		{
-			if (add_one_char_to_string(&exp, value[exp.i]) < 0)
-				return (free_tok_chain(head, del_tok_cont), NULL);			
-		}
+		if (identify_expand(cshell, &exp, &head) < 0)
+			return (NULL);
 	}
+	if (add_last_bit_to_list(&head, &exp) < 0)
+		return (free_tok_chain(&head, del_tok_cont), NULL);
+	free_exp(&exp);
 	return (head);
-}
-
-t_token	*duplicate_current_token(t_token *cur_tok)
-{
-	t_tok_cont	*content;
-	t_token		*new_token;
-
-	content = malloc(sizeof(t_tok_cont));
-	if (!content)
-		return (NULL);
-	content->value = ft_strdup(((t_tok_cont *)(cur_tok->content))->value);
-	content->type = ((t_tok_cont *)(cur_tok->content))->type;
-	new_token = ft_dlstnew(content);
-	if (!new_token)
-		return (del_tok_cont((void *)content), NULL);
-	return (new_token);
 }
 
 t_token	*split_node(t_token	*cur_tok, t_cshell *cshell)
@@ -108,39 +107,3 @@ void	do_all_expansions(t_cshell *cshell)
 	cshell->token_chain = new_head;
 	return ;
 }
-
-// }
-
-		///////////////////////
-		// dgeorgiy@c1r4s5:~/42_cursus_personal/minishell$ <<
-		// bash: syntax error near unexpected token `newline'
-		// dgeorgiy@c1r4s5:~/42_cursus_personal/minishell$ cat <<hello
-		// > hii
-		// > $USER
-		// > hello
-		// hii
-		// dgeorgiy
-		// dgeorgiy@c1r4s5:~/42_cursus_personal/minishell$ cat << 'hello'
-		// > hiiui
-		// > $USER
-		// > 'hello'
-		// > hello
-		// hiiui
-		// $USER
-		// 'hello'
-		// dgeorgiy@c1r4s5:~/42_cursus_personal/minishell$ cat << "hello"
-		// > hii
-		// > $USER
-		// > hello
-		// hii
-		// $USER
-		// dgeorgiy@c1r4s5:~/42_cursus_personal/minishell$ cat << hel"l"o
-		// > hi
-		// > $USER
-		// > hel"l"o
-		// > hello
-		// hi
-		// $USER
-		// hel"l"o
-		// dgeorgiy@c1r4s5:~/42_cursus_personal/minishell$
-		///////////////////////////

@@ -6,7 +6,7 @@
 #    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 11:20:28 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/07/30 17:33:06 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/08/06 16:49:37 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,20 @@ SRCS = $(SRC_FOLDER)/main.c \
 		$(SRC_FOLDER)/lexing/free_cshell.c \
 		$(SRC_FOLDER)/lexing/ft_dlstsize.c \
 		$(SRC_FOLDER)/lexing/find_next_tok.c \
-		$(SRC_FOLDER)/lexing/find_next_tok2.c \
+		$(SRC_FOLDER)/lexing/find_next_tok_utils.c \
 		$(SRC_FOLDER)/lexing/init_tok_cont.c \
 		$(SRC_FOLDER)/lexing/lexing_utils.c \
 		$(SRC_FOLDER)/lexing/lexing.c \
 		$(SRC_FOLDER)/lexing/quote_utils.c \
+		$(SRC_FOLDER)/lexing/quotes_error.c \
+		$(SRC_FOLDER)/expansions/do_all_expansions.c \
+		$(SRC_FOLDER)/expansions/double_quote_expansion_utils.c \
+		$(SRC_FOLDER)/expansions/double_quote_expansions.c \
+		$(SRC_FOLDER)/expansions/expansion_utils.c \
+		$(SRC_FOLDER)/expansions/single_quotes_expansion.c \
+		$(SRC_FOLDER)/expansions/split_word.c \
+		$(SRC_FOLDER)/expansions/var_expansion_utils.c \
+		$(SRC_FOLDER)/expansions/var_expansion.c \
 		$(SRC_FOLDER)/parsing/ft_init_main.c \
 		$(SRC_FOLDER)/parsing/find_commands_and_arguments.c \
 		$(SRC_FOLDER)/parsing/find_infiles.c \
@@ -69,7 +78,7 @@ OBJS = $(patsubst $(SRC_FOLDER)/%.c, $(OBJ_FOLDER)/%.o, $(SRCS))
 
 all: $(OBJ_FOLDER) $(NAME)
 
-v valgrind: $(BINARY)
+v valgrind: all
 	valgrind --suppressions=rl.supp --leak-check=full --show-leak-kinds=all --track-fds=yes ./minishell
 
 $(OBJ_FOLDER):

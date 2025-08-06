@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_next_tok.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 17:08:32 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/27 17:38:04 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/05 17:46:02 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	operator_length(char *line)
 	return (1);
 }
 
-int	function_3_condition(t_lex *lex, char *line)
+int	is_op(t_lex *lex, char *line)
 {
 	return (!(lex->in_quotes)
 		&& (line[lex->i] == ' ' || is_op_start(line, lex->i)));
@@ -43,24 +43,24 @@ int	find_next_raw_tok(char *line, t_lex *lex)
 	{
 		if ((line[lex->i] == '\'' || line[lex->i] == '"') && !(lex->in_quotes))
 		{
-			function_1(lex, line);
+			start_quotes(lex, line);
 			continue ;
 		}
 		else if (lex->in_quotes && line[lex->i] == lex->current_quote)
 		{
-			function_2(lex);
+			inside_quotes(lex);
 			continue ;
 		}
-		else if (function_3_condition(lex, line))
+		else if (is_op(lex, line))
 		{
 			if (lex->start != -1 || is_op_start(line, lex->i))
-				return (function_3(lex, line));
+				return (return_op(lex, line));
 		}
 		else if (lex->start == -1)
 			lex->start = lex->i;
 		(lex->i)++;
 	}
 	if (lex->start != -1)
-		return (function_4(lex, line));
+		return (return_rest_of_line(lex, line));
 	return (0);
 }

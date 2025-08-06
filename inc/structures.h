@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:00:09 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/01 11:40:48 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/06 14:38:41 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,16 @@
 # include <sys/types.h>
 # include <unistd.h>
 
+
+
+typedef struct s_qts
+{
+	int	num_squotes;
+	int	num_dquotes;
+	int	in_dquotes;
+	int	in_squotes;
+}	t_qts;
+
 typedef struct s_lex
 {
 	char	*next_raw_tok;
@@ -48,10 +58,12 @@ typedef struct s_exp
 	int		exp_strlen;
 	int		varlen;
 	int		exp_varlen;
+	char	*exp_var;
 	char	*exp_str;
 	char	*exp_start;
 	char	*exp_end;
 	char	*str;
+	char	*og_str;
 	char	*temp;
 }	t_exp;
 
@@ -86,6 +98,7 @@ typedef struct s_op
 
 typedef struct s_proc
 {
+	int		heredoc_exp;
 	int		num_inf;
 	int		num_outf;
 	int		*infiles;

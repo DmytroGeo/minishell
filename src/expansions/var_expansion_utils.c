@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   var_expansin_utils.c                               :+:      :+:    :+:   */
+/*   var_expansion_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 19:33:43 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/01 19:57:53 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/06 16:47:42 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansions.h"
+#include "minishell.h"
 
 int	find_exp_var(t_exp *exp, char **envp)
 {
@@ -24,11 +25,11 @@ int	find_exp_var(t_exp *exp, char **envp)
 	exp_var = find_var_in_envp(envp, var);
 	free(var);
 	if (!exp_var)
-		exp->exp_str = NULL;
+		exp->exp_var = NULL;
 	else
 	{
-		exp->exp_str = ft_strdup(exp_var);
-		if (!exp->exp_str)
+		exp->exp_var = ft_strdup(exp_var);
+		if (!exp->exp_var)
 			return (-42);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:48:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/24 19:10:56 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/05 19:26:09 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	ft_putchex(unsigned int n, int fd, int *count);
 void	ft_putuns(unsigned int n, int fd, int *count);
 void	ft_putptr(void *ptr, int fd, int *count);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
-void	ft_lstadd_front(t_list **lst, t_list *new);
-void	ft_lstadd_back(t_list **lst, t_list *new);
+void	ft_lstadd_front(t_list **lst, t_list *tok);
+void	ft_lstadd_back(t_list **lst, t_list *tok);
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));

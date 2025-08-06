@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:04:22 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/01 16:14:31 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/06 11:10:14 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ void		ft_dlstadd_front(t_token **head, t_token *tok);
 void		print_raw_tokens(char **raw_tokens);
 void		print_token_list(t_token *head);
 void		populate_operators(t_op *operators);
-void		function_1(t_lex *lex, char *line);
+void        start_quotes(t_lex *lex, char *line);
 void		function_2(t_lex *lex);
 void	    wrong_number_of_quotes(t_cshell *cshell);
+void		inside_quotes(t_lex *lex);
 
 int			is_surrounded_by(char *str, char quote);
 int			is_operator_start(char *line, int i);
@@ -33,8 +34,8 @@ int			ft_toksize(t_token *tok);
 int			is_op_start(char *line, int i);
 int			operator_length(char *line);
 int			find_next_raw_tok(char *line, t_lex *lex);
-int			function_3(t_lex *lex, char *line);
-int			function_4(t_lex *lex, char *line);
+int         return_op(t_lex *lex, char *line);
+int         return_rest_of_line(t_lex *lex, char *line);
 
 t_token		*ft_toklast(t_token *tok);
 t_token		*ft_dlstnew(void *content);

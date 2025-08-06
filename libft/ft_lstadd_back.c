@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:16:30 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/18 11:16:55 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/05 19:25:21 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@
  * @param new a pointer to the new element to be added.
  * @return Nothing (void function).
  */
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back(t_list **lst, t_list *tok)
 {
 	t_list	*current;
 
-	if (lst == NULL || new == NULL)
+	if (lst == NULL || tok == NULL)
 		return ;
 	if (*lst == NULL)
 	{
-		*lst = new;
+		*lst = tok;
 		return ;
 	}
 	current = *lst;
 	while (current->next != NULL)
 		current = current->next;
-	current->next = new;
+	current->next = tok;
 }

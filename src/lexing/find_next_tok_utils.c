@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_next_tok2.c                                   :+:      :+:    :+:   */
+/*   find_next_tok_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 20:24:13 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/27 17:36:13 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/05 17:46:16 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexing.h"
 
-void	function_1(t_lex *lex, char *line)
+void	start_quotes(t_lex *lex, char *line)
 {
 	lex->in_quotes = 1;
 	lex->current_quote = line[lex->i];
@@ -21,13 +21,13 @@ void	function_1(t_lex *lex, char *line)
 	(lex->i)++;
 }
 
-void	function_2(t_lex *lex)
+void	inside_quotes(t_lex *lex)
 {
 	(lex->i)++;
 	lex->in_quotes = 0;
 }
 
-int	function_3(t_lex *lex, char *line)
+int	return_op(t_lex *lex, char *line)
 {
 	int	op_len;
 
@@ -51,7 +51,7 @@ int	function_3(t_lex *lex, char *line)
 	return (0);
 }
 
-int	function_4(t_lex *lex, char *line)
+int	return_rest_of_line(t_lex *lex, char *line)
 {
 	lex->next_raw_tok = ft_substr(line, lex->start, lex->i - lex->start);
 	if (!lex->next_raw_tok)
