@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_built_ins.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 17:26:48 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/31 12:01:40 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/06 17:32:20 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	execute_built_ins(t_cshell *cshell, int i, int outfile_fd)
 
 	proc = cshell->proc_array[i];
 	if (!proc.cmd_and_args)
-		return;
+		return ;
 	else if (ft_strncmp(proc.cmd_and_args[0], "cd", 3) == 0)
 		ft_chdir(proc.cmd_and_args + 1, cshell);
 	else if (ft_strncmp(proc.cmd_and_args[0], "export", 7) == 0)

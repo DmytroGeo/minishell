@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset_all_variables.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 12:32:48 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/31 12:03:11 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/06 17:32:37 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int	unset_variable(char ***envp, char *key)
 
 void	unset_all_vars(char **arguments, t_cshell *cshell)
 {
-
 	if (ft_array_len(arguments) == 0)
 		return ;
 	while (*arguments)

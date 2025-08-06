@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:18:15 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/31 21:38:24 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/06 17:35:25 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	line_matches_limiter(char *limiter, char *line_read)
 int	heredoc_fd(char *limiter)
 {
 	(void)limiter;
+	return (0);
+}
 	// int		*fd;
 	// int		read_end;
 	// char	*line_read;
@@ -56,5 +58,3 @@ int	heredoc_fd(char *limiter)
 	// 		break ;
 	// }
 	// return (read_end);
-	return (0);
-}

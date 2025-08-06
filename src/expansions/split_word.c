@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 11:48:01 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/06 16:46:53 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/06 17:29:43 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_tok_cont	*init_new_word_cont(t_exp *exp, char *new_space)
 	content->value = ft_calloc(len + 1, sizeof(char));
 	content->value = ft_memcpy(content->value, exp->exp_str, len);
 	content->type = word;
-	return(content);
+	return (content);
 }
 
 char	*find_next_space(t_exp *exp)
@@ -78,7 +78,7 @@ int	split_word(t_token **head, t_exp *exp)
 	{
 		if (init_new_word(new_space, head, exp) < 0)
 			return (free_exp(exp), -42);
-		new_space = find_next_space(exp);	
+		new_space = find_next_space(exp);
 	}
 	return (0);
 }

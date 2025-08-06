@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 15:51:00 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/06 16:41:11 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/06 17:30:12 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ int	expand_var_in_dquotes(t_exp *exp, t_cshell *cshell)
 		exp->exp_strlen += exp->exp_varlen;
 	}
 	exp->i += exp->varlen + 1;
-	return (0);	
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_loop.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:12:37 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/31 20:52:19 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/06 17:23:37 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	process_loop(t_cshell *cshell)
 		if ((cshell->pid)[i] == 0)
 		{
 			signal(SIGINT, handle_child_sigint);
-            signal(SIGQUIT, handle_child_sigquit);
+			signal(SIGQUIT, handle_child_sigquit);
 			dup_infile(i, cshell);
 			dup_outfile(i, cshell);
 			close_fds(cshell->fd, num_of_proc - 1);

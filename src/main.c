@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/01 16:14:16 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/06 17:31:59 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	run_cshell(t_cshell *cshell)
 	wrong_number_of_quotes(cshell);
 	add_history(cshell->line_read);
 	lexing(cshell);
-	// do_all_expansions(cshell);
+	do_all_expansions(cshell);
 	init_processes(cshell);
 	evaluate_and_execute(cshell);
 }

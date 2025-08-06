@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:05:00 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/06 11:30:49 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/06 17:31:32 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ int	expand_code_in_dquotes(t_exp *exp, t_cshell *cshell)
 	return (0);
 }
 
-int expand_non_var(t_exp *exp)
+int	expand_non_var(t_exp *exp)
 {
 	char	*non_var_str;
 	int		non_var_strlen;
-	
+
 	non_var_strlen = exp->exp_end - exp->exp_start;
 	if (non_var_strlen == 0)
 		return (0);
@@ -55,7 +55,7 @@ int expand_non_var(t_exp *exp)
 		return (free_exp(exp), -42);
 	exp->exp_strlen += non_var_strlen;
 	exp->exp_start += non_var_strlen;
-	return (0);	
+	return (0);
 }
 
 int	check_and_expand_var_in_dquotes(t_exp *exp, t_cshell *cshell)
@@ -72,8 +72,8 @@ int	check_and_expand_var_in_dquotes(t_exp *exp, t_cshell *cshell)
 			exp->varlen = find_varlen(exp->exp_start);
 			if (exp->varlen == 0)
 			{
-				add_one_char_to_exp(exp, *(exp->exp_start - 1));						
-				add_one_char_to_exp(exp, *(exp->exp_start));			
+				add_one_char_to_exp(exp, *(exp->exp_start - 1));
+				add_one_char_to_exp(exp, *(exp->exp_start));
 			}
 			else
 				return (expand_var_in_dquotes(exp, cshell));
@@ -82,7 +82,7 @@ int	check_and_expand_var_in_dquotes(t_exp *exp, t_cshell *cshell)
 	return (0);
 }
 
-int add_everything_else_to_str(t_exp *exp)
+int	add_everything_else_to_str(t_exp *exp)
 {
 	char	*dquote;
 	int		len;
@@ -104,7 +104,7 @@ int add_everything_else_to_str(t_exp *exp)
 	exp->temp = NULL;
 	exp->exp_str = NULL;
 	exp->strlen += exp->exp_strlen;
-	return (0);	
+	return (0);
 }
 
 int	expand_double_quotes(t_exp *exp, t_cshell *cshell)

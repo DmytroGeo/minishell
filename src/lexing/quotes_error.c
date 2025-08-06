@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 16:28:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/06 16:53:49 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/06 17:22:47 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,24 @@ void	count_qts(t_qts *qts, int c)
 	if (c == '\'' && qts->in_squotes == true)
 	{
 		qts->num_squotes++;
-		qts->in_squotes = false;			
+		qts->in_squotes = false;
 	}
 	else if (c == '\'' && qts->in_squotes == false && qts->in_dquotes == false)
 	{
 		qts->num_squotes++;
-		qts->in_squotes = true;			
+		qts->in_squotes = true;
 	}
 	else if (c == '"' && qts->in_dquotes == true)
 	{
 		qts->num_dquotes++;
-		qts->in_dquotes = false;			
+		qts->in_dquotes = false;
 	}
 	else if (c == '"' && qts->in_dquotes == false && qts->in_squotes == false)
 	{
 		qts->num_dquotes++;
-		qts->in_dquotes = true;			
+		qts->in_dquotes = true;
 	}
-	return ; 
+	return ;
 }
 
 void	init_qts(t_qts *qts)

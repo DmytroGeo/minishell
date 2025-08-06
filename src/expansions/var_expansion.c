@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:07:22 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/06 16:48:28 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/06 17:28:02 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	check_and_expand_var(t_exp *exp, t_cshell *cshell)
 		else if (*(exp->exp_start) == '\'' || *(exp->exp_start) == '"')
 		{
 			exp->i++;
-			exp->exp_end = exp->exp_start;		
+			exp->exp_end = exp->exp_start;
 		}
 		else
 		{
