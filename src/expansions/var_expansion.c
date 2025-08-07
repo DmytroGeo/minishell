@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:07:22 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/06 17:28:02 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/07 16:51:49 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	expand_variable(t_exp *exp, t_cshell *cshell)
 		exp->exp_end = &((exp->str)[exp->strlen - 1]);
 		exp->exp_start = exp->exp_end - exp->exp_varlen;
 	}
+	else
+		exp->exp_start = exp->exp_end;
 	exp->i += exp->varlen + 1;
 	return (0);
 }
@@ -78,7 +80,7 @@ int	check_and_expand_var(t_exp *exp, t_cshell *cshell)
 			exp->varlen = find_varlen(exp->exp_start);
 			if (exp->varlen == 0)
 			{
-				exp->i++;
+				exp->i += 2;
 				exp->exp_end = exp->exp_start;
 			}
 			else

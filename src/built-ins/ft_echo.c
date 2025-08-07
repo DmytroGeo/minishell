@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:15:59 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/31 12:03:02 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/07 16:36:31 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,14 @@ void	ft_echo(int fd, char **arguments, t_cshell *cshell)
 		while (arguments[i] && is_echo_flag(arguments[i]) == EXIT_SUCCESS)
 			i++;
 	}
-	number_of_arguments = ft_array_len(arguments + i);
+	number_of_arguments = ft_array_len(arguments);
 	while (i < number_of_arguments - 1)
 	{
 		ft_printf(fd, "%s ", arguments[i]);
 		i++;
 	}
-	ft_printf(fd, "%s", arguments[i]);
+	if (arguments[i])
+		ft_printf(fd, "%s", arguments[i]);
 	if (has_flag == 0)
 		ft_printf(fd, "\n");
 	cshell->exec_code = 0;

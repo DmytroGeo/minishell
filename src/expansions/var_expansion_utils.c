@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 19:33:43 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/06 16:47:42 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/07 12:54:45 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	find_varlen(const char *str)
 	if (!ft_isalpha(*str) && *str != '_')
 		return (varlen);
 	varlen++;
-	while (ft_isalnum(str[varlen]) || str[varlen] != '_')
+	while (ft_isalnum(str[varlen]) || str[varlen] == '_')
 		varlen++;
 	return (varlen);
 }

@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 09:51:26 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/06 16:44:40 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/07 13:27:37 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	add_last_bit_to_list(t_token **head, t_exp *exp)
 	int			len;
 
 	cont = malloc(sizeof(t_tok_cont));
-	len = ft_strlen(exp->str);
 	if (!cont)
 		return (-42);
+	len = exp->strlen;
 	cont->value = ft_calloc(len + 1, sizeof(char));
 	cont->value = ft_memcpy(cont->value, exp->str, len);
 	cont->type = word;
@@ -64,7 +64,7 @@ void	free_exp(t_exp *exp)
 
 int	init_exp(t_exp *exp, char *value)
 {
-	exp->strlen = 1;
+	exp->strlen = 0;
 	exp->i = 0;
 	exp->exp_var = NULL;
 	exp->temp = NULL;
@@ -72,9 +72,7 @@ int	init_exp(t_exp *exp, char *value)
 	exp->exp_start = NULL;
 	exp->exp_end = NULL;
 	exp->og_str = value;
-	exp->str = ft_calloc(exp->strlen, sizeof(char));
-	if (!(exp->str))
-		return (-42);
+	exp->str = NULL;
 	return (0);
 }
 

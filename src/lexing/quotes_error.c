@@ -6,28 +6,26 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 16:28:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/06 17:22:47 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:54:32 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexing.h"
 #include "minishell.h"
 
-void	quotes_error(int num_squotes, int num_dquotes, t_cshell *cshell)
+int	quotes_error(int num_squotes, int num_dquotes)
 {
 	if (num_squotes % 2 == 1)
 	{
 		ft_printf(2, "minishell: syntax error: unclosed single quotes\n");
-		cshell->exec_code = 2;
-		(free_whole_cshell(cshell), exit(cshell->exec_code));
+		return (1);
 	}
 	if (num_dquotes % 2 == 1)
 	{
 		ft_printf(2, "minishell: syntax error: unclosed double quotes\n");
-		cshell->exec_code = 2;
-		(free_whole_cshell(cshell), exit(cshell->exec_code));
+		return (1);
 	}
-	return ;
+	return (0);
 }
 
 void	count_qts(t_qts *qts, int c)
@@ -64,7 +62,7 @@ void	init_qts(t_qts *qts)
 	return ;
 }
 
-void	wrong_number_of_quotes(t_cshell *cshell)
+int	wrong_number_of_quotes(t_cshell *cshell)
 {
 	char	*curr;
 	t_qts	qts;
@@ -76,6 +74,5 @@ void	wrong_number_of_quotes(t_cshell *cshell)
 		count_qts(&qts, *curr);
 		curr++;
 	}
-	quotes_error(qts.num_squotes, qts.num_dquotes, cshell);
-	return ;
+	return (quotes_error(qts.num_squotes, qts.num_dquotes));
 }

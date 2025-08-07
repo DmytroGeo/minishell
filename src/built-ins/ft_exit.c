@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:38:36 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/31 12:03:09 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/07 18:23:57 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,26 @@ void	exit_err1(char *str)
 
 void	ft_exit(char **cmd_and_args, t_cshell *cshell)
 {
-	if (ft_array_len(cmd_and_args) > 2)
+	int	i;
+
+	i = -1;
+	if (cmd_and_args[1])
+		i = ft_contains_only_digit(cmd_and_args[1]);
+	else
+		cshell->exec_code = 0;
+	if (i == 0)
 	{
-		ft_printf(2, "exit\nminishell: exit: too many arguments");
+		exit_err1(cmd_and_args[1]);
+		cshell->exec_code = 2;
+	}
+	if (i == 1 && ft_array_len(cmd_and_args) > 2)
+	{
+		ft_printf(2, "exit\nminishell: exit: too many arguments\n");
+		cshell->exec_code = 1;
 		return ;
 	}
 	if (ft_array_len(cmd_and_args) == 2)
-	{
-		if (ft_contains_only_digit(cmd_and_args[1]))
-			cshell->exec_code = correct_integer(ft_atoi(cmd_and_args[1]));
-		else
-		{
-			exit_err1(cmd_and_args[1]);
-			cshell->exec_code = 2;
-		}
-	}
+		cshell->exec_code = correct_integer(ft_atoi(cmd_and_args[1]));
 	free_whole_cshell(cshell);
 	ft_printf(1, "exit\n");
 	exit(cshell->exec_code);

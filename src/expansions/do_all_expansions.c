@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 10:18:04 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/06 17:29:03 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/07 18:23:46 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	do_expansion(t_cshell *cshell, t_exp *exp, t_token **head)
 
 int	identify_expand(t_cshell *cshell, t_exp *exp, t_token **head)
 {
-	int	c;
+	char	c;
 
 	c = (exp->og_str)[exp->i];
 	if (c == '"' || c == '\'' || c == '$')
@@ -91,8 +91,9 @@ void	do_all_expansions(t_cshell *cshell)
 	t_token	*split_token;
 	t_token	*new_head;
 
+	new_head = NULL;
 	cur_tok = cshell->token_chain;
-	while (cur_tok->next)
+	while (cur_tok)
 	{
 		split_token = split_node(cur_tok, cshell);
 		if (!split_token)
