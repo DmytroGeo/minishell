@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:06:27 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/31 16:24:18 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/08 16:17:26 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,12 @@ void		ft_exit(char **cmd_and_args, t_cshell *cshell);
 void		execute_built_ins(t_cshell *cshell, int i, int outfile_fd);
 void		ft_chdir(char **new_directory, t_cshell *cshell);
 void		execution(t_cshell *cshell);
-void		proc_call(int i, char c);
-void		close_fds(int **fd, int len);
+void		close_pipes(int **fd, int len);
 void		process_loop(t_cshell *cshell);
 void		execute_in_child(int i, t_cshell *cshell);
 void		free_and_exit(int *pid, int **fd, t_cshell *cshell);
-void		dup_infile(int i, t_cshell *cshell);
-void		dup_outfile(int i, t_cshell *cshell);
-void		init_setup(t_cshell *cshell);
+void		do_redirections(int i, t_cshell *cshell);
+void		initialise_pipes(t_cshell *cshell);
 void		evaluate_and_execute(t_cshell *cshell);
 void		ft_pwd(int outfile_fd);
 void		wait_for_processes(t_cshell *cshell);

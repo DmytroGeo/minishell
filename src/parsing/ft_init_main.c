@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 12:10:27 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/31 21:25:39 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/08 21:28:05 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,20 @@ int	get_shell_id(void)
 	return (shell_id);
 }
 
+/**
+ * @brief This function initialises everything to 0 or NULL.
+ * It also gets the process id of the current session, makes
+ * a copy of the char **envp inherited from bash (so that we can change
+ * it when we run export/unset) and it gets the prompt
+ * from the current working directory.
+ * @param cshell The main 'cshell' structure.
+ * @param envp The original envp (inherited from bash).
+ * @return nothing - this is a void function.
+ */
 void	init_cshell(t_cshell *cshell, char **envp)
 {
 	cshell->parse_code = 0;
-	cshell->exec_code = 0;
+	cshell->exit_code = 0;
 	cshell->line_read = NULL;
 	cshell->pid = NULL;
 	cshell->fd = NULL;

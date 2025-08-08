@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 09:51:26 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/07 13:27:37 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/08 16:24:01 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ int	init_exp(t_exp *exp, char *value)
 {
 	exp->strlen = 0;
 	exp->i = 0;
+	exp->exp_strlen = 0;
+	exp->exp_varlen = 0;
+	exp->varlen = 0;
 	exp->exp_var = NULL;
 	exp->temp = NULL;
 	exp->exp_str = NULL;

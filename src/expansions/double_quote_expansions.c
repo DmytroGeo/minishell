@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   double_quote_expansions.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:05:00 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/06 17:31:32 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/08 16:38:07 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	expand_code_in_dquotes(t_exp *exp, t_cshell *cshell)
 	if (*(exp->exp_start) == '$')
 		code = ft_itoa(cshell->shell_id);
 	else
-		code = ft_itoa(cshell->exec_code);
+		code = ft_itoa(cshell->exit_code);
 	len = ft_strlen(code);
 	if (!code)
 		return (free_exp(exp), -42);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
+#    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 11:20:28 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/08/06 16:49:37 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/08/08 21:32:52 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,8 +48,7 @@ SRCS = $(SRC_FOLDER)/main.c \
 		$(SRC_FOLDER)/parsing/find_commands_and_arguments.c \
 		$(SRC_FOLDER)/parsing/find_infiles.c \
 		$(SRC_FOLDER)/parsing/find_outfiles.c \
-		$(SRC_FOLDER)/parsing/ft_infile_error.c \
-		$(SRC_FOLDER)/parsing/ft_outfile_error.c \
+		$(SRC_FOLDER)/parsing/file_errors.c \
 		$(SRC_FOLDER)/parsing/heredoc.c \
 		$(SRC_FOLDER)/parsing/is_some_token.c \
 		$(SRC_FOLDER)/parsing/is_some_token2.c \
@@ -65,8 +64,7 @@ SRCS = $(SRC_FOLDER)/main.c \
 		$(SRC_FOLDER)/built-ins/print_envp.c \
 		$(SRC_FOLDER)/built-ins/unset_all_variables.c \
 		$(SRC_FOLDER)/execution/close_pipes.c \
-		$(SRC_FOLDER)/execution/proc_call.c \
-		$(SRC_FOLDER)/execution/dup_infiles_and_outfiles.c \
+		$(SRC_FOLDER)/execution/do_redirections.c \
 		$(SRC_FOLDER)/execution/execute_in_main.c \
 		$(SRC_FOLDER)/execution/execute_in_child.c \
 		$(SRC_FOLDER)/execution/initialise_pipes.c \

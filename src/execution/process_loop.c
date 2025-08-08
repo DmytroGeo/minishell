@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_loop.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:12:37 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/06 17:23:37 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/08 16:22:35 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,21 @@
 #include "minishell.h"
 #include "signals.h"
 
+/**
+ * @brief This function is the process loop, run if we have multiple processes
+ * (and therefore need multiple children to execute them).
+ * First, we call fork() and save its return to the int array pid. 
+ * By calling fork(), we split the process into a parent and child process,
+ * and the child process executes everything in the '(cshell->pid)[i] == 0'
+ * loop. We have to be able to handle signals in child processes so
+ * we use ????. do_redirections() does the relevant infile and outfile
+ * redirections for that (ith) child process using the dup2 command.
+ * close_pipes() closes all the read and write ends of the pipes so our 
+ * minishell doesn't have any open fds at exit and execute_in_child runs
+ * the relevant command (of the ith process)
+ * @param cshell The main 'cshell' structure.
+ * @return void function.
+ */
 void	process_loop(t_cshell *cshell)
 {
 	int		i;
@@ -30,9 +45,8 @@ void	process_loop(t_cshell *cshell)
 		{
 			signal(SIGINT, handle_child_sigint);
 			signal(SIGQUIT, handle_child_sigquit);
-			dup_infile(i, cshell);
-			dup_outfile(i, cshell);
-			close_fds(cshell->fd, num_of_proc - 1);
+			do_redirections(i, cshell);
+			close_pipes(cshell->fd, num_of_proc - 1);
 			execute_in_child(i, cshell);
 			exit(EXIT_FAILURE);
 		}

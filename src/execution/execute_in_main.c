@@ -6,13 +6,22 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 10:41:31 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/31 11:58:25 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/08 16:38:00 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include "minishell.h"
 
+/**
+ * @brief This function is only called if 1) We only have 1 process AND
+ * 2) the command is a built-in (echo, unset, export, pwd, cd, exit, env).
+ * It checks that infile and outfile fds are good (> 0). If they aren't,
+ * the command isn't executed. However, if everything is ok, we
+ * run execute_built_ins with the relevant outfile fd.
+ * @param cshell The main 'cshell' structure.
+ * @return void function.
+ */
 void	execute_in_main(t_cshell *cshell)
 {
 	int		outfile_fd;
@@ -27,7 +36,7 @@ void	execute_in_main(t_cshell *cshell)
 	if (proc.num_inf != 0)
 		infile_fd = (proc.infiles)[proc.num_inf - 1];
 	if (outfile_fd < 0 || infile_fd < 0)
-		cshell->exec_code = 1;
+		cshell->exit_code = 1;
 	else
 		execute_built_ins(cshell, 0, outfile_fd);
 	free_proc_array(cshell->proc_array, cshell->num_of_proc);

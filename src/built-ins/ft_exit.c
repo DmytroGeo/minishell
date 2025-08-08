@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:38:36 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/07 18:23:57 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/08 19:46:25 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,34 +37,40 @@ int	correct_integer(int n)
 	return (i);
 }
 
-void	exit_err1(char *str)
-{
-	ft_printf(2, "exit: %s: numeric argument required\n", str);
-}
-
-void	ft_exit(char **cmd_and_args, t_cshell *cshell)
+/**
+ * @brief This function exits minishell, except in the case that
+ * there is more than one argument and the first arguments is numeric.
+ * We exit with a default exit code of 0. In case of a non-numeric argument,
+ * it exits with an exit code of 2. However, if exit has exactly one argument,
+ * and that argument is a number, it exits with that error code.
+ * @param args the arguments of exit
+ * @param cshell The main 'cshell' structure.
+ * @return void - returns nothing.
+ */
+void	ft_exit(char **args, t_cshell *cshell)
 {
 	int	i;
 
 	i = -1;
-	if (cmd_and_args[1])
-		i = ft_contains_only_digit(cmd_and_args[1]);
+	if (args[0])
+		i = ft_contains_only_digit(args[0]);
 	else
-		cshell->exec_code = 0;
+		cshell->exit_code = 0;
 	if (i == 0)
 	{
-		exit_err1(cmd_and_args[1]);
-		cshell->exec_code = 2;
+		ft_printf(2, "exit: %s:", args[0]);
+		ft_printf(2, "numeric argument required\n");
+		cshell->exit_code = 2;
 	}
-	if (i == 1 && ft_array_len(cmd_and_args) > 2)
+	if (i == 1 && ft_array_len(args) > 1)
 	{
 		ft_printf(2, "exit\nminishell: exit: too many arguments\n");
-		cshell->exec_code = 1;
+		cshell->exit_code = 1;
 		return ;
 	}
-	if (ft_array_len(cmd_and_args) == 2)
-		cshell->exec_code = correct_integer(ft_atoi(cmd_and_args[1]));
+	if (ft_array_len(args) == 1)
+		cshell->exit_code = correct_integer(ft_atoi(args[0]));
 	free_whole_cshell(cshell);
 	ft_printf(1, "exit\n");
-	exit(cshell->exec_code);
+	exit(cshell->exit_code);
 }

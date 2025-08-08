@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:42:54 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/27 19:43:21 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/08 21:05:16 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,17 @@ int	find_number_of_commands_and_args(t_token *start)
 	return (number_of_commands_and_args);
 }
 
+/**
+ * @brief AN important thing to note about this functions is
+ * that 1) if our command can be found in $PATH (example, cat), 
+ * we strdup its whole path.
+ * For all other cases (built-in, command not found, full path given),
+ * we just strdup the string.
+ * @param start The start of our token chain
+ * @param proc The address of our current proc structure.
+ * @param envp our copy of envp.
+ * @return 0 on success, -42 on failed memory allocation.
+ */
 int	init_command(t_proc *proc, t_token *start, char **envp)
 {
 	t_tok_cont	*content;
@@ -66,6 +77,19 @@ int	init_arg(t_proc *proc, t_token *start, int counter)
 	return (0);
 }
 
+/**
+ * @brief This function initialises the char ** cmd_and_args
+ * attribute of the current proc struct.
+ * The command of a process is defined as the first string that
+ * does not follow a redirection operator (<, >, <<, >>).
+ * The arguments of that command are strings in the same process
+ * that come after the command and aren't proceeded by a redirection
+ * operator.
+ * @param start The start of our token chain
+ * @param proc The address of our current proc structure.
+ * @param envp our copy of envp.
+ * @return 0 on success, -42 on failed memory allocation.
+ */
 int	find_cmd_and_args(t_proc *proc, t_token *start, char **envp)
 {
 	int	counter;

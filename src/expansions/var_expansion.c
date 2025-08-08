@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_expansion.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:07:22 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/07 16:51:49 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/08 16:38:08 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	expand_code(t_exp *exp, t_cshell *cshell)
 	if (*(exp->exp_start) == '$')
 		exp->exp_str = ft_itoa(cshell->shell_id);
 	else
-		exp->exp_str = ft_itoa(cshell->exec_code);
+		exp->exp_str = ft_itoa(cshell->exit_code);
 	if (!exp->exp_str)
 		return (free_exp(exp), -42);
 	exp->exp_strlen = ft_strlen(exp->exp_str);
@@ -54,7 +54,7 @@ int	expand_variable(t_exp *exp, t_cshell *cshell)
 		exp->exp_var = NULL;
 		exp->strlen += exp->exp_varlen;
 		exp->exp_end = &((exp->str)[exp->strlen - 1]);
-		exp->exp_start = exp->exp_end - exp->exp_varlen;
+		exp->exp_start = exp->exp_end - exp->exp_varlen + 1;
 	}
 	else
 		exp->exp_start = exp->exp_end;
