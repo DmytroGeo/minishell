@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_expansion_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 19:33:43 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/07 12:54:45 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/10 20:38:24 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,10 @@ int	find_varlen(const char *str)
 	while (ft_isalnum(str[varlen]) || str[varlen] == '_')
 		varlen++;
 	return (varlen);
+}
+
+void	move_forward_by_n(t_exp *exp, int n)
+{
+	exp->i += n;
+	exp->exp_end = exp->exp_start;
 }

@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/08 16:37:41 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/09 11:51:07 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,40 +17,40 @@
 #include "execution.h"
 #include "minishell.h"
 
-char	*ty(t_tok_type type)
-{
-	if (type == 0)
-		return ("word");
-	if (type == 1)
-		return ("pipe");
-	if (type == 2)
-		return ("redir_in");
-	if (type == 3)
-		return ("redir_out");
-	if (type == 4)
-		return ("append");
-	if (type == 5)
-		return ("heredoc");
-	return (NULL);
-}
+// char	*ty(t_tok_type type)
+// {
+// 	if (type == 0)
+// 		return ("word");
+// 	if (type == 1)
+// 		return ("pipe");
+// 	if (type == 2)
+// 		return ("redir_in");
+// 	if (type == 3)
+// 		return ("redir_out");
+// 	if (type == 4)
+// 		return ("append");
+// 	if (type == 5)
+// 		return ("heredoc");
+// 	return (NULL);
+// }
 
-void	ft_print_tokens(t_token *head)
-{
-	t_token		*curr;
-	int			i;
+// void	ft_print_tokens(t_token *head)
+// {
+// 	t_token		*curr;
+// 	int			i;
 
-	i = 0;
-	curr = head;
-	while (curr)
-	{
-		ft_printf(2, "number: %d\n", i);
-		ft_printf(2, "Value: %s\n", ((t_tok_cont *)(curr->content))->value);
-		ft_printf(2, "type: %s\n", ty(((t_tok_cont *)(curr->content))->type));
-		ft_printf(2, "\n", ((t_tok_cont *)(curr->content))->type);
-		i++;
-		curr = curr->next;
-	}
-}
+// 	i = 0;
+// 	curr = head;
+// 	while (curr)
+// 	{
+// 		ft_printf(2, "number: %d\n", i);
+// 		ft_printf(2, "Value: %s\n", ((t_tok_cont *)(curr->content))->value);
+// 		ft_printf(2, "type: %s\n", ty(((t_tok_cont *)(curr->content))->type));
+// 		ft_printf(2, "\n", ((t_tok_cont *)(curr->content))->type);
+// 		i++;
+// 		curr = curr->next;
+// 	}
+// }
 
 void	run_cshell(t_cshell *cshell)
 {

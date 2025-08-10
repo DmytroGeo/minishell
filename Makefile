@@ -6,7 +6,7 @@
 #    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 11:20:28 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/08/08 21:32:52 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/08/09 11:50:13 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,6 @@ SRCS = $(SRC_FOLDER)/main.c \
 		$(SRC_FOLDER)/lexing/ft_dlstadd_back.c \
 		$(SRC_FOLDER)/lexing/del_tok_content.c \
 		$(SRC_FOLDER)/lexing/free_token_chain.c \
-		$(SRC_FOLDER)/lexing/ft_dlstadd_front.c \
 		$(SRC_FOLDER)/lexing/ft_dlstnew.c \
 		$(SRC_FOLDER)/lexing/free_cshell.c \
 		$(SRC_FOLDER)/lexing/ft_dlstsize.c \
@@ -34,7 +33,6 @@ SRCS = $(SRC_FOLDER)/main.c \
 		$(SRC_FOLDER)/lexing/init_tok_cont.c \
 		$(SRC_FOLDER)/lexing/lexing_utils.c \
 		$(SRC_FOLDER)/lexing/lexing.c \
-		$(SRC_FOLDER)/lexing/quote_utils.c \
 		$(SRC_FOLDER)/lexing/quotes_error.c \
 		$(SRC_FOLDER)/expansions/do_all_expansions.c \
 		$(SRC_FOLDER)/expansions/double_quote_expansion_utils.c \

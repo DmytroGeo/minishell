@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_all_expansions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 10:18:04 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/07 18:23:46 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/10 19:22:34 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ int	do_expansion(t_cshell *cshell, t_exp *exp, t_token **head)
 
 int	identify_expand(t_cshell *cshell, t_exp *exp, t_token **head)
 {
-	char	c;
+	char	*c;
 
-	c = (exp->og_str)[exp->i];
-	if (c == '"' || c == '\'' || c == '$')
+	c = &((exp->og_str)[exp->i]);
+	if (*c == '"' || *c == '\'' || (*c == '$' && *(c + 1)))
 	{
 		exp->exp_start = &((exp->og_str)[exp->i + 1]);
 		if (do_expansion(cshell, exp, head) < 0)

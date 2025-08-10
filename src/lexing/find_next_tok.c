@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_next_tok.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 17:08:32 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/05 17:46:02 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/09 11:46:43 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,19 @@ int	is_op(t_lex *lex, char *line)
 		&& (line[lex->i] == ' ' || is_op_start(line, lex->i)));
 }
 
+/**
+ * @param line the line read returned from (from readline)
+ * @param lex the lex structure, used to keep track of where we are in the
+ * line, whether we're in quotes or not
+ * @return 0 when complete, -42 in case of memory allocation fail.
+ * @brief This function goes through the line returned from readline
+ * and finds the next raw token (word or operator), and saves it in the
+ * char *next_raw_tok attribute of lex, to be used to initialise a token in
+ * the lexing() function. Since lex is declared in the lexing.c and passed by
+ * address to this function it saves where we are in the string between
+ * function calls so every time the function is called it gets updated
+ * with the next raw token.
+ */
 int	find_next_raw_tok(char *line, t_lex *lex)
 {
 	while (line[lex->i])

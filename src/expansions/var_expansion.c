@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:07:22 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/08 16:38:08 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/10 20:33:43 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	expand_code(t_exp *exp, t_cshell *cshell)
 	free(exp->exp_str);
 	exp->temp = NULL;
 	exp->exp_str = NULL;
-	exp->exp_start = &((exp->str)[ft_strlen(exp->str) - 1]);
-	exp->exp_end = exp->exp_start;
 	exp->strlen += exp->exp_strlen;
 	exp->i += 2;
 	return (0);
@@ -64,28 +62,24 @@ int	expand_variable(t_exp *exp, t_cshell *cshell)
 
 int	check_and_expand_var(t_exp *exp, t_cshell *cshell)
 {
-	if (!*(exp->exp_start))
-		return (add_one_char_to_string(exp, '$'));
+	int	return_code;
+
+	if (*(exp->exp_start) == '$' || *(exp->exp_start) == '?')
+	{
+		return_code = expand_code(exp, cshell);
+		exp->exp_start = &((exp->str)[ft_strlen(exp->str) - 1]);
+		exp->exp_end = exp->exp_start;
+		return (return_code);
+	}
+	else if (*(exp->exp_start) == '\'' || *(exp->exp_start) == '"')
+		move_forward_by_n(exp, 1);
 	else
 	{
-		if (*(exp->exp_start) == '$' || *(exp->exp_start) == '?')
-			return (expand_code(exp, cshell));
-		else if (*(exp->exp_start) == '\'' || *(exp->exp_start) == '"')
-		{
-			exp->i++;
-			exp->exp_end = exp->exp_start;
-		}
+		exp->varlen = find_varlen(exp->exp_start);
+		if (exp->varlen == 0)
+			move_forward_by_n(exp, 2);
 		else
-		{
-			exp->varlen = find_varlen(exp->exp_start);
-			if (exp->varlen == 0)
-			{
-				exp->i += 2;
-				exp->exp_end = exp->exp_start;
-			}
-			else
-				return (expand_variable(exp, cshell));
-		}
+			return (expand_variable(exp, cshell));
 	}
 	return (0);
 }

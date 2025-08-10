@@ -6,75 +6,55 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:05:00 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/08 16:38:07 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/10 20:46:23 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansions.h"
 #include "minishell.h"
 
-int	expand_code_in_dquotes(t_exp *exp, t_cshell *cshell)
+int	expand_non_var(t_exp *exp, char *next_dollar_sign)
 {
-	char	*code;
-	int		len;
-
-	if (*(exp->exp_start) == '$')
-		code = ft_itoa(cshell->shell_id);
-	else
-		code = ft_itoa(cshell->exit_code);
-	len = ft_strlen(code);
-	if (!code)
-		return (free_exp(exp), -42);
-	exp->temp = exp->exp_str;
-	exp->exp_str = ft_strjoin(exp->temp, code);
-	if (!exp->str)
-		return (free(code), free_exp(exp), -42);
-	free(code);
-	free(exp->temp);
-	exp->temp = NULL;
-	exp->exp_strlen += len;
-	exp->exp_start += 1;
-	return (0);
-}
-
-int	expand_non_var(t_exp *exp)
-{
-	char	*non_var_str;
-	int		non_var_strlen;
-
-	non_var_strlen = exp->exp_end - exp->exp_start;
-	if (non_var_strlen == 0)
+	exp->varlen = next_dollar_sign - exp->exp_start;
+	if (exp->varlen == 0)
 		return (0);
-	non_var_str = ft_calloc(non_var_strlen + 1, sizeof(char));
-	if (!non_var_str)
+	exp->exp_str = ft_calloc(exp->varlen + 1, sizeof(char));
+	if (!(exp->exp_str))
 		return (free_exp(exp), -42);
-	non_var_str = ft_memcpy(non_var_str, exp->exp_start, non_var_strlen);
-	exp->temp = exp->exp_str;
-	exp->exp_str = ft_strjoin(exp->temp, non_var_str);
-	if (!non_var_str)
+	exp->exp_str = ft_memcpy(exp->exp_str, exp->exp_start, exp->varlen);
+	exp->temp = exp->str;
+	exp->str = ft_strjoin(exp->temp, exp->exp_str);
+	free(exp->temp);
+	free(exp->exp_str);
+	exp->temp = NULL;
+	exp->exp_str = NULL;
+	if (!(exp->str))
 		return (free_exp(exp), -42);
-	exp->exp_strlen += non_var_strlen;
-	exp->exp_start += non_var_strlen;
+	exp->strlen += exp->varlen;
+	exp->exp_start += exp->varlen;
+	exp->i += exp->varlen;
 	return (0);
 }
-
 int	check_and_expand_var_in_dquotes(t_exp *exp, t_cshell *cshell)
 {
+	int	return_code;
+
 	exp->exp_start += 1;
-	if (*(exp->exp_start) == '"')
-		return (add_one_char_to_exp(exp, '$'));
+	if (*(exp->exp_start) == '"' || *(exp->exp_start) == ' ')
+		return (add_one_char_to_string(exp, '$'));
 	else
 	{
 		if (*(exp->exp_start) == '$' || *(exp->exp_start) == '?')
-			return (expand_code_in_dquotes(exp, cshell));
+		{
+			return_code = expand_code(exp, cshell);
+			exp->exp_start++;
+			return (return_code);
+		}
 		else
 		{
 			exp->varlen = find_varlen(exp->exp_start);
 			if (exp->varlen == 0)
-			{
-				add_one_char_to_exp(exp, *(exp->exp_start - 1));
-				add_one_char_to_exp(exp, *(exp->exp_start));
-			}
+				exp->i += 2;
 			else
 				return (expand_var_in_dquotes(exp, cshell));
 		}
@@ -84,43 +64,49 @@ int	check_and_expand_var_in_dquotes(t_exp *exp, t_cshell *cshell)
 
 int	add_everything_else_to_str(t_exp *exp)
 {
-	char	*dquote;
-	int		len;
-	char	*last_bit;
-
-	exp->temp = exp->exp_str;
-	dquote = ft_strchr(exp->exp_start, '"');
-	len = exp->exp_strlen + dquote - exp->exp_start;
-	last_bit = ft_calloc(len + 1, sizeof(char));
-	last_bit = ft_memcpy(last_bit, exp->exp_start, dquote - exp->exp_start);
-	exp->exp_str = ft_strjoin(exp->temp, last_bit);
+	exp->varlen = exp->exp_end - exp->exp_start;
+	exp->exp_str = ft_calloc(exp->varlen + 1, sizeof(char));
 	if (!(exp->exp_str))
 		return (free_exp(exp), -42);
-	exp->exp_strlen = ft_strlen(exp->exp_str);
+	exp->exp_str = ft_memcpy(exp->exp_str, exp->exp_start, exp->varlen);
 	exp->temp = exp->str;
 	exp->str = ft_strjoin(exp->temp, exp->exp_str);
-	if (!(exp->str))
+	if (!(exp->exp_str))
 		return (free_exp(exp), -42);
+	free(exp->temp);
+	free(exp->exp_str);
 	exp->temp = NULL;
 	exp->exp_str = NULL;
-	exp->strlen += exp->exp_strlen;
+	exp->strlen += exp->varlen;
+	exp->i += exp->varlen + 1;
+	exp->exp_start += exp->varlen + 1;
 	return (0);
 }
 
 int	expand_double_quotes(t_exp *exp, t_cshell *cshell)
 {
+	char	*next_dollar_sign;
+
 	exp->i++;
-	exp->exp_str = "";
-	exp->exp_end = ft_dollar_strchr(exp->exp_start);
-	while (exp->exp_end)
+	exp->exp_end = ft_strchr(exp->exp_start, '"');
+	if (exp->exp_start == exp->exp_end)
 	{
-		if (expand_non_var(exp) < 0)
-			return (-42);
-		if (check_and_expand_var_in_dquotes(exp, cshell) < 0)
-			return (-42);
-		exp->exp_end = ft_dollar_strchr(exp->exp_start);
+		exp->exp_strlen = 0;
+		exp->i += 1;
 	}
-	if (add_everything_else_to_str(exp) < 0)
-		return (-42);
+	else
+	{
+		next_dollar_sign = ft_dollar_strchr(exp->exp_start);
+		while (next_dollar_sign)
+		{
+			if (expand_non_var(exp, next_dollar_sign) < 0)
+				return (-42);
+			if (check_and_expand_var_in_dquotes(exp, cshell) < 0)
+				return (-42);
+			next_dollar_sign = ft_dollar_strchr(exp->exp_start);
+		}
+		if (add_everything_else_to_str(exp) < 0)
+			return (-42);
+	}
 	return (0);
 }

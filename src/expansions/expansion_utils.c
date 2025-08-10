@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 09:51:26 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/08 16:24:01 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/10 19:52:33 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ int	add_one_char_to_string(t_exp *exp, char c)
 	(exp->str)[exp->strlen] = c;
 	free(exp->temp);
 	exp->temp = NULL;
-	exp->exp_start = &((exp->str)[exp->strlen]);
-	exp->exp_end = exp->exp_start;
 	(exp->strlen)++;
 	(exp->i)++;
 	return (0);
