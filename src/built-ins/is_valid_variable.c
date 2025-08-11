@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 15:42:03 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 15:09:52 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/11 14:28:11 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	is_valid_with_equals(char *str, char *equal_sign)
 	int	i;
 
 	i = 0;
-	if (equal_sign == str || equal_sign[-1] == ' ' || equal_sign[1] == ' ')
+	if (equal_sign == str || equal_sign[-1] == ' ')
 		return (false);
 	while (&str[++i] < equal_sign)
 	{

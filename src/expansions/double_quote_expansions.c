@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:05:00 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/11 11:22:48 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/11 11:41:29 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	check_and_expand_var_in_dquotes(t_exp *exp, t_cshell *cshell)
 	}
 	exp->varlen = find_varlen(exp->exp_start);
 	if (exp->varlen != 0)
-		return (expand_var_in_dquotes(exp, cshell));	
+		return (expand_var_in_dquotes(exp, cshell));
 	exp->i += 2;
 	exp->exp_start++;
 	return (0);

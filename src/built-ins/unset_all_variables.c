@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset_all_variables.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 12:32:48 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/08 19:59:42 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:58:23 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	find_envp_index(char **envp, const char *key)
 /**
  * @brief This function unsets the variable with the key 'key'.
  * A new list is created and the old one is freed.
- * Then we set the envp attribute of cshell to point to the head of our new list.
+ * Then we set the envp attribute of cshell to point 
+ * to the head of our new list.
  * @param address_of_envp The address of our copy of envp
  * @param key the variable name.
  * @return 0 for success and -42 for memory failure.

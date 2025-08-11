@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_all_expansions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 10:18:04 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/10 19:22:34 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:57:56 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ t_token	*expand_word(char *value, t_cshell *cshell)
 	t_exp	exp;
 
 	head = NULL;
-	if (init_exp(&exp, value) == -42)
-		return (NULL);
+	init_exp(&exp, value);
 	while ((exp.og_str)[exp.i])
 	{
 		if (identify_expand(cshell, &exp, &head) < 0)
@@ -85,6 +84,14 @@ t_token	*split_node(t_token	*cur_tok, t_cshell *cshell)
 	return (new_tok_chain);
 }
 
+/**
+ * @brief This function unsets the variable with the key 'key'.
+ * A new list is created and the old one is freed.
+ * Then we set the envp attribute of cshell to point to the head of our new list.
+ * @param address_of_envp The address of our copy of envp
+ * @param key the variable name.
+ * @return 0 for success and -42 for memory failure.
+ */
 void	do_all_expansions(t_cshell *cshell)
 {
 	t_token	*cur_tok;

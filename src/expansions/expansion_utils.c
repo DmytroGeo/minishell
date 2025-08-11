@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 09:51:26 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/10 19:52:33 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/11 11:44:10 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	free_exp(t_exp *exp)
 	exp->exp_var = NULL;
 }
 
-int	init_exp(t_exp *exp, char *value)
+void	init_exp(t_exp *exp, char *value)
 {
 	exp->strlen = 0;
 	exp->i = 0;
@@ -74,9 +74,8 @@ int	init_exp(t_exp *exp, char *value)
 	exp->exp_str = NULL;
 	exp->exp_start = NULL;
 	exp->exp_end = NULL;
-	exp->og_str = value;
 	exp->str = NULL;
-	return (0);
+	exp->og_str = value;
 }
 
 int	add_one_char_to_string(t_exp *exp, char c)
