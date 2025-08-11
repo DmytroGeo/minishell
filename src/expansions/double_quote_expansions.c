@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   double_quote_expansions.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:05:00 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/10 20:46:23 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/11 11:22:48 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,41 +24,35 @@ int	expand_non_var(t_exp *exp, char *next_dollar_sign)
 	exp->exp_str = ft_memcpy(exp->exp_str, exp->exp_start, exp->varlen);
 	exp->temp = exp->str;
 	exp->str = ft_strjoin(exp->temp, exp->exp_str);
-	free(exp->temp);
-	free(exp->exp_str);
-	exp->temp = NULL;
-	exp->exp_str = NULL;
 	if (!(exp->str))
 		return (free_exp(exp), -42);
+	(free(exp->temp), free(exp->exp_str));
+	exp->temp = NULL;
+	exp->exp_str = NULL;
 	exp->strlen += exp->varlen;
 	exp->exp_start += exp->varlen;
 	exp->i += exp->varlen;
 	return (0);
 }
+
 int	check_and_expand_var_in_dquotes(t_exp *exp, t_cshell *cshell)
 {
 	int	return_code;
 
 	exp->exp_start += 1;
-	if (*(exp->exp_start) == '"' || *(exp->exp_start) == ' ')
+	if (is_special_char(*(exp->exp_start)))
 		return (add_one_char_to_string(exp, '$'));
-	else
+	if (*(exp->exp_start) == '$' || *(exp->exp_start) == '?')
 	{
-		if (*(exp->exp_start) == '$' || *(exp->exp_start) == '?')
-		{
-			return_code = expand_code(exp, cshell);
-			exp->exp_start++;
-			return (return_code);
-		}
-		else
-		{
-			exp->varlen = find_varlen(exp->exp_start);
-			if (exp->varlen == 0)
-				exp->i += 2;
-			else
-				return (expand_var_in_dquotes(exp, cshell));
-		}
+		return_code = expand_code(exp, cshell);
+		exp->exp_start++;
+		return (return_code);
 	}
+	exp->varlen = find_varlen(exp->exp_start);
+	if (exp->varlen != 0)
+		return (expand_var_in_dquotes(exp, cshell));	
+	exp->i += 2;
+	exp->exp_start++;
 	return (0);
 }
 
@@ -73,8 +67,7 @@ int	add_everything_else_to_str(t_exp *exp)
 	exp->str = ft_strjoin(exp->temp, exp->exp_str);
 	if (!(exp->exp_str))
 		return (free_exp(exp), -42);
-	free(exp->temp);
-	free(exp->exp_str);
+	(free(exp->temp), free(exp->exp_str));
 	exp->temp = NULL;
 	exp->exp_str = NULL;
 	exp->strlen += exp->varlen;

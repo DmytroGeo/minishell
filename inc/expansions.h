@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansions.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:12:25 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/10 20:46:50 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/11 11:05:05 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		identify_expand(t_cshell *cshell, t_exp *exp, t_token **head);
 int		add_last_bit_to_list(t_token **head, t_exp *exp);
 int		find_varlen(const char *str);
 int		expand_var_in_dquotes(t_exp *exp, t_cshell *cshell);
+int		is_special_char(char c);
 
 void	move_forward_by_n(t_exp *exp, int n);
 void	do_all_expansions(t_cshell *cshell);

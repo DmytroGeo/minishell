@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 11:48:01 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/06 17:29:43 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/11 10:56:23 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	init_new_word(char *new_space, t_token **head, t_exp *exp)
 	exp->strlen = ft_strlen(exp->exp_start);
 	exp->temp = exp->str;
 	exp->str = ft_calloc(exp->strlen, sizeof(char));
+	if (!(exp->str))
+		return (-42);
 	exp->str = ft_memcpy(exp->str, exp->exp_start, exp->strlen);
 	free(exp->temp);
 	exp->temp = NULL;
