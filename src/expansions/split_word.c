@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 11:48:01 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/11 19:04:04 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/11 20:32:47 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,96 +14,69 @@
 #include "lexing.h"
 #include "minishell.h"
 
-char	*find_next_space(t_exp *exp)
-{
-	char	*current;
-
-	current = exp->exp_start;
-	while (!ft_isspace(*current) && current != exp->exp_end)
-		current++;
-	if (current == exp->exp_end)
-		return (NULL);
-	exp->exp_start = current;
-	while (ft_isspace(*(exp->exp_start)) && exp->exp_start != exp->exp_end)
-		exp->exp_start++;
-	return (current);
-}
-
-t_tok_cont	*init_new_word_cont(t_exp *exp, char *new_space)
+int	make_first_token(char *first_space, t_token **head, t_exp *exp)
 {
 	t_tok_cont	*content;
 	int			len;
+	t_token		*tok;
 
+	len = first_space - exp->str;
 	content = malloc(sizeof(t_tok_cont));
-	len = new_space - exp->str;
 	if (!content)
 		return (NULL);
 	content->value = ft_calloc(len + 1, sizeof(char));
 	if (!(content->value))
-		return (free(content), NULL);
+		return (del_tok_cont((void *)content), -42);
 	content->value = ft_memcpy(content->value, exp->str, len);
 	content->type = word;
-	return (content);
-}	
-
-int	init_new_word(char *new_space, t_token **head, t_exp *exp)
-{
-	t_tok_cont	*content;
-	t_token		*tok;
-
-	content = init_new_word_cont(exp, new_space);
-	if (!content)
-		return (-42);
 	tok = ft_dlstnew((void *)content);
 	if (!tok)
 		return (del_tok_cont((void *)content), -42);
 	ft_dlstadd_back(head, tok);
-	exp->strlen = ft_strlen(exp->exp_start);
-	exp->temp = exp->str;
-	exp->str = ft_calloc(exp->strlen + 1, sizeof(char));
-	if (!(exp->str))
-		return (-42);
-	exp->str = ft_memcpy(exp->str, exp->exp_start, exp->strlen);
-	exp->exp_start = exp->str;
-	exp->exp_end = &((exp->str)[exp->strlen - 1]);
-	free(exp->temp);
-	exp->temp = NULL;
+	return (0);
+}
+
+int	make_rest_of_tokens(char *first_space, t_token **head, t_exp *exp)
+{
+	char	**array;
+	int		len;
+	int		counter;
+
+	counter = 0;
+	array = ft_split(first_space, ' ');
+	len = ft_array_len(array);
+	while (counter < len - 1)
+	{
+		if (make_and_add_to_the_list(head, array[counter]) < 0)
+			return (-42);
+		counter++;
+	}
+	if (ft_isspace(*(exp->exp_end - 1)))
+	{
+		if (make_and_add_to_the_list(head, array[counter]) < 0)
+			return (-42);
+		// wipe string.
+	}
+	else
+		// make string the last bit
 	return (0);
 }
 
 int	split_word(t_token **head, t_exp *exp)
 {
-	char	*new_space;
-	int		error_code;
+	char	*first_space;
 
 	if (exp->exp_start == exp->exp_end)
 		return (0);
-	new_space = find_next_space(exp);
-	if (!new_space)
+	first_space = find_first_space(exp);
+	if (!first_space)
 	{
 		exp->exp_start = exp->exp_end;
 		return (0);
 	}
-	while (new_space)
-	{
-		if (new_space == exp->str)
-		{
-			exp->temp = exp->str;
-			exp->strlen = ft_strlen(exp->exp_start);
-			exp->str = ft_calloc(exp->strlen + 1, sizeof(char));
-			if (!(exp->str))
-				return (free_exp(exp), -42);
-			exp->str = ft_memcpy(exp->str, exp->exp_start, exp->strlen);
-			free(exp->temp);
-			exp->temp = NULL;
-			new_space = NULL;
-			new_space = find_next_space(exp);
-			continue ;
-		}
-		error_code = init_new_word(new_space, head, exp);
-		if (error_code < 0)
-			return (free_exp(exp), -42);
-		new_space = find_next_space(exp);
-	}
+	if (first_space != exp->str && make_first_token(first_space, head, exp) < 0)
+		return (free_exp(exp), -42);
+	if (make_rest_of_tokens(first_space, head, exp) < 0)
+		return (free_exp(exp), -42);
 	return (0);
 }
