@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:38:36 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/08 19:46:25 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/12 12:29:10 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	ft_contains_only_digit(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (!(ft_isdigit(str[i]) || (str[i] == '-' && ft_isdigit(str[i + 1]))))
+		if (!(ft_isdigit(str[i]) || (str[i] == '-' && ft_isdigit(str[i + 1]))
+				|| (str[i] == '+' && ft_isdigit(str[i + 1]))))
 			return (0);
 		i++;
 	}
@@ -68,7 +69,7 @@ void	ft_exit(char **args, t_cshell *cshell)
 		cshell->exit_code = 1;
 		return ;
 	}
-	if (ft_array_len(args) == 1)
+	if (ft_array_len(args) == 1 && i != 0)
 		cshell->exit_code = correct_integer(ft_atoi(args[0]));
 	free_whole_cshell(cshell);
 	ft_printf(1, "exit\n");

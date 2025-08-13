@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:00:09 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/11 18:20:42 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/12 15:58:01 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <unistd.h>
+# include <sys/types.h>
+# include <dirent.h>
 
 typedef struct s_qts
 {

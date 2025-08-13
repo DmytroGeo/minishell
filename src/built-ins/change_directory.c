@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 10:57:10 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/11 12:55:16 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/12 17:31:28 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	new_dir(char **address_of_prompt, char ***address_of_envp, char *new_dir)
 	current_pwd = getcwd(NULL, 0);
 	if (chdir(new_dir) != 0)
 	{
-		existence_error(new_dir);
+		exist_err(new_dir);
 		free(current_pwd);
 		return (1);
 	}

@@ -6,7 +6,7 @@
 #    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 11:20:28 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/08/11 20:01:35 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/08/12 21:20:33 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,8 @@ SRCS = $(SRC_FOLDER)/main.c \
 		$(SRC_FOLDER)/expansions/var_expansion.c \
 		$(SRC_FOLDER)/parsing/ft_init_main.c \
 		$(SRC_FOLDER)/parsing/find_commands_and_arguments.c \
-		$(SRC_FOLDER)/parsing/find_infiles.c \
-		$(SRC_FOLDER)/parsing/find_outfiles.c \
+		$(SRC_FOLDER)/parsing/find_infiles_and_outfiles.c \
+		$(SRC_FOLDER)/parsing/find_infiles_and_outfiles_utils.c \
 		$(SRC_FOLDER)/parsing/file_errors.c \
 		$(SRC_FOLDER)/parsing/heredoc.c \
 		$(SRC_FOLDER)/parsing/is_some_token.c \
@@ -66,6 +66,7 @@ SRCS = $(SRC_FOLDER)/main.c \
 		$(SRC_FOLDER)/execution/do_redirections.c \
 		$(SRC_FOLDER)/execution/execute_in_main.c \
 		$(SRC_FOLDER)/execution/execute_in_child.c \
+		$(SRC_FOLDER)/execution/execute_in_child_utils.c \
 		$(SRC_FOLDER)/execution/initialise_pipes.c \
 		$(SRC_FOLDER)/execution/process_loop.c \
 		$(SRC_FOLDER)/execution/wait_for_processes.c \

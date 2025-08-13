@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:06:27 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/08 16:17:26 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/12 18:14:11 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ int			is_valid_var_unset(char *str);
 int			export_variable(char ***envp, char *assignment);
 int			is_valid_variable_assignment(char *str);
 int			find_envp_index(char **envp, const char *key);
+int			is_directory(char *str);
 
+void		exec_err_1(char *str);
+void		exec_err_2(char *str);
+void		exit_with_code(t_cshell *cshell, int i);
 void		execute_in_main(t_cshell *cshell);
 void		export_all_vars(char **arguments, t_cshell *cshell, int fd);
 void		unset_all_vars(char **arguments, t_cshell *cshell);

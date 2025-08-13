@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 10:18:04 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/11 17:57:56 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/12 12:08:28 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_token	*expand_word(char *value, t_cshell *cshell)
 		if (identify_expand(cshell, &exp, &head) < 0)
 			return (NULL);
 	}
-	if (add_last_bit_to_list(&head, &exp) < 0)
+	if (add_last_str_stuff_to_list(&head, &exp) < 0)
 		return (free_tok_chain(&head, del_tok_cont), NULL);
 	free_exp(&exp);
 	return (head);
@@ -103,11 +103,6 @@ void	do_all_expansions(t_cshell *cshell)
 	while (cur_tok)
 	{
 		split_token = split_node(cur_tok, cshell);
-		if (!split_token)
-		{
-			free_tok_chain(&new_head, del_tok_cont);
-			(free_whole_cshell(cshell), exit(-42));
-		}
 		ft_dlstadd_back(&new_head, split_token);
 		cur_tok = cur_tok->next;
 	}

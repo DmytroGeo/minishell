@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_all_variables.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 12:27:45 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/08 19:47:26 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/12 12:29:02 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,12 @@ void	export_all_vars(char **arguments, t_cshell *cshell, int outfile_fd)
 				(free_whole_cshell(cshell), exit(-42));
 		}
 		else
+		{
+			ft_printf(2, "minishell: export: ");
+			ft_printf(2, "%s: not a valid identifier\n", *arguments);
+			cshell->exit_code = 1;
 			return ;
+		}
 		arguments++;
 	}
 }

@@ -3,21 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   execute_in_child.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 11:48:53 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/08 16:37:59 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/12 18:09:23 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include "minishell.h"
-
-void	exit_with_code(t_cshell *cshell, int i)
-{
-	cshell->exit_code = i;
-	(free_whole_cshell(cshell), exit(cshell->exit_code));
-}
 
 /**
  * @brief This function executes commands in the child process.
@@ -48,8 +42,17 @@ void	execute_in_child(int i, t_cshell *cshell)
 		execute_built_ins(cshell, i, STDOUT_FILENO);
 		exit_with_code(cshell, cshell->exit_code);
 	}
-	if (access((proc.cmd_and_args)[0], F_OK | X_OK) != 0)
+	if (!ft_strchr((proc.cmd_and_args)[0], '/'))
 		exit_with_code(cshell, 127);
+	else
+	{
+		if (is_directory((proc.cmd_and_args)[0]))
+			(exec_err_1((proc.cmd_and_args)[0]), exit_with_code(cshell, 126));
+		if (access((proc.cmd_and_args)[0], F_OK) != 0)
+			(exist_err((proc.cmd_and_args)[0]), exit_with_code(cshell, 127));
+		if (access((proc.cmd_and_args)[0], X_OK) != 0)
+			(perm_error((proc.cmd_and_args)[0]), exit_with_code(cshell, 126));
+	}
 	if ((execve((proc.cmd_and_args)[0], proc.cmd_and_args, cshell->envp)) < 0)
-		exit_with_code(cshell, 1);
+		(exec_err_2((proc.cmd_and_args)[0]), exit_with_code(cshell, 1));
 }

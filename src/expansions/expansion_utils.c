@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 09:51:26 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/11 11:44:10 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/12 12:52:45 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 #include "minishell.h"
 #include "lexing.h"
 
-int	add_last_bit_to_list(t_token **head, t_exp *exp)
+int	add_last_str_stuff_to_list(t_token **head, t_exp *exp)
 {
 	t_token		*tok;
 	t_tok_cont	*cont;
 	int			len;
 
+	len = exp->strlen;
+	if (len == 0)
+		return (0);
 	cont = malloc(sizeof(t_tok_cont));
 	if (!cont)
 		return (-42);
-	len = exp->strlen;
 	cont->value = ft_calloc(len + 1, sizeof(char));
 	cont->value = ft_memcpy(cont->value, exp->str, len);
 	cont->type = word;

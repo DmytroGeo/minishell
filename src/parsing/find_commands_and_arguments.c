@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_commands_and_arguments.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:42:54 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/08 21:05:16 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/12 17:11:59 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	init_command(t_proc *proc, t_token *start, char **envp)
 	char		*path;
 
 	content = (t_tok_cont *)(start->content);
-	if (access(content->value, F_OK | X_OK) == 0 || is_builtin(content->value))
+	if (ft_strchr(content->value, '/') || is_builtin(content->value))
 		(proc->cmd_and_args)[0] = ft_strdup(content->value);
 	else
 	{
