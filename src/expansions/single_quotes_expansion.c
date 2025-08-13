@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:03:42 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/11 10:54:20 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/13 14:20:01 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	expand_single_quotes(t_exp *exp)
 	exp->exp_str = ft_memcpy(exp->exp_str, exp->exp_start, exp->exp_strlen);
 	exp->temp = exp->str;
 	exp->str = ft_strjoin(exp->temp, exp->exp_str);
-	if (!(exp->exp_str))
+	if (!(exp->str))
 		return (free_exp(exp), -42);
 	(free(exp->temp), free(exp->exp_str));
 	exp->temp = NULL;

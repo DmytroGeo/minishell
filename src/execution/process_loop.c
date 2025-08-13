@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_loop.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:12:37 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/08 16:22:35 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/13 15:49:36 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	process_loop(t_cshell *cshell)
 			(free_whole_cshell(cshell), exit(EXIT_FAILURE));
 		if ((cshell->pid)[i] == 0)
 		{
-			signal(SIGINT, handle_child_sigint);
-			signal(SIGQUIT, handle_child_sigquit);
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
 			do_redirections(i, cshell);
 			close_pipes(cshell->fd, num_of_proc - 1);
 			execute_in_child(i, cshell);

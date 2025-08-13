@@ -6,12 +6,13 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 13:19:06 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/12 14:24:53 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/13 15:49:02 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include "minishell.h"
+#include "signals.h"
 
 /**
  * @brief This function checks whether parsing encountered any syntax errors.
@@ -46,9 +47,11 @@ void	execution(t_cshell *cshell)
 	first_command = ((cshell->proc_array)[0]).cmd_and_args[0];
 	if (cshell->num_of_proc == 1 && is_builtin(first_command))
 		return (execute_in_main(cshell));
+	signal(SIGINT, SIG_IGN);
 	initialise_pipes(cshell);
 	process_loop(cshell);
 	close_pipes(cshell->fd, cshell->num_of_proc - 1);
 	wait_for_processes(cshell);
+	signal(SIGINT, handle_sigint);	
 	free_cshell(cshell);
 }
