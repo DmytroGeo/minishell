@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 13:19:06 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/13 15:49:02 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/14 05:35:03 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ void	execution(t_cshell *cshell)
 	process_loop(cshell);
 	close_pipes(cshell->fd, cshell->num_of_proc - 1);
 	wait_for_processes(cshell);
-	signal(SIGINT, handle_sigint);	
+	signal(SIGINT, handle_sigint);
 	free_cshell(cshell);
 }

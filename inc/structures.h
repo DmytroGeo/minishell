@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:00:09 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/12 15:58:01 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/14 08:22:42 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,20 @@ typedef struct s_qts
 	int	in_dquotes;
 	int	in_squotes;
 }	t_qts;
+
+typedef struct s_qts_remov
+{
+	char	*str;
+	char	*exp_str;
+	char	*current;
+	char	*og_string;
+	char	*next_quote;
+	char	type;
+	int		i;
+	int		len;
+	int		strlen;
+	char	*temp;
+}	t_qts_remov;
 
 typedef struct s_lex
 {
@@ -86,6 +100,7 @@ typedef struct s_tok_cont
 typedef struct s_token
 {
 	void			*content;
+	int				exp_needed;
 	struct s_token	*previous;
 	struct s_token	*next;
 }	t_token;

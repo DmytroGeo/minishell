@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:02:40 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/12 21:22:22 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/14 08:22:05 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,6 @@ int			is_redirect(t_token *current_token);
 int			heredoc_fd(char *limiter);
 int			is_valid_variable_name(char *str);
 int			find_infiles_and_outfiles(t_proc *proc, t_token *start);
-// int			find_number_of_outfiles(t_token *tok_chain);
-// int			find_number_of_infiles(t_token *tok_chain);
-// int			find_infiles(t_proc *proc, t_token *start);
-// int			find_outfiles(t_proc *proc, t_token *tok_chain);
 int			find_cmd_and_args(t_proc *proc, t_token *tok_chain, char **envp);
 int			return_heredoc_fd(char *limiter);
 int			syntax_check_1(t_token *curr);

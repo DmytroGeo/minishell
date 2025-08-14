@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dlstnew.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 11:38:28 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/25 15:13:08 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/14 06:28:37 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_token	*ft_dlstnew(void *content)
 	new_node = malloc(sizeof(t_token));
 	if (new_node == NULL)
 		return (NULL);
+	new_node->exp_needed = true;
 	new_node->content = content;
 	new_node->previous = NULL;
 	new_node->next = NULL;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+         #
+#    By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 11:20:28 by dgeorgiy          #+#    #+#              #
-#    Updated: 2025/08/12 21:20:33 by dgeorgiy         ###   ########.fr        #
+#    Updated: 2025/08/14 08:49:02 by dgeorgiy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,8 @@ SRCS = $(SRC_FOLDER)/main.c \
 		$(SRC_FOLDER)/expansions/single_quotes_expansion.c \
 		$(SRC_FOLDER)/expansions/split_word.c \
 		$(SRC_FOLDER)/expansions/split_word_utils.c \
+		$(SRC_FOLDER)/expansions/strip_quotes_utils.c \
+		$(SRC_FOLDER)/expansions/strip_quotes.c	\
 		$(SRC_FOLDER)/expansions/var_expansion_utils.c \
 		$(SRC_FOLDER)/expansions/var_expansion.c \
 		$(SRC_FOLDER)/parsing/ft_init_main.c \

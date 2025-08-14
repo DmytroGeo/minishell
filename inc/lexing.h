@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:04:22 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/09 11:50:49 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/14 08:49:26 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,4 @@ t_token		*ft_dlstnew(void *content);
 t_tok_type	identify_type(char *token, t_op *operators);
 
 t_tok_cont	*init_tok_cont(char *raw_token, t_op *operators);
-
-char		*strip_quotes(char *str);
-
 #endif

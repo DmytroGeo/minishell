@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_all_expansions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 10:18:04 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/12 12:08:28 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/14 08:51:16 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,10 @@ t_token	*split_node(t_token	*cur_tok, t_cshell *cshell)
 	else
 	{
 		value = ((t_tok_cont *)(cur_tok->content))->value;
-		new_tok_chain = expand_word(value, cshell);
+		if (((t_tok_cont *)(cur_tok->previous->content))->type == heredoc)
+			new_tok_chain = strip_quotes(value);
+		else
+			new_tok_chain = expand_word(value, cshell);
 	}
 	return (new_tok_chain);
 }
