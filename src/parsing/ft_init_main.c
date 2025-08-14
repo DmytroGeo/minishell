@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 12:10:27 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/08 21:28:05 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:30:10 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	init_cshell(t_cshell *cshell, char **envp)
 {
 	cshell->parse_code = 0;
 	cshell->exit_code = 0;
+	cshell->num_heredocs = 0;
 	cshell->line_read = NULL;
 	cshell->pid = NULL;
 	cshell->fd = NULL;

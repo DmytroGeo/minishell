@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait_for_processes.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 09:22:55 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/08 16:39:16 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/14 12:03:54 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,15 @@ void	signal_status(t_cshell *cshell, int status)
 {
 	cshell->exit_code = WTERMSIG(status);
 	if (cshell->exit_code == SIGQUIT)
-		write(2, "Quit: 3\n", 8);
+	{
+		write(2, "Quit\n", 6);
+		cshell->exit_code = 131;
+	}
 	else if (cshell->exit_code == SIGINT)
-		write(1, "\n", 1);
+	{
+		write(2, "\n", 1);
+		cshell->exit_code = 130;
+	}
 	return ;
 }
 

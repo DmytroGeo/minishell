@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/13 13:27:05 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:19:30 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	init_process(t_cshell *cshell, int counter, t_token **address_of_start)
 
 	proc = &(cshell->proc_array)[counter];
 	pipe_ptr = find_next_pipe(*address_of_start);
-	exit_code = find_infiles_and_outfiles(proc, *address_of_start);
+	exit_code = find_inf_and_outf(proc, *address_of_start, cshell);
 	if (exit_code == -42)
 		return (exit_code);
 	exit_code = find_cmd_and_args(proc, *address_of_start, cshell->envp);

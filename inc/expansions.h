@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansions.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:12:25 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/14 08:58:33 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:23:15 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,13 @@ int		find_varlen(const char *str);
 int		expand_var_in_dquotes(t_exp *exp, t_cshell *cshell);
 int		is_special_char(char c);
 
+void	get_in_string_cont(t_qts_remov *qts_remov);
 void	move_forward_by_n(t_exp *exp, int n);
 void	do_all_expansions(t_cshell *cshell);
 void	free_exp(t_exp *exp);
 void	init_exp(t_exp *exp, char *value);
+void	init_quotes_removal(t_qts_remov	*qts_remov, char *value);
+void	free_quotes_removal(t_qts_remov *qts_remov);
 
 char	*ft_dollar_strchr(const char *s);
 char	*quotes_removal(char *value);

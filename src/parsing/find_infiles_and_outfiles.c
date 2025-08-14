@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:12:29 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/13 13:27:33 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:21:38 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	init_outfile(int i, t_token *start, t_proc *proc)
 	char	*file_name;
 	int		fd;
 
-	fd = 0;
+	fd = STDOUT_FILENO;
 	file_name = ((t_tok_cont *)(start->content))->value;
 	if (is_redir_out(start->previous))
 		fd = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0644);
@@ -28,29 +28,22 @@ int	init_outfile(int i, t_token *start, t_proc *proc)
 	return (0);
 }
 
-int	init_infile(int i, t_token *start, t_proc *proc)
+int	init_infile(int i, t_token *start, t_proc *proc, t_cshell *cshell)
 {
 	char	*file_name;
 	int		fd;
 
+	fd = STDIN_FILENO;
 	file_name = ((t_tok_cont *)(start->content))->value;
 	if (is_redir_in(start->previous))
-	{
 		fd = open(file_name, O_RDONLY);
-		(proc->infiles)[i] = fd;
-	}
 	else if (is_heredoc(start->previous))
-	{
-		fd = heredoc_fd(file_name);
-		if (fd == -42)
-			return (-42);
-		else
-			(proc->infiles)[i] = fd;
-	}
+		fd = heredoc_fd(file_name, start->exp_needed, cshell);
+	(proc->infiles)[i] = fd;
 	return (0);
 }
 
-int	find_infiles(t_proc *proc, t_token *start)
+int	find_infiles(t_proc *proc, t_token *start, t_cshell *cshell)
 {
 	int	i;
 
@@ -62,7 +55,7 @@ int	find_infiles(t_proc *proc, t_token *start)
 		if (is_redir_in(start) || is_heredoc(start))
 		{
 			start = start->next;
-			if (init_infile(i, start, proc) == -42)
+			if (init_infile(i, start, proc, cshell) == -42)
 				return (-42);
 			i++;
 		}
@@ -91,7 +84,7 @@ int	find_outfiles(t_proc *proc, t_token *start)
 	return (0);
 }
 
-int	find_infiles_and_outfiles(t_proc *proc, t_token *start)
+int	find_inf_and_outf(t_proc *proc, t_token *start, t_cshell *cshell)
 {
 	find_num_inf_and_outf(proc, start);
 	if (proc->num_inf == 0 && proc->num_outf == 0)
@@ -101,7 +94,7 @@ int	find_infiles_and_outfiles(t_proc *proc, t_token *start)
 		proc->infiles = ft_calloc(proc->num_inf, sizeof(int));
 		if (!(proc->infiles))
 			return (-42);
-		if (find_infiles(proc, start) < 0)
+		if (find_infiles(proc, start, cshell) < 0)
 			return (-42);
 	}
 	if (proc->num_outf != 0)

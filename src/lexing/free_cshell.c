@@ -39,6 +39,29 @@ void	free_proc_array(t_proc *proc_array, int len)
 	return ;
 }
 
+void	delete_heredoc_files(int num_heredocs)
+{
+	int		i;
+	char	*temp;
+	char	*file_name;
+	char	*number;
+
+	i = 0;
+	while (i < num_heredocs)
+	{
+		number = ft_itoa(i);
+		file_name = ft_strjoin(".heredoc", number);
+		free(number);
+		temp = file_name;
+		file_name = ft_strjoin(temp, ".tmp");
+		free(temp);
+		if (unlink(file_name) == -1)
+			exit (-42);
+		free(file_name);
+		i++;
+	}
+}
+
 /**
  * @param cshell The address of 'cshell' structure.
  * @return Nothing (void function).
@@ -56,6 +79,8 @@ void	free_cshell(t_cshell *cshell)
 	cshell->proc_array = NULL;
 	free_tok_chain(&(cshell->token_chain), del_tok_cont);
 	cshell->token_chain = NULL;
+	delete_heredoc_files(cshell->num_heredocs);
+	cshell->num_heredocs = 0;
 	return ;
 }
 

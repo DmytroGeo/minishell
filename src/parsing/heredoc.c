@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:18:15 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/06 17:35:25 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/14 20:37:13 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,35 +26,44 @@ int	line_matches_limiter(char *limiter, char *line_read)
 	return (i == 0 && j == 0);
 }
 
-int	heredoc_fd(char *limiter)
+int	create_heredoc(int heredoc_number)
 {
-	(void)limiter;
-	return (0);
-}
-	// int		*fd;
-	// int		read_end;
-	// char	*line_read;
+	char	*file_name;
+	char	*number_string;
+	char	*temp;
+	int		fd;
 
-	// read_end = -42;
-	// fd = malloc(2 * sizeof(int));
-	// if (!fd)
-	// 	return (read_end);
-	// pipe(fd);
-	// while (1)
-	// {
-	// 	line_read = readline("> ");
-	// 	if (line_read)
-	// 	{
-	// 		if (line_matches_limiter(limiter, line_read))
-	// 		{
-	// 			read_end = fd[0];
-	// 			close(fd[1]);
-	// 			break ;
-	// 		}
-	// 		else
-	// 			write(fd[1], line_read, ft_strlen(line_read));
-	// 	}
-	// 	else
-	// 		break ;
-	// }
-	// return (read_end);
+	number_string = ft_itoa(heredoc_number);
+	file_name = ft_strjoin(".heredoc", number_string);
+	free(number_string);
+	temp = file_name;
+	file_name = ft_strjoin(temp, ".tmp");
+	fd = open(file_name, O_CREAT | O_APPEND | O_RDWR, 0644);
+	return (fd);
+}
+
+int	heredoc_fd(char *limiter, int i, t_cshell *cshell)
+{
+	char		*line_read;
+	int			fd;
+
+	fd = create_heredoc(cshell->num_heredocs);
+	cshell->num_heredocs++;
+	while (1)
+	{
+		line_read = readline("> ");
+		if (line_read)
+		{
+			if (i == true)
+				line_read = heredoc_expand(line_read, cshell->envp);
+			if (line_matches_limiter(limiter, line_read))
+				break ;
+			else
+				write(fd, line_read, ft_strlen(line_read));
+		}
+		else
+			break ;
+		free(line_read);
+	}
+	return (fd);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strip_quotes_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 06:44:18 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/14 09:00:37 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:16:17 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ void	free_quotes_removal(t_qts_remov *qts_remov)
 
 void	get_in_string_cont(t_qts_remov *qts_remov)
 {
-	qts_remov->len = qts_remov->next_quote - qts_remov->current;
+	if (qts_remov->next_quote)
+		qts_remov->len = qts_remov->next_quote - qts_remov->current;
+	else
+		qts_remov->len = ft_strlen(qts_remov->current);
 	if (qts_remov->len > 0)
 	{
 		qts_remov->exp_str = ft_calloc(qts_remov->len + 1, sizeof(char));
@@ -75,23 +78,4 @@ char	*find_next_quote(const char *s)
 		n++;
 	}
 	return (NULL);
-}
-
-char	*quotes_removal(char *value)
-{
-	t_qts_remov	qts_remov;
-	char		*stripped_quotes_string;
-
-	init_quotes_removal(&qts_remov, value);
-	while ((qts_remov.og_string)[qts_remov.i])
-	{
-		qts_remov.next_quote = find_next_quote(qts_remov.current);
-		qts_remov.type = *(qts_remov.next_quote);
-		get_in_string_cont(&qts_remov);
-		qts_remov.next_quote = ft_strchr(qts_remov.current, qts_remov.type);
-		get_in_string_cont(&qts_remov);
-	}
-	stripped_quotes_string = ft_strdup(qts_remov.str);
-	free_quotes_removal(&qts_remov);
-	return (stripped_quotes_string);
 }

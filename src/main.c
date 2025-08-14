@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/12 12:58:21 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/14 12:01:24 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,19 @@
 #include "execution.h"
 #include "minishell.h"
 
+sig_atomic_t	g_received_signal = 0;
+
 void	run_cshell(t_cshell *cshell)
 {
 	int	i;
 
 	i = wrong_number_of_quotes(cshell);
 	add_history(cshell->line_read);
+	if (g_received_signal == SIGINT)
+	{
+		cshell->exit_code = 130;
+		g_received_signal = 0;
+	}
 	if (i == 0)
 	{
 		lexing(cshell);

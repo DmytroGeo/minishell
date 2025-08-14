@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:00:09 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/14 08:22:42 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:31:12 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,23 @@ typedef struct s_qts
 	int	in_squotes;
 }	t_qts;
 
+typedef struct s_hd_exp
+{
+	char	*str;
+	char	*var;
+	char	*exp_var;
+	char	*og_string;
+	char	*temp;
+	char	*next_dollar_sign;
+	char	*current;
+	char	*non_var_str;
+	int		i;
+	int		varlen;
+	int		exp_varlen;
+	int		strlen;
+	int		non_var_len;
+}	t_hd_exp;
+
 typedef struct s_qts_remov
 {
 	char	*str;
@@ -49,11 +66,11 @@ typedef struct s_qts_remov
 	char	*current;
 	char	*og_string;
 	char	*next_quote;
+	char	*temp;
 	char	type;
 	int		i;
 	int		len;
 	int		strlen;
-	char	*temp;
 }	t_qts_remov;
 
 typedef struct s_lex
@@ -113,7 +130,6 @@ typedef struct s_op
 
 typedef struct s_proc
 {
-	int		heredoc_exp;
 	int		num_inf;
 	int		num_outf;
 	int		*infiles;
@@ -124,6 +140,7 @@ typedef struct s_proc
 typedef struct s_cshell
 {
 	int		num_of_proc;
+	int		num_heredocs;
 	int		shell_id;
 	int		parse_code;
 	int		exit_code;
