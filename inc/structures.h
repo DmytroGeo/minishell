@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:00:09 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/14 19:31:12 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/15 16:33:56 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ typedef struct s_qts_remov
 	char	*temp;
 	char	type;
 	int		i;
-	int		len;
 	int		strlen;
+	int		exp_strlen;
 }	t_qts_remov;
 
 typedef struct s_lex

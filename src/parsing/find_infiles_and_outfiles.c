@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:12:29 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/15 11:22:26 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/15 13:32:24 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	init_outfile(int i, t_token *start, t_proc *proc)
 	else if (is_append(start->previous))
 		fd = open(file_name, O_CREAT | O_APPEND | O_WRONLY, 0644);
 	(proc->outfiles)[i] = fd;
+	if (i != proc->num_outf - 1)
+		close(fd);
 	return (0);
 }
 
@@ -40,6 +42,8 @@ int	init_infile(int i, t_token *start, t_proc *proc, t_cshell *cshell)
 	else if (is_heredoc(start->previous))
 		fd = heredoc_fd(file_name, start->exp_needed, cshell);
 	(proc->infiles)[i] = fd;
+	if (i != proc->num_inf - 1)
+		close(fd);
 	return (0);
 }
 

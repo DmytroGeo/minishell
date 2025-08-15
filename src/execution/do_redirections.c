@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 23:42:24 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/15 11:22:17 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/15 17:42:19 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ void	redirect_in(int i, t_cshell *cshell)
 {
 	int		num_inf;
 	int		*infiles;
-	int		counter;
 
-	counter = 0;
 	infiles = ((cshell->proc_array)[i]).infiles;
 	num_inf = ((cshell->proc_array)[i]).num_inf;
 	if (i != 0 && num_inf == 0)
@@ -40,17 +38,17 @@ void	redirect_in(int i, t_cshell *cshell)
 		if (dup2((cshell->fd)[i - 1][0], STDIN_FILENO) < 0)
 			return (perror(NULL));
 	}
-	while (counter < num_inf)
+	if (num_inf > 0)
 	{
-		if (infiles[counter] < 0)
+		if (infiles[num_inf - 1] < 0)
 		{
+			close(infiles[num_inf - 1]);
 			close_pipes(cshell->fd, cshell->num_of_proc - 1);
 			exit_with_code(cshell, 1);
 		}
-		if (dup2(infiles[counter], STDIN_FILENO) < 0)
+		if (dup2(infiles[num_inf - 1], STDIN_FILENO) < 0)
 			perror(NULL);
-		close(infiles[counter]);
-		counter++;
+		close(infiles[num_inf - 1]);
 	}
 	return ;
 }
@@ -72,9 +70,7 @@ void	redirect_out(int i, t_cshell *cshell)
 {
 	int		num_outf;
 	int		*outfiles;
-	int		counter;
 
-	counter = 0;
 	outfiles = ((cshell->proc_array)[i]).outfiles;
 	num_outf = ((cshell->proc_array)[i]).num_outf;
 	if (i != cshell->num_of_proc - 1 && num_outf == 0)
@@ -82,17 +78,17 @@ void	redirect_out(int i, t_cshell *cshell)
 		if (dup2((cshell->fd)[i][1], STDOUT_FILENO) < 0)
 			return (perror(NULL));
 	}
-	while (counter < num_outf)
+	if (num_outf > 0)
 	{
-		if (outfiles[counter] < 0)
+		if (outfiles[num_outf - 1] < 0)
 		{
+			close(outfiles[num_outf - 1]);
 			close_pipes(cshell->fd, cshell->num_of_proc - 1);
 			exit_with_code(cshell, 1);
 		}
-		if (dup2(outfiles[counter], STDOUT_FILENO) < 0)
+		if (dup2(outfiles[num_outf - 1], STDOUT_FILENO) < 0)
 			perror(NULL);
-		close(outfiles[counter]);
-		counter++;
+		close(outfiles[num_outf - 1]);
 	}
 	return ;
 }

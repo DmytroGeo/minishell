@@ -17,7 +17,11 @@ void	free_proc_contents(t_proc *proc)
 {
 	if (!proc)
 		return ;
+	if (proc->num_inf > 0)
+		close((proc->infiles)[proc->num_inf - 1]);
 	free(proc->infiles);
+	if (proc->num_outf > 0)
+		close((proc->outfiles)[proc->num_outf - 1]);
 	free(proc->outfiles);
 	ft_array_free((void **)(proc->cmd_and_args));
 	return ;

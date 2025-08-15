@@ -6,11 +6,29 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 19:13:44 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/15 11:14:52 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/15 17:59:49 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+void	add_one_char_to_hd_str(t_hd_exp *hd_exp)
+{
+	char	c;
+
+	c = *(hd_exp->current);
+	hd_exp->temp = hd_exp->str;
+	hd_exp->str = ft_calloc(hd_exp->strlen + 2, sizeof(char));
+	hd_exp->str = ft_memcpy(hd_exp->str, hd_exp->temp, hd_exp->strlen);
+	if (!(hd_exp->str))
+		return (free_hd_exp(hd_exp), exit(-42));
+	(hd_exp->str)[hd_exp->strlen] = c;
+	free(hd_exp->temp);
+	hd_exp->temp = NULL;
+	hd_exp->i += 1;
+	hd_exp->current += 1;
+	hd_exp->strlen += 1;
+}
 
 void	init_hd_exp(t_hd_exp *hd_exp, char *value)
 {

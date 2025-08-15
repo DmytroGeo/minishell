@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:02:40 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/14 19:24:24 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/15 18:16:10 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int			unset_variable(char ***envp, char *key);
 int			copy_envp(char ***address_of_copy, char **envp);
 int			heredoc_fd(char *limiter, int i, t_cshell *cshell);
 
+void		add_one_char_to_hd_str(t_hd_exp *hd_exp);
 void		init_hd_exp(t_hd_exp *hd_exp, char *value);
 void		free_hd_exp(t_hd_exp *hd_exp);
 void		find_num_inf_and_outf(t_proc *proc, t_token *start);
@@ -42,6 +43,6 @@ void		free_proc_contents(t_proc *proc);
 void		init_processes(t_cshell *cshell);
 void		init_line(char **line, char *prompt);
 
-char		*heredoc_expand(char *str, char **envp);
+char		*heredoc_expand(char *str, t_cshell *cshell);
 
 #endif

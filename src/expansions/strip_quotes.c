@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 05:51:54 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/15 10:35:15 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/15 17:39:23 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,10 @@ char	*quotes_removal(char *value)
 	init_quotes_removal(&qts_remov, value);
 	while ((qts_remov.og_string)[qts_remov.i])
 	{
-		qts_remov.next_quote = find_next_quote(qts_remov.current);
-		get_in_string_cont(&qts_remov);
-		if (qts_remov.next_quote)
-		{
-			qts_remov.type = *(qts_remov.next_quote);
-			qts_remov.next_quote = ft_strchr(qts_remov.current, qts_remov.type);
+		if (*(qts_remov.current) == '\'' || *(qts_remov.current) == '"')
 			get_in_string_cont(&qts_remov);
-		}
+		else
+			add_one_char_to_str(&qts_remov);
 	}
 	stripped_quotes_string = ft_strdup(qts_remov.str);
 	free_quotes_removal(&qts_remov);
@@ -60,7 +56,8 @@ t_token	*strip_quotes(char *value)
 	int		contains_quotes;
 
 	new_token = NULL;
-	contains_quotes = (find_next_quote(value) != NULL);
+	contains_quotes = (ft_strchr(value, '\'') != NULL
+			|| ft_strchr(value, '"') != NULL);
 	stripped_quotes_string = quotes_removal(value);
 	new_token = make_new_tok(stripped_quotes_string);
 	if (contains_quotes == true)
