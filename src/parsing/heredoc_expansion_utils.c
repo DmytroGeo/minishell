@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 19:13:44 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/14 19:14:33 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/15 11:14:52 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ void	init_hd_exp(t_hd_exp *hd_exp, char *value)
 
 void	free_hd_exp(t_hd_exp *hd_exp)
 {
+	hd_exp->i = 0;
+	hd_exp->varlen = 0;
+	hd_exp->exp_varlen = 0;
+	hd_exp->strlen = 0;
+	hd_exp->non_var_len = 0;
 	free(hd_exp->str);
 	hd_exp->str = NULL;
 	free(hd_exp->non_var_str);

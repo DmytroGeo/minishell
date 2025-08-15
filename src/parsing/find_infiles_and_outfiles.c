@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:12:29 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/14 19:21:38 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/15 11:22:26 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ int	find_infiles(t_proc *proc, t_token *start, t_cshell *cshell)
 	int	i;
 
 	i = 0;
-	if (proc->num_inf == 0)
-		return (0);
 	while (i < proc->num_inf)
 	{
 		if (is_redir_in(start) || is_heredoc(start))
@@ -69,8 +67,6 @@ int	find_outfiles(t_proc *proc, t_token *start)
 	int	i;
 
 	i = 0;
-	if (proc->num_outf == 0)
-		return (0);
 	while (i < proc->num_outf)
 	{
 		if ((is_redir_out(start) || is_append(start)))

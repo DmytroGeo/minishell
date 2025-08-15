@@ -32,6 +32,7 @@ void	free_tok_chain(t_token **start, void (*del)(void*))
 	{
 		*start = current->next;
 		(del)(current->content);
+		current->exp_needed = true;
 		free(current);
 		current = *start;
 	}

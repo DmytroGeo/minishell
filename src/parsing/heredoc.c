@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:18:15 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/14 20:37:13 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/15 11:46:20 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,15 @@ int	heredoc_fd(char *limiter, int i, t_cshell *cshell)
 		line_read = readline("> ");
 		if (line_read)
 		{
-			if (i == true)
-				line_read = heredoc_expand(line_read, cshell->envp);
 			if (line_matches_limiter(limiter, line_read))
 				break ;
 			else
+			{
+				if (i == true)
+					line_read = heredoc_expand(line_read, cshell->envp);
 				write(fd, line_read, ft_strlen(line_read));
+				write(fd, "\n", 1);
+			}
 		}
 		else
 			break ;

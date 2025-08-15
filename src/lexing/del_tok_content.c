@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   del_tok_content.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 12:13:36 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/01 12:51:53 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/15 10:26:40 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

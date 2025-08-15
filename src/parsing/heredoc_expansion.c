@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 13:52:33 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/14 19:27:34 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/15 11:14:06 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	copy_up_to_dollar_sign(t_hd_exp *hd_exp)
 		hd_exp->non_var_str = NULL;
 		hd_exp->temp = NULL;
 	}
-	hd_exp->i += hd_exp->non_var_len + 1;
+	hd_exp->i += hd_exp->non_var_len + (hd_exp->non_var_len == 0) + (hd_exp->next_dollar_sign != NULL);
 	hd_exp->current = &((hd_exp->og_string)[hd_exp->i]);
 }
 

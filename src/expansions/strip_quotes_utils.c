@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 06:44:18 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/14 19:16:17 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/15 11:15:13 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ void	init_quotes_removal(t_qts_remov	*qts_remov, char *value)
 
 void	free_quotes_removal(t_qts_remov *qts_remov)
 {
+	qts_remov->type = '\0';
+	qts_remov->i = 0;
+	qts_remov->len = 0;
+	qts_remov->strlen = 0;
 	free(qts_remov->str);
 	qts_remov->str = NULL;
 	free(qts_remov->exp_str);
@@ -60,7 +64,7 @@ void	get_in_string_cont(t_qts_remov *qts_remov)
 		qts_remov->exp_str = NULL;
 		qts_remov->temp = NULL;
 	}
-	qts_remov->i += qts_remov->len + 1;
+	qts_remov->i += qts_remov->len + (qts_remov->len == 0) + (qts_remov->next_quote != NULL);
 	qts_remov->current = &((qts_remov->og_string)[qts_remov->i]);
 }
 
