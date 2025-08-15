@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 23:42:24 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/15 17:42:19 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/15 18:41:44 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	redirect_in(int i, t_cshell *cshell)
 	{
 		if (infiles[num_inf - 1] < 0)
 		{
-			close(infiles[num_inf - 1]);
 			close_pipes(cshell->fd, cshell->num_of_proc - 1);
 			exit_with_code(cshell, 1);
 		}
@@ -82,7 +81,6 @@ void	redirect_out(int i, t_cshell *cshell)
 	{
 		if (outfiles[num_outf - 1] < 0)
 		{
-			close(outfiles[num_outf - 1]);
 			close_pipes(cshell->fd, cshell->num_of_proc - 1);
 			exit_with_code(cshell, 1);
 		}
