@@ -98,7 +98,7 @@ void	free_whole_cshell(t_cshell *cshell)
 {
 	free(cshell->prompt);
 	cshell->prompt = NULL;
-	ft_array_free((void **)cshell->envp);
+	ft_array_free((void **)(cshell->envp));
 	cshell->envp = NULL;
 	free_cshell(cshell);
 	return ;

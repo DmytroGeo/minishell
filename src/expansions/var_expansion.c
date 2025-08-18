@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:07:22 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/11 15:23:15 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/17 16:17:20 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,23 @@ int	expand_variable(t_exp *exp, t_cshell *cshell)
 {
 	if (find_exp_var(exp, cshell->envp) < 0)
 		return (free_exp(exp), -42);
-	if (exp->exp_var)
+	if (exp->exp_var && *(exp->exp_var))
 	{
 		exp->exp_varlen = ft_strlen(exp->exp_var);
 		exp->temp = exp->str;
 		exp->str = ft_strjoin(exp->temp, exp->exp_var);
 		if (!(exp->str))
 			return (free_exp(exp), -42);
-		(free(exp->temp), free(exp->exp_var));
+		free(exp->temp);
 		exp->temp = NULL;
-		exp->exp_var = NULL;
 		exp->strlen += exp->exp_varlen;
 		exp->exp_end = &((exp->str)[exp->strlen - 1]);
 		exp->exp_start = exp->exp_end - exp->exp_varlen + 1;
 	}
 	else
 		exp->exp_start = exp->exp_end;
+	free(exp->exp_var);
+	exp->exp_var = NULL;
 	exp->i += exp->varlen + 1;
 	return (0);
 }

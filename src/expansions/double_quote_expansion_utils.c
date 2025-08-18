@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 15:51:00 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/11 11:36:09 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/17 16:25:02 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,19 @@ int	expand_var_in_dquotes(t_exp *exp, t_cshell *cshell)
 {
 	if (find_exp_var(exp, cshell->envp) < 0)
 		return (free_exp(exp), -42);
-	if (exp->exp_var)
+	if (exp->exp_var && *(exp->exp_var))
 	{
 		exp->exp_varlen = ft_strlen(exp->exp_var);
 		exp->temp = exp->str;
 		exp->str = ft_strjoin(exp->temp, exp->exp_var);
 		if (!(exp->str))
 			return (free_exp(exp), -42);
-		(free(exp->temp), free(exp->exp_var));
+		free(exp->temp);
 		exp->temp = NULL;
-		exp->exp_var = NULL;
 		exp->strlen += exp->exp_varlen;
 	}
+	free(exp->exp_var);
+	exp->exp_var = NULL;
 	exp->exp_start += exp->varlen;
 	exp->i += exp->varlen + 1;
 	return (0);

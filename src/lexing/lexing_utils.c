@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:37:13 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/07/29 18:56:54 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/17 16:26:58 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*find_var_in_envp(char **envp, char *variable)
 		ptr++;
 	}
 	if (!*ptr)
-		return (NULL);
+		return (free(var_and_eqls), NULL);
 	found_variable = *ptr;
 	found_variable += ft_strlen(var_and_eqls);
 	free(var_and_eqls);
