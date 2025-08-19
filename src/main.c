@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/18 12:27:07 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/19 09:08:12 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,18 @@ int	main(int argc, char **argv, char **envp)
 	rl_catch_signals = 0;
 	while (1)
 	{
-		cshell.line_read = readline(cshell.prompt);
+		if (isatty(STDIN_FILENO))
+			cshell.line_read = readline(cshell.prompt);
+		else
+			cshell.line_read = readline(NULL);
 		if (!(cshell.line_read))
 			break ;
 		if (*(cshell.line_read))
 			run_cshell(&cshell);
 		free(cshell.line_read);
 	}
-	(free_whole_cshell(&cshell), ft_printf(1, "exit\n"));
+	free_whole_cshell(&cshell);
+	if (isatty(STDIN_FILENO))
+		ft_printf(1, "exit\n");
 	return (0);
 }
