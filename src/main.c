@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgeorgiy <dgeorgiy@student.42london.com    +#+  +:+       +#+        */
+/*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:32:39 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/19 09:08:12 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/19 11:28:26 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "execution.h"
 #include "minishell.h"
 
-sig_atomic_t	g_received_signal = 0;
+volatile sig_atomic_t	g_received_signal = 0;
 
 void	run_cshell(t_cshell *cshell)
 {

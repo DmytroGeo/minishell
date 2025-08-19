@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:22:42 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/13 15:45:41 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/19 11:40:09 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,6 @@
 
 void	handle_sigint(int sig);
 void	init_signals(void);
+void    set_heredoc_signals(void);
 
 #endif
