@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:12:29 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/19 11:35:33 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/19 11:52:59 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ int	init_infile(int i, t_token *start, t_proc *proc, t_cshell *cshell)
 		fd = open(file_name, O_RDONLY);
 	else if (is_heredoc(start->previous))
 		fd = heredoc_fd(file_name, start->exp_needed, cshell);
-	// if (fd == -42)
-		
 	(proc->infiles)[i] = fd;
 	if (i != proc->num_inf - 1)
 		close(fd);
