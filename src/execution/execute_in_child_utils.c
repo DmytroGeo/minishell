@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 16:14:44 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/13 13:26:42 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/19 19:27:55 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	is_directory(char *str)
 {
 	struct stat	st;
 
+	if (access(str, F_OK) != 0)
+		return (false);
 	stat(str, &st);
 	return (S_ISDIR(st.st_mode));
 }

@@ -6,12 +6,14 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 13:12:29 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/19 11:52:59 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/19 18:46:29 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "minishell.h"
+
+extern volatile sig_atomic_t	g_received_signal;
 
 int	init_outfile(int i, t_token *start, t_proc *proc)
 {
@@ -59,6 +61,11 @@ int	find_infiles(t_proc *proc, t_token *start, t_cshell *cshell)
 			start = start->next;
 			if (init_infile(i, start, proc, cshell) == -42)
 				return (-42);
+			if (g_received_signal == SIGINT)
+			{
+				proc->num_inf = i + 1;
+				return (0);
+			}
 			i++;
 		}
 		start = start->next;
@@ -96,6 +103,8 @@ int	find_inf_and_outf(t_proc *proc, t_token *start, t_cshell *cshell)
 			return (-42);
 		if (find_infiles(proc, start, cshell) < 0)
 			return (-42);
+		if (g_received_signal == SIGINT)
+			return (0);
 	}
 	if (proc->num_outf != 0)
 	{

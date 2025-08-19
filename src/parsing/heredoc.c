@@ -6,7 +6,7 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:18:15 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/19 11:50:01 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/19 18:46:56 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	line_matches_limiter(char *limiter, char *line_read)
 	return (i == 0 && j == 0);
 }
 
-int	create_heredoc(int heredoc_number)
+int	open_heredoc(int heredoc_number, int flag)
 {
 	char	*file_name;
 	char	*number_string;
@@ -42,25 +42,10 @@ int	create_heredoc(int heredoc_number)
 	temp = file_name;
 	file_name = ft_strjoin(temp, ".tmp");
 	free(temp);
-	fd = open(file_name, O_CREAT | O_APPEND | O_WRONLY, 0644);
-	free(file_name);
-	return (fd);
-}
-
-int	reopen_heredoc(int heredoc_number)
-{
-	char	*file_name;
-	char	*number_string;
-	char	*temp;
-	int		fd;
-
-	number_string = ft_itoa(heredoc_number);
-	file_name = ft_strjoin(".heredoc", number_string);
-	free(number_string);
-	temp = file_name;
-	file_name = ft_strjoin(temp, ".tmp");
-	free(temp);
-	fd = open(file_name, O_RDONLY);
+	if (flag == 0)
+		fd = open(file_name, O_CREAT | O_APPEND | O_WRONLY, 0644);
+	else
+		fd = open(file_name, O_RDONLY);
 	free(file_name);
 	return (fd);
 }
@@ -77,27 +62,23 @@ int	heredoc_fd(char *limiter, int i, t_cshell *cshell)
 	int			fd;
 
 	set_heredoc_signals();
-	fd = create_heredoc(cshell->num_heredocs);
+	fd = open_heredoc(cshell->num_heredocs, 0);
 	while (1)
 	{
 		line_read = readline("> ");
 		if (g_received_signal == SIGINT)
 		{
+			(ft_printf(1, "> ^C\n"), free(line_read));
 			line_read = NULL;
 		}
-		if (!line_read)
-		{
-			heredoc_eof_err(limiter);
-			break ;
-		}
-		if (line_matches_limiter(limiter, line_read))
+		if (!line_read || line_matches_limiter(limiter, line_read))
 			break ;
 		if (i == true)
 			line_read = heredoc_expand(line_read, cshell);
 		(ft_printf(fd, "%s\n", line_read), free(line_read));
 	}
 	close(fd);
-	fd = reopen_heredoc(cshell->num_heredocs);
+	fd = open_heredoc(cshell->num_heredocs, 1);
 	cshell->num_heredocs++;
 	return (fd);
 }

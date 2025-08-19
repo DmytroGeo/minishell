@@ -6,12 +6,14 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:22:58 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/14 19:19:30 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/19 18:47:46 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "minishell.h"
+
+extern volatile sig_atomic_t	g_received_signal;
 
 /**
  * @param tok_chain a pointer to the head of the token chain.
@@ -105,6 +107,8 @@ int	init_process(t_cshell *cshell, int counter, t_token **address_of_start)
 	exit_code = find_inf_and_outf(proc, *address_of_start, cshell);
 	if (exit_code == -42)
 		return (exit_code);
+	if (g_received_signal == SIGINT)
+		return (0);
 	exit_code = find_cmd_and_args(proc, *address_of_start, cshell->envp);
 	if (exit_code == -42)
 		return (exit_code);
@@ -146,5 +150,7 @@ void	init_processes(t_cshell *cshell)
 	{
 		if (init_process(cshell, counter, &copy_of_start) == -42)
 			(free_whole_cshell(cshell), exit(-42));
+		if (g_received_signal == SIGINT)
+			return ;
 	}
 }

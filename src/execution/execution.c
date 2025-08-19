@@ -6,13 +6,15 @@
 /*   By: dgeorgiy <dgeorgiy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 13:19:06 by dgeorgiy          #+#    #+#             */
-/*   Updated: 2025/08/14 21:07:05 by dgeorgiy         ###   ########.fr       */
+/*   Updated: 2025/08/19 18:46:07 by dgeorgiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include "minishell.h"
 #include "signals.h"
+
+extern volatile sig_atomic_t	g_received_signal;
 
 /**
  * @brief This function checks whether parsing encountered any syntax errors.
@@ -24,10 +26,18 @@
  */
 void	evaluate_and_execute(t_cshell *cshell)
 {
-	if (cshell->parse_code == 0)
+	if (cshell->parse_code == 0 && g_received_signal != SIGINT)
 		return (execution(cshell));
-	cshell->exit_code = cshell->parse_code;
-	cshell->parse_code = 0;
+	if (cshell->parse_code != 0)
+	{
+		cshell->exit_code = cshell->parse_code;
+		cshell->parse_code = 0;
+	}
+	if (g_received_signal == SIGINT)
+	{
+		cshell->exit_code = 130;
+		g_received_signal = 0;
+	}
 	return (free_cshell(cshell));
 }
 
