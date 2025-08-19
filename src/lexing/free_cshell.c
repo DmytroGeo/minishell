@@ -59,8 +59,7 @@ void	delete_heredoc_files(int num_heredocs)
 		temp = file_name;
 		file_name = ft_strjoin(temp, ".tmp");
 		free(temp);
-		if (unlink(file_name) == -1)
-			exit (-42);
+		unlink(file_name);
 		free(file_name);
 		i++;
 	}
